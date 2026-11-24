@@ -1,0 +1,355 @@
+{
+  "version": 1,
+  "actualizado": "2026-11-19",
+  "tecnologias": {
+    "Frontend": [
+      "HTML/CSS",
+      "HTML/JS",
+      "JS vanilla",
+      "Vue 3",
+      "Tailwind CSS",
+      "Canvas",
+      "Accesibilidad",
+      "CustomTkinter"
+    ],
+    "Backend": [
+      "PHP",
+      "Node",
+      "Python",
+      "Python 3.11",
+      "API REST",
+      "Apps Script",
+      "Mercado Pago",
+      "IA (Groq)",
+      "EmailJS"
+    ],
+    "Bases de datos": [
+      "Supabase",
+      "Firebase",
+      "MySQL",
+      "SQLite",
+      "RLS",
+      "localStorage"
+    ],
+    "Hardware / IoT": [
+      "Arduino",
+      "Arduino/ESP32",
+      "ESP32",
+      "C++",
+      "WiFi AP",
+      "RF 433 MHz",
+      "LCD 5110",
+      "DFPlayer Mini",
+      "Sensor PIR",
+      "Modelado 3D",
+      "Rhubarb Lip Sync"
+    ],
+    "Herramientas / Cloud": [
+      "Vite",
+      "Apache",
+      "vitest",
+      "Tests",
+      "Pillow"
+    ]
+  },
+  "proyectos": [
+    {
+      "slug": "biblioteca-virtual",
+      "titulo": "Biblioteca Virtual EEST N°5",
+      "categoria": "sistema-web",
+      "plantilla": "A",
+      "orden": 1,
+      "anio": 2026,
+      "rol": "Diseño, Front-end, Back-end y Documentación",
+      "resumen": "Sistema web de biblioteca escolar: catálogo público, préstamos y reservas con 4 roles y seguridad RLS en Supabase.",
+      "problema": "La biblioteca de la EEST N°5 manejaba préstamos y reservas en papel: registros que se perdían, devoluciones rastreadas a pulso y nadie que supiera quién sacó qué.",
+      "solucion": "Un sitio con catálogo público y paneles separados por rol (alumno, docente, administración) sobre Supabase: Auth, PostgreSQL y RLS. Avisos automáticos por EmailJS y fichas enriquecidas con la API de Open Library.",
+      "resultado": "Cada préstamo queda registrado y trazable, y cada usuario solo ve lo que le corresponde. Publicado en GitHub Pages.",
+      "decisiones": [
+        "Supabase Auth + PostgreSQL con RLS: el mismo catálogo sirve a alumnos, docentes y administración sin mezclar permisos.",
+        "EmailJS para los avisos de préstamos y reservas: sin servidor de correo propio que mantener.",
+        "API de Open Library para enriquecer las fichas: menos carga manual de datos y portadas consistentes."
+      ],
+      "demoAcceso": "Demo pública: el catálogo se abre sin login. Para probar préstamos, pedime un usuario de prueba con rol alumno.",
+      "stack": ["JS vanilla", "Tailwind CSS", "Supabase", "RLS", "EmailJS"],
+      "funcionalidades": ["Catálogo público de libros", "Préstamos y reservas", "4 roles con RLS", "Panel de administración"],
+      "capturas": [
+        "assets/img/proyectos/biblioteca-virtual/01.webp",
+        "assets/img/proyectos/biblioteca-virtual/02.webp",
+        "assets/img/proyectos/biblioteca-virtual/03.webp"
+      ],
+      "demo": "https://alan-gonzalez-23.github.io/Biblioteca-Virtual/",
+      "repo": "https://github.com/alan-gonzalez-23/Biblioteca-Virtual",
+      "destacado": true,
+      "video": null
+    },
+    {
+      "slug": "coursed",
+      "titulo": "CoursED — Marketplace de cursos",
+      "categoria": "saas",
+      "plantilla": "A",
+      "orden": 2,
+      "anio": 2026,
+      "rol": "Front-end y Back-end",
+      "resumen": "SaaS multi-tenant para academias: crear, gestionar y vender cursos online con pagos, certificados y chatbot con IA.",
+      "problema": "Las academias pequeñas dependían de plataformas caras o planillas: sin marca propia, sin cobros simples y con los datos del curso repartidos en cinco lugares.",
+      "solucion": "Marketplace en Vue 3 + Supabase con roles de estudiante, instructor y admin: pagos con Mercado Pago, certificados en PDF y chatbot FAQ con IA (Groq) corriendo en Edge Functions.",
+      "resultado": "Una academia publica un curso, lo cobra y entrega certificados desde un solo panel — sin instalar nada.",
+      "stack": ["Vue 3", "Vite", "Tailwind CSS", "Supabase", "Mercado Pago", "IA (Groq)"],
+      "funcionalidades": ["Cursos multi-tenant", "Pagos con Mercado Pago", "Certificados en PDF", "Chatbot FAQ con IA"],
+      "capturas": [
+        "assets/img/proyectos/coursed/01.webp",
+        "assets/img/proyectos/coursed/02.webp",
+        "assets/img/proyectos/coursed/03.webp"
+      ],
+      "demo": null,
+      "repo": null,
+      "destacado": true,
+      "video": null
+    },
+    {
+      "slug": "scoreed",
+      "titulo": "ScoreEd — Torneos escolares",
+      "categoria": "sistema-web",
+      "plantilla": "A",
+      "orden": 3,
+      "anio": 2026,
+      "rol": "Análisis de requerimientos y Documentación",
+      "resumen": "Gestión de torneos escolares con resultados en vivo, tabla de posiciones y módulos para administración y árbitros.",
+      "problema": "Los torneos escolares se anotaban a mano: el resultado tardaba en llegar a la tabla y cada equipo defendía una versión distinta de la posición.",
+      "solucion": "App en PHP + MySQL con API REST de 38 endpoints y 17 vistas en 3 áreas (pública, administración y árbitro): el árbitro carga el resultado desde el celular y la tabla se actualiza en el momento.",
+      "resultado": "La tabla y el fixture siempre cierran con la misma versión de la verdad: la que cargó el árbitro en la cancha.",
+      "stack": ["PHP", "MySQL", "JS vanilla", "API REST", "Apache"],
+      "funcionalidades": ["Resultados en vivo", "Tabla y fixture", "Roles admin y árbitro", "Gestión de equipos y jugadores"],
+      "capturas": [
+        "assets/img/proyectos/scoreed/01.webp",
+        "assets/img/proyectos/scoreed/02.webp",
+        "assets/img/proyectos/scoreed/03.webp"
+      ],
+      "demo": null,
+      "repo": null,
+      "destacado": true,
+      "video": null
+    },
+    {
+      "slug": "sistema-sad",
+      "titulo": "SAD — Gestión documental de docentes",
+      "categoria": "sistema-web",
+      "plantilla": "A",
+      "orden": 4,
+      "anio": 2026,
+      "rol": "Full Stack",
+      "resumen": "Gestión documental de titularidades e interinatos: buscar, ver y exportar legajos PDF de Drive con control de roles.",
+      "problema": "La oficina SAD buscaba legajos de docentes entre carpetas de Google Drive: búsquedas lentas, exportes a mano y cero control de quién tocaba qué.",
+      "solucion": "Servidor Node con sesión firmada (HMAC), roles en Firebase Auth, índice en Supabase con RLS y puente a Drive vía Google Apps Script. Export a CSV/Excel y 10 tests con vitest.",
+      "resultado": "Un legajo se busca en segundos y queda registrado quién lo abrió. Con tests y plan de despliegue en Render.",
+      "stack": ["Node", "Firebase", "Supabase", "Apps Script", "vitest"],
+      "funcionalidades": ["Búsqueda de legajos PDF", "Roles y sesión firmada", "Export CSV y Excel", "Importación masiva desde Drive"],
+      "capturas": [
+        "assets/img/proyectos/sistema-sad/01.webp",
+        "assets/img/proyectos/sistema-sad/02.webp"
+      ],
+      "demo": null,
+      "repo": null,
+      "destacado": false,
+      "video": null
+    },
+    {
+      "slug": "viajespro",
+      "titulo": "ViajesPro — Paquetes turísticos",
+      "categoria": "ecommerce",
+      "plantilla": "A",
+      "orden": 5,
+      "anio": 2026,
+      "rol": "Análisis de requerimientos y Líder de proyecto",
+      "resumen": "Tienda de paquetes turísticos con catálogo, carrito, pedidos y panel de administración (Olimpiada Nacional de Programación).",
+      "problema": "Una agencia de viajes necesitaba vender paquetes online —catálogo, reservas y proveedores en un solo lugar— y el proyecto tenía que defenderse ante un jurado.",
+      "solucion": "Web con catálogo, carrito y roles (cliente/empleado) en JS con persistencia local, más el modelo MySQL completo y el proceso entero documentado: DFDs, casos de uso, ER y tablero SCRUM.",
+      "resultado": "Prototipo funcional de 6 vistas con el flujo de compra completo y el 100% del proceso documentado para la Olimpiada Nacional de Programación.",
+      "stack": ["JS vanilla", "HTML/CSS", "MySQL", "localStorage"],
+      "funcionalidades": ["Catálogo y carrito", "Roles cliente y empleado", "Panel de administración", "Modelo de datos MySQL"],
+      "capturas": [
+        "assets/img/proyectos/viajespro/01.webp",
+        "assets/img/proyectos/viajespro/02.webp",
+        "assets/img/proyectos/viajespro/03.webp"
+      ],
+      "demo": null,
+      "repo": null,
+      "destacado": false,
+      "video": null
+    },
+    {
+      "slug": "yamila-potel",
+      "titulo": "Yamila Potel — Asesoría contable",
+      "categoria": "landing",
+      "plantilla": "B",
+      "orden": 6,
+      "anio": 2026,
+      "rol": "Desarrollador Full Stack",
+      "resumen": "Sitio institucional de 6 páginas para una asesoría contable, con diagnóstico interactivo y accesibilidad cuidada.",
+      "problema": "Una asesoría contable necesitaba presencia profesional online y convertir visitas en consultas calificadas —sin pagar hosting ni mantenimiento.",
+      "solucion": "Landing estática de 6 páginas en HTML/CSS/JS puro: diagnóstico interactivo, servicios y política de privacidad, con semántica real y aria-labels en todo.",
+      "resultado": "Sitio rápido, accesible y sin dependencias: se publica en GitHub Pages y no cuesta un peso por mes.",
+      "stack": ["HTML/CSS", "JS vanilla", "Accesibilidad"],
+      "funcionalidades": ["6 páginas institucionales", "Diagnóstico interactivo", "Política de privacidad"],
+      "capturas": [
+        "assets/img/proyectos/yamila-potel/01.webp",
+        "assets/img/proyectos/yamila-potel/02.webp"
+      ],
+      "demo": null,
+      "repo": null,
+      "destacado": false,
+      "video": null
+    },
+    {
+      "slug": "milonga",
+      "titulo": "Milonga — Gestión de bazar",
+      "categoria": "app-escritorio",
+      "plantilla": "B",
+      "orden": 7,
+      "anio": null,
+      "rol": null,
+      "resumen": "App de escritorio para un bazar: control de stock, avisos de faltante, ingresos y ventas.",
+      "problema": "Un bazar llevaba stock y ventas en cuadernos: descubría qué le faltaba justo cuando ya no quedaba mercadería en la góndola.",
+      "solucion": "App en Python (CustomTkinter + SQLite) con 4 módulos: stock, avisos de faltante, ingresos y ventas — todo guardado en una base local, sin internet.",
+      "resultado": "El faltante se avisa antes de quedarse sin mercadería, y cada venta queda registrada sin planillas.",
+      "decisiones": [
+        "SQLite local en lugar de un servicio en la nube: el bazar trabaja sin internet y los datos deben estar siempre en el mostrador.",
+        "CustomTkinter para que el personal use una app de escritorio y no dependa del navegador; stock, faltantes, ingresos y ventas quedan en módulos separados.",
+        "El aviso de faltante se calcula al registrar cada venta: la alerta aparece antes de quedarse sin mercadería, sin planillas paralelas."
+      ],
+      "demoAcceso": null,
+      "stack": ["Python", "CustomTkinter", "SQLite"],
+      "funcionalidades": ["Control de stock", "Avisos de faltante", "Ingresos y ventas"],
+      "capturas": [
+        "assets/img/proyectos/milonga/01.webp",
+        "assets/img/proyectos/milonga/02.webp"
+      ],
+      "demo": null,
+      "repo": null,
+      "destacado": true,
+      "video": null
+    },
+    {
+      "slug": "python-lab",
+      "titulo": "Python Lab — 8 ejercicios",
+      "categoria": "app-escritorio",
+      "plantilla": "B",
+      "orden": 8,
+      "anio": null,
+      "rol": null,
+      "resumen": "App de escritorio con 8 ejercicios de Python (FizzBuzz, Fibonacci, anagramas…) con tests y design system propio.",
+      "problema": "Los ejercicios de Python vivían sueltos en archivos: difíciles de abrir, de validar y de mostrar.",
+      "solucion": "App en Python 3.11 + CustomTkinter con 9 paneles, design system propio, lógica separada de la interfaz y 95 líneas de tests unitarios sobre lo que importa.",
+      "resultado": "8 herramientas en una sola app, con atajos de teclado y la lógica central cubierta por tests.",
+      "stack": ["Python 3.11", "CustomTkinter", "Pillow", "Tests"],
+      "funcionalidades": ["8 ejercicios en 1 app", "Tests unitarios", "Design system propio"],
+      "capturas": [
+        "assets/img/proyectos/python-lab/01.webp",
+        "assets/img/proyectos/python-lab/02.webp"
+      ],
+      "demo": null,
+      "repo": null,
+      "destacado": false,
+      "video": null
+    },
+    {
+      "slug": "totem",
+      "titulo": "Totem — Asistente virtual",
+      "categoria": "hardware-iot",
+      "plantilla": "C",
+      "orden": 9,
+      "anio": null,
+      "rol": null,
+      "resumen": "Pantalla kiosco con cara animada que habla con lip-sync y reacciona a la presencia con un sensor PIR.",
+      "problema": "La escuela quería un punto de información autónomo: algo que atrajera a los visitantes y los recibiera sin tener a nadie atrás.",
+      "solucion": "Kiosco con cara animada en canvas: 20 audios con visemas generados por Rhubarb Lip Sync, boca sincronizada por lerp y sensor PIR de Arduino que dispara la bienvenida.",
+      "resultado": "El asistente habla de verdad —con la boca sincronizada— y reacciona en cuanto alguien se acerca.",
+      "stack": ["HTML/JS", "Canvas", "Arduino", "Rhubarb Lip Sync"],
+      "funcionalidades": ["Cara animada con lip-sync", "Detección de presencia por PIR", "20 frases con audio"],
+      "capturas": [
+        "assets/img/proyectos/totem/01.webp",
+        "assets/img/proyectos/totem/02.webp"
+      ],
+      "demo": null,
+      "repo": null,
+      "destacado": true,
+      "video": null
+    },
+    {
+      "slug": "mini-peka",
+      "titulo": "Mini Pekka — Robot triatlón",
+      "categoria": "hardware-iot",
+      "plantilla": "C",
+      "orden": 10,
+      "anio": null,
+      "rol": null,
+      "resumen": "Robot ESP32 para triatlón robótico: sumo, seguidor de línea y despeje, con control táctil por WiFi.",
+      "problema": "El equipo necesitaba un robot para las tres pruebas del triatlón sin rearmar hardware ni recargar código entre eventos.",
+      "solucion": "ESP32 con 5 modos (menú, sumo, seguidor, despeje y motores), servidor web de control táctil desde el propio robot, chasis modelado en 3D y circuito documentado en Tinkercad.",
+      "resultado": "Un solo robot y un menú para las tres pruebas: se cambia de modo desde el celular y sale a competir.",
+      "decisiones": [
+        "Un solo ESP32 con menú de 5 modos para las tres pruebas: cambiar de competencia no implica rearmar hardware ni recargar código.",
+        "Servidor web propio en modo WiFi AP: el control táctil sale del celular, sin router ni app externa.",
+        "Chasis modelado en 3D y circuito documentado en Tinkercad: se puede iterar la mecánica sin soldar prototipos descartables."
+      ],
+      "demoAcceso": null,
+      "stack": ["Arduino/ESP32", "C++", "WiFi AP", "Modelado 3D"],
+      "funcionalidades": ["3 modos de competencia", "Control táctil por WiFi", "Chasis impreso en 3D"],
+      "capturas": [
+        "assets/img/proyectos/mini-peka/01.webp",
+        "assets/img/proyectos/mini-peka/02.webp"
+      ],
+      "demo": null,
+      "repo": null,
+      "destacado": true,
+      "video": null
+    },
+    {
+      "slug": "monumento-audio",
+      "titulo": "Monumento con audio guiado",
+      "categoria": "hardware-iot",
+      "plantilla": "C",
+      "orden": 11,
+      "anio": null,
+      "rol": null,
+      "resumen": "Reproductor de audio automático para un monumento público: detecta presencia y relata la historia del lugar.",
+      "problema": "Un monumento público tenía que contar su historia a los visitantes sin personal ni atención constante.",
+      "solucion": "Arduino con sensor PIR: detecta presencia durante 3 segundos y reproduce el relato vía módulo DFPlayer; en reposo, el consumo es mínimo.",
+      "resultado": "El monumento se explica solo las 24 horas, sin operador y con un consumo casi nulo en reposo.",
+      "stack": ["Arduino", "DFPlayer Mini", "Sensor PIR"],
+      "funcionalidades": ["Detección de presencia", "Reproducción automática", "Bajo consumo en reposo"],
+      "capturas": [
+        "assets/img/proyectos/monumento-audio/01.webp",
+        "assets/img/proyectos/monumento-audio/02.webp"
+      ],
+      "demo": null,
+      "repo": null,
+      "destacado": false,
+      "video": null
+    },
+    {
+      "slug": "comando-estelar",
+      "titulo": "Comando Estelar — Alarma vecinal",
+      "categoria": "hardware-iot",
+      "plantilla": "C",
+      "orden": 12,
+      "anio": null,
+      "rol": "Embedded · equipo de 3",
+      "resumen": "Central de alarma vecinal comunitaria con ESP32, radiofrecuencia 433 MHz y pantalla LCD.",
+      "problema": "Una comunidad necesitaba avisarse ante emergencias sin depender de la cobertura celular ni de una app que instalar.",
+      "solucion": "Central en ESP32 que recibe alertas por RF 433 MHz y las muestra en pantalla LCD Nokia 5110, con nodos que funcionan sin internet, diagrama de bloques, PCB y manual interactivo.",
+      "resultado": "Prototipo documentado de punta a punta —diagramas, PCB e informe— en desarrollo.",
+      "stack": ["ESP32", "Arduino", "RF 433 MHz", "LCD 5110"],
+      "funcionalidades": ["Alertas por radiofrecuencia", "Pantalla LCD", "Nodos sin internet"],
+      "capturas": [
+        "assets/img/proyectos/comando-estelar/01.webp",
+        "assets/img/proyectos/comando-estelar/02.webp"
+      ],
+      "demo": null,
+      "repo": null,
+      "destacado": false,
+      "video": null
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+# Gate de datos — bloquea deploys con data/proyectos.json roto.
+# Corre en cada push/PR: si el validador sale con exit 1, el workflow falla
+# y (con protection rules en la rama main) el deploy no avanza.
+name: Validar proyectos
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Validar data/proyectos.json
+        run: node scripts/validar-proyectos.mjs

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>404 — Página no encontrada · Alan.dev</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="assets/css/styles.css?v=12" />
+  <style>
+    /* Página mínima y autocontenida: si styles.css no carga, igual se lee bien. */
+    body.pagina-404 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 24px;
+      overflow: auto;
+    }
+    .err-box {
+      max-width: 560px;
+      text-align: left;
+    }
+    .err-code {
+      font-family: var(--font-mono, monospace);
+      font-size: clamp(64px, 16vw, 120px);
+      font-weight: 700;
+      line-height: 1;
+      color: var(--accent, #FF2D2D);
+      letter-spacing: -0.04em;
+      margin-bottom: 8px;
+    }
+    .err-box h1 {
+      font-family: var(--font-display, sans-serif);
+      font-size: clamp(24px, 5vw, 34px);
+      font-weight: 700;
+      color: var(--text, #F5F5F5);
+      margin-bottom: 14px;
+      letter-spacing: -0.02em;
+    }
+    .err-box p:not(.err-code) {
+      color: var(--text-muted, #A8A8A8);
+      font-size: 16px;
+      line-height: 1.7;
+      margin-bottom: 28px;
+    }
+    .err-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+    .err-meta {
+      margin-top: 32px;
+      font-family: var(--font-mono, monospace);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted, #A8A8A8);
+    }
+  </style>
+</head>
+
+<body class="pagina-404">
+  <main class="err-box">
+    <p class="err-code" aria-hidden="true">404</p>
+    <h1 id="err-heading">Esta página no existe.</h1>
+    <p>
+      Puede que el enlace esté viejo o que la dirección esté mal escrita.
+      Volvé al inicio y seguí desde ahí — todo lo demás sigue funcionando.
+    </p>
+    <div class="err-actions">
+      <a class="btn-primary" href="index.html">← Volver al inicio</a>
+      <a class="btn-secondary" href="index.html#proyectos">Ver proyectos</a>
+    </div>
+    <p class="err-meta">alan.dev — full stack developer</p>
+  </main>
+</body>
+
+</html>

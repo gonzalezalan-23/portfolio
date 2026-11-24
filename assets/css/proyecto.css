@@ -1,0 +1,388 @@
+/* =============================================================
+   proyecto.css — Ficha de detalle de proyecto (T2.2)
+   Hereda tokens y componentes de styles.css (btn, footer,
+   sidebar, .section-label, .project-stack).
+   Plantilla actual: A (caso de negocio) — ver docs/PROYECTOS.md §3.
+   ============================================================= */
+
+/* ── Scroll propio: sin snap (la ficha es una lectura continua) ── */
+.pagina-detalle .detalle-scroll {
+  scroll-snap-type: none;
+}
+
+/* ── Contenedor principal ─────────────────────────────────────
+   padding-left 12rem = columna reservada para .line-sidebar
+   (misma medida que .section-inner en la home). */
+.detalle-main {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 64px 24px 56px 12rem;
+  box-sizing: border-box;
+}
+
+/* Entrada suave; respeta prefers-reduced-motion (T4.1) */
+@media (prefers-reduced-motion: no-preference) {
+  .pagina-detalle .detalle-main {
+    animation: detalle-in var(--dur-4) var(--ease-out) both;
+  }
+}
+@keyframes detalle-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.detalle-cargando {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* ── Bloques: las <section> de la ficha NO son pantallas ───── */
+.pagina-detalle main section {
+  min-height: 0;
+  scroll-snap-align: none;
+  padding: 44px 0;
+  border-top: 1px solid var(--border);
+}
+
+.pagina-detalle main .detalle-hero {
+  padding-top: 0;
+  border-top: none;
+}
+
+/* Columna de texto acotada (max-w del sistema = 760px) */
+.detalle-hero,
+.detalle-block > .section-label + h2,
+.detalle-block > p {
+  max-width: var(--max-w);
+}
+
+
+/* ── Hero de la ficha ──────────────────────────────────────── */
+.detalle-back {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin-bottom: 28px;
+  transition: color var(--transition);
+}
+.detalle-back:hover { color: var(--accent); }
+
+.detalle-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  margin-bottom: 14px;
+}
+.detalle-meta .section-label { margin-bottom: 0; }
+.detalle-meta-item {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.detalle-meta-item + .detalle-meta-item::before {
+  content: "·";
+  margin-right: 16px;
+  color: var(--border-inner);
+}
+
+.detalle-title {
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+  color: var(--text);
+  margin-bottom: 18px;
+}
+
+.detalle-lead {
+  font-size: 18px;
+  line-height: 1.65;
+  color: var(--text-muted);
+  max-width: var(--max-w);
+  margin-bottom: 28px;
+}
+
+.detalle-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+
+/* ── Bloques problema / solución / resultado ───────────────── */
+.detalle-block h2 {
+  font-size: clamp(24px, 3.4vw, 32px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 14px;
+  line-height: 1.2;
+}
+.detalle-block p {
+  font-size: 16.5px;
+  line-height: 1.75;
+  color: var(--text-muted);
+  max-width: var(--max-w);
+}
+.detalle-block p + p { margin-top: 14px; }
+
+
+/* ── Qué hace: lista de funcionalidades ────────────────────── */
+.detalle-checks {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 12px;
+  max-width: var(--max-w);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.detalle-checks li {
+  position: relative;
+  padding: 12px 14px 12px 38px;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.detalle-checks li::before {
+  content: "✓";
+  position: absolute;
+  left: 14px;
+  top: 12px;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+
+/* ── Stack: reutiliza los chips de la tarjeta ──────────────── */
+.detalle-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-width: var(--max-w);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.detalle-stack li {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 5px 10px;
+  border: 1px solid var(--border-inner);
+  border-radius: 3px;
+  color: var(--text-muted);
+  background-color: var(--bg-elevated);
+}
+
+
+/* ── Capa 1: demo + acceso rápido ─────────────────────────── */
+.detalle-demo-acceso {
+  max-width: var(--max-w);
+  margin-top: 18px;
+  padding: 12px 16px;
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-surface);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+.detalle-acceso-label {
+  display: inline-block;
+  margin-right: 8px;
+  padding: 3px 7px;
+  border-radius: 3px;
+  background-color: var(--accent);
+  color: var(--on-accent);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  vertical-align: 1px;
+}
+
+
+/* ── Capa 2: ficha técnica desplegable ────────────────────── */
+.ficha-tecnica {
+  max-width: var(--max-w);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background-color: var(--bg-surface);
+  overflow: hidden;
+}
+.ficha-tecnica summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 16px 18px;
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text);
+  transition: background-color var(--transition);
+}
+.ficha-tecnica summary::-webkit-details-marker { display: none; }
+.ficha-tecnica summary:hover,
+.ficha-tecnica[open] summary { background-color: var(--bg-elevated); }
+.ficha-tecnica summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -3px;
+}
+.ficha-tecnica-titulo { font-weight: 600; }
+.ficha-tecnica-pista { font-size: 0; color: var(--accent); white-space: nowrap; }
+.ficha-tecnica-pista::after { content: "desplegar ↓"; font-size: 12px; }
+.ficha-tecnica[open] .ficha-tecnica-pista::after { content: "cerrar ↑"; }
+
+.ficha-tecnica-body {
+  display: grid;
+  gap: 22px;
+  padding: 20px 18px 24px;
+  border-top: 1px solid var(--border);
+}
+.ficha-tecnica-grupo h3 {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
+.detalle-decisiones {
+  display: grid;
+  gap: 10px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  counter-reset: dec;
+}
+.detalle-decisiones li {
+  position: relative;
+  padding: 12px 14px 12px 46px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-elevated);
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--text);
+}
+.detalle-decisiones li::before {
+  counter-increment: dec;
+  content: counter(dec, decimal-leading-zero);
+  position: absolute;
+  left: 14px;
+  top: 12px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+
+/* ── Galería de capturas ───────────────────────────────────── */
+.detalle-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+  margin-top: 8px;
+}
+/* La primera captura abre la fila a todo el ancho (hero shot) */
+.detalle-gallery figure:first-child {
+  grid-column: 1 / -1;
+}
+.detalle-gallery figure {
+  margin: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background-color: var(--bg-surface);
+  transition: border-color var(--transition), box-shadow var(--dur-3) var(--ease-out);
+}
+.detalle-gallery figure:hover {
+  border-color: rgba(255, 45, 45, 0.35);
+  box-shadow: var(--card-glow-hover);
+}
+.detalle-gallery a {
+  display: block;
+  line-height: 0;
+}
+.detalle-gallery img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+
+/* ── CTA final ─────────────────────────────────────────────── */
+.pagina-detalle main section.detalle-cta {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 40px 36px;
+}
+.detalle-cta h2 { margin-bottom: 10px; }
+.detalle-cta p  { margin-bottom: 24px; }
+
+
+/* ── Prev / next ───────────────────────────────────────────── */
+.detalle-prevnext {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding-top: 36px;
+}
+.detalle-prevnext a {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-muted);
+  max-width: 46%;
+  transition: color var(--transition);
+}
+.detalle-prevnext a:hover { color: var(--accent); }
+.detalle-prevnext .pn-next { text-align: right; }
+.detalle-prevnext .pn-empty { visibility: hidden; }
+
+
+/* ── Estado: proyecto no encontrado ────────────────────────── */
+.detalle-404 h1 {
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+.detalle-404 p {
+  color: var(--text-muted);
+  max-width: var(--max-w);
+  margin-bottom: 26px;
+}
+
+
+/* ── Responsive ────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .pagina-detalle .detalle-main {
+    padding: 40px 1.5rem 40px;
+  }
+  .pagina-detalle main section.detalle-cta {
+    padding: 28px 20px;
+  }
+  .ficha-tecnica summary { padding: 14px; }
+  .ficha-tecnica-body { padding: 18px 14px 20px; gap: 18px; }
+  .detalle-decisiones li { padding: 11px 12px 11px 42px; }
+  .detalle-decisiones li::before { left: 12px; top: 11px; }
+  .detalle-demo-acceso { padding: 11px 13px; }
+  .detalle-prevnext a {
+    max-width: 100%;
+  }
+  .detalle-prevnext .pn-next { text-align: left; }
+}

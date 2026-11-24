@@ -4,373 +4,478 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- SEO básico -->
-  <meta name="description" content="Portfolio de Alan — Desarrollador Full Stack con enfoque en backend, lógica compleja y soluciones para negocios reales." />
-  <meta name="keywords" content="desarrollador full stack, backend, portfolio, soluciones web, sistemas de gestión" />
+  <meta name="description" content="Alan, Full Stack. Sistemas a medida que resuelven problemas reales de negocio: problema, solución y resultado — sin humo." />
   <meta name="author" content="Alan" />
-
-  <!-- Open Graph (previsualización en redes) -->
-  <meta property="og:title" content="Alan.dev — Full Stack Developer" />
-  <meta property="og:description" content="Desarrollo backend robusto, lógica de negocio y sistemas ordenados." />
-  <meta property="og:type" content="website" />
-
+  <meta property="og:title"       content="Alan.dev — Full Stack Developer" />
+  <meta property="og:description" content="Backend, datos e integraciones. Sistemas a medida que resuelven problemas reales — y siguen funcionando después del launch." />
+  <meta property="og:type"        content="website" />
   <title>Alan.dev — Full Stack Developer</title>
 
-  <!-- Google Fonts: JetBrains Mono (técnico/encabezados) + Inter (cuerpo de texto) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@300;400;500&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Sans:wdth,wght@75..100,400..700&display=swap"
     rel="stylesheet"
   />
-
-  <!-- Hoja de estilos principal -->
-  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=12" />
 </head>
 
 <body>
 
-  <!-- =============================================
-       HEADER — Navegación fija minimalista
-       ============================================= -->
-  <header role="banner">
-    <nav aria-label="Navegación principal">
-
-      <!-- Logotipo / identidad -->
-      <a href="#hero" class="nav-logo" aria-label="Ir al inicio">Alan.dev</a>
-
-      <!-- Botón hamburguesa — solo visible en mobile (controlado por CSS) -->
-      <button
-        class="nav-toggle"
-        aria-label="Abrir menú de navegación"
-        aria-expanded="false"
-        aria-controls="nav-menu"
-      >
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-      </button>
-
-      <!-- Menú de secciones -->
-      <ul id="nav-menu" role="list">
-        <li><a href="#metodologia">Metodología</a></li>
-        <li><a href="#proyectos">Proyectos</a></li>
-        <li><a href="#contacto">Contacto</a></li>
-      </ul>
-
-    </nav>
-  </header>
+  <!-- ═══════════════════════════════════════════════════════════
+       AVATAR VIEWPORT — #avatar-viewport
+       Dos capas apiladas: canvas de partículas (fondo) + imagen.
+       JS intercambia .in-* para scrollytelling.
+       aria-hidden: puramente decorativo.
+       ═══════════════════════════════════════════════════════════ -->
+  <div id="avatar-viewport" class="in-hero" aria-hidden="true">
+    <canvas id="hologram-canvas"></canvas>
+    <img src="assets/img/alan-avatar.png" alt="" />
+  </div>
 
 
-  <!-- =============================================
-       MAIN — Contenido principal del portfolio
-       ============================================= -->
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       NAV — Line Sidebar (position: fixed, fuera del scroll-container)
+       JS añade .is-active al <li> correspondiente a la sección visible.
+       ═══════════════════════════════════════════════════════════ -->
+  <nav class="line-sidebar" id="line-sidebar" aria-label="Navegación principal">
+    <ul role="list">
+
+      <li class="sidebar-item is-active">
+        <a href="#hero" class="sidebar-link" data-target="hero">
+          <span class="sidebar-line" aria-hidden="true"></span>
+          <span class="sidebar-label">00 // HOME</span>
+        </a>
+      </li>
+
+      <li class="sidebar-item">
+        <a href="#proyectos" class="sidebar-link" data-target="proyectos">
+          <span class="sidebar-line" aria-hidden="true"></span>
+          <span class="sidebar-label">01 // WORK</span>
+        </a>
+      </li>
+
+      <li class="sidebar-item">
+        <a href="#proceso" class="sidebar-link" data-target="proceso">
+          <span class="sidebar-line" aria-hidden="true"></span>
+          <span class="sidebar-label">02 // PROCESS</span>
+        </a>
+      </li>
+
+      <li class="sidebar-item">
+        <a href="#skills" class="sidebar-link" data-target="skills">
+          <span class="sidebar-line" aria-hidden="true"></span>
+          <span class="sidebar-label">03 // STACK</span>
+        </a>
+      </li>
+
+      <li class="sidebar-item">
+        <a href="#sobre-mi" class="sidebar-link" data-target="sobre-mi">
+          <span class="sidebar-line" aria-hidden="true"></span>
+          <span class="sidebar-label">04 // ABOUT</span>
+        </a>
+      </li>
+
+      <li class="sidebar-item">
+        <a href="#formacion" class="sidebar-link" data-target="formacion">
+          <span class="sidebar-line" aria-hidden="true"></span>
+          <span class="sidebar-label">05 // EDUCATION</span>
+        </a>
+      </li>
+
+      <li class="sidebar-item">
+        <a href="#contacto" class="sidebar-link" data-target="contacto">
+          <span class="sidebar-line" aria-hidden="true"></span>
+          <span class="sidebar-label">06 // HIRE</span>
+        </a>
+      </li>
+
+    </ul>
+  </nav>
+
+
+  <div class="scroll-container">
   <main>
 
-    <!-- ----- HERO: Presentación técnica directa ----- -->
-    <section id="hero" aria-labelledby="hero-heading">
+    <!-- ═══════════════════════════════════════════════════════════
+         SECCIÓN 1 — HERO
+         ═══════════════════════════════════════════════════════════ -->
+    <section id="hero" data-section="hero" aria-labelledby="hero-heading">
+      <div class="section-inner hero-inner">
+        <div class="hero-content">
 
-      <!-- Canvas del simulador de flujo de datos — posicionado absolute por CSS -->
-      <canvas id="hero-canvas" aria-hidden="true"></canvas>
+          <h1 id="hero-heading">Construyo sistemas que resuelven problemas reales.</h1>
 
-      <div class="hero-eyebrow">
-        <!-- Etiqueta técnica decorativa estilo "blueprint" -->
-        <span aria-hidden="true">// full_stack_developer.init()</span>
+          <p class="hero-desc">
+            Backend robusto, lógica de negocio clara y código que escala.
+            Sin magia negra: lo que prometo es lo que queda corriendo.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#proyectos" class="btn-primary">Ver proyectos</a>
+            <a href="#contacto" class="btn-secondary">Cotizar proyecto →</a>
+          </div>
+
+        </div>
       </div>
-
-      <h1 id="hero-heading">
-        Construyo sistemas que<br />
-        <strong>resuelven problemas reales.</strong>
-      </h1>
-
-      <p>
-        Backend robusto, lógica de negocio clara y código que escala.
-        Trabajo con metodologías ordenadas para entregar soluciones
-        que los equipos pueden mantener y los negocios pueden confiar.
-      </p>
-
-      <div class="hero-actions">
-        <a href="#proyectos" class="btn-primary">Ver proyectos</a>
-        <a href="#contacto" class="btn-secondary">Contactar</a>
-      </div>
-
-      <!-- Stack técnico resumido -->
-      <ul class="hero-stack" aria-label="Stack tecnológico principal" role="list">
-        <li>Python</li>
-        <li>Django</li>
-        <li>PostgreSQL</li>
-        <li>REST APIs</li>
-        <li>JavaScript</li>
-      </ul>
-
     </section>
 
 
-    <!-- ----- METODOLOGÍA / SOBRE MÍ: Proceso de trabajo ----- -->
-    <section id="metodologia" aria-labelledby="metodologia-heading">
+    <!-- ═══════════════════════════════════════════════════════════
+         SECCIÓN 2 — PROYECTOS DESTACADOS
+         Órbita + tarjetas. La metodología además vive como sección
+         propia (#proceso) y sigue embebida en cada ficha (T2.9).
+         ═══════════════════════════════════════════════════════════ -->
+    <section id="proyectos" data-section="proyectos" aria-labelledby="proyectos-heading">
+      <div class="section-inner">
 
-      <header>
-        <span class="section-label" aria-hidden="true">01 —</span>
-        <h2 id="metodologia-heading">Cómo trabajo</h2>
-        <p>Un proceso ordenado produce resultados predecibles.</p>
-      </header>
+        <header class="section-header">
+          <span class="section-label" aria-hidden="true">01 — destacados</span>
+          <h2 id="proyectos-heading">Proyectos reales</h2>
+          <p>Del software al hardware: cada proyecto nació de un problema concreto y terminó con algo funcionando.</p>
+        </header>
 
-      <!-- Pasos del proceso como lista ordenada semántica -->
-      <ol class="process-steps" role="list">
-
-        <li class="step">
-          <span class="step-number" aria-hidden="true">01</span>
-          <div>
-            <h3>Análisis del problema</h3>
-            <p>
-              Antes de escribir una línea de código, entiendo el negocio:
-              flujos, actores, restricciones y el resultado esperado.
-            </p>
-          </div>
-        </li>
-
-        <li class="step">
-          <span class="step-number" aria-hidden="true">02</span>
-          <div>
-            <h3>Diseño de la solución</h3>
-            <p>
-              Defino la arquitectura, el modelo de datos y los contratos
-              de API antes de implementar. El diseño guía el desarrollo.
-            </p>
-          </div>
-        </li>
-
-        <li class="step">
-          <span class="step-number" aria-hidden="true">03</span>
-          <div>
-            <h3>Implementación iterativa</h3>
-            <p>
-              Desarrollo en ciclos cortos con entregables verificables.
-              Código limpio, documentado y con manejo explícito de errores.
-            </p>
-          </div>
-        </li>
-
-        <li class="step">
-          <span class="step-number" aria-hidden="true">04</span>
-          <div>
-            <h3>Revisión y entrega</h3>
-            <p>
-              Pruebas, revisión de lógica de negocio y documentación
-              antes de cada entrega. Sin sorpresas en producción.
-            </p>
-          </div>
-        </li>
-
-      </ol>
-
-    </section>
-
-
-    <!-- ----- PROYECTOS: Grilla de trabajos comerciales ----- -->
-    <section id="proyectos" aria-labelledby="proyectos-heading">
-
-      <header>
-        <span class="section-label" aria-hidden="true">02 —</span>
-        <h2 id="proyectos-heading">Proyectos</h2>
-        <p>Sistemas construidos para entornos reales de negocio.</p>
-      </header>
-
-      <!-- Grilla de tarjetas de proyecto -->
-      <ul class="projects-grid" role="list">
-
-        <li class="project-card">
-          <article aria-labelledby="project-bazar">
-            <header>
-              <span class="project-type">Sistema de gestión</span>
-              <h3 id="project-bazar">Bazar — Gestión de inventario y ventas</h3>
-            </header>
-            <p>
-              Sistema completo para administración de stock, ventas y
-              reportes. Backend en Django con API REST consumida
-              desde un frontend dinámico.
-            </p>
-            <footer>
-              <ul class="project-stack" role="list" aria-label="Tecnologías usadas">
-                <li>Python</li>
-                <li>SQLite</li>
-                <li>Supabase</li>
-              </ul>
-              <a href="#" class="project-link" aria-label="Ver proyecto Bazar en GitHub">
-                Ver código →
-              </a>
-            </footer>
-          </article>
-        </li>
-
-        <li class="project-card">
-          <article aria-labelledby="project-escuela">
-            <header>
-              <span class="project-type">Sistema de gestión</span>
-              <h3 id="project-escuela">Escuela — Plataforma académica</h3>
-            </header>
-            <p>
-              Plataforma para gestión de alumnos, cursos, calificaciones
-              y asistencia. Roles diferenciados para docentes,
-              administrativos y alumnos.
-            </p>
-            <footer>
-              <ul class="project-stack" role="list" aria-label="Tecnologías usadas">
-                <li>PHP</li>
-                <li>HTML/CSS/JS</li>
-                <li>SQLite</li>
-              </ul>
-              <a href="#" class="project-link" aria-label="Ver proyecto Escuela en GitHub">
-                Ver código →
-              </a>
-            </footer>
-          </article>
-        </li>
-
-        <!-- Tarjeta adicional: espacio para próximo proyecto -->
-        <li class="project-card project-card--wip">
-          <article aria-labelledby="project-next">
-            <header>
-              <span class="project-type">En desarrollo</span>
-              <h3 id="project-next">Próximo proyecto</h3>
-            </header>
-            <p>Actualmente en construcción. Disponible pronto.</p>
-          </article>
-        </li>
-
-      </ul>
-
-    </section>
-
-
-    <!-- ----- CONTACTO: Cotizador interactivo por pasos ----- -->
-    <section id="contacto" aria-labelledby="contacto-heading">
-
-      <header>
-        <span class="section-label" aria-hidden="true">03 —</span>
-        <h2 id="contacto-heading">Contacto</h2>
-        <p>¿Tenés un problema técnico que resolver? Hablemos.</p>
-      </header>
-
-      <!-- Contenedor del wizard — el JS inyecta los pasos aquí -->
-      <div id="quotation-wizard" role="region" aria-label="Cotizador interactivo">
-
-        <!-- Barra de progreso -->
-        <div class="wizard-progress" aria-hidden="true">
-          <div class="wizard-progress-bar" id="wizard-progress-bar"></div>
+        <!-- ÓRBITA — carrusel de destacados (render desde data/proyectos.json,
+             filtrando destacado === true y ordenando por `orden`). -->
+        <div class="orbita" id="orbita" role="region" aria-roledescription="carrusel"
+             aria-label="Proyectos destacados" aria-busy="true">
+          <button type="button" class="orbita-btn orbita-prev" aria-label="Proyecto destacado anterior">←</button>
+          <div class="orbita-stage" id="orbita-stage"></div>
+          <button type="button" class="orbita-btn orbita-next" aria-label="Proyecto destacado siguiente">→</button>
+          <div class="orbita-dots" id="orbita-dots"></div>
         </div>
 
-        <!-- Viewport de pasos: overflow hidden para la animación slide -->
-        <div class="wizard-viewport">
+        <!-- Las tarjetas se renderizan desde data/proyectos.json (app.js).
+             Para agregar/quitar proyectos: editar SOLO el JSON. -->
+        <div class="projects-grid" aria-busy="true"></div>
 
-          <!-- PASO 1: Objetivo del negocio -->
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         SECCIÓN 3 — PROCESO
+         Vuelve al home (3-4 pasos) y además sigue embebido en cada
+         ficha: mismo copy y mismas clases .process-*.
+         ═══════════════════════════════════════════════════════════ -->
+    <section id="proceso" data-section="proceso" aria-labelledby="proceso-heading">
+      <div class="section-inner">
+
+        <header class="section-header">
+          <span class="section-label" aria-hidden="true">02 — proceso</span>
+          <h2 id="proceso-heading">Cómo trabajo</h2>
+          <p>Cuatro pasos, siempre los mismos: entender, diseñar, construir y dejar funcionando.</p>
+        </header>
+
+        <ol class="process-list reveal" role="list">
+          <li class="process-step">
+            <div class="step-marker" aria-hidden="true"><span class="step-num">01</span></div>
+            <div class="step-body">
+              <h3>Diagnóstico</h3>
+              <p>Entiendo el problema real antes de escribir una línea de código. Una reunión de 30 minutos define el 80% del proyecto.</p>
+            </div>
+          </li>
+          <li class="process-step">
+            <div class="step-marker" aria-hidden="true"><span class="step-num">02</span></div>
+            <div class="step-body">
+              <h3>Arquitectura</h3>
+              <p>Diseño la solución más simple que resuelva el problema. Sin sobreingeniería y sin dependencias que no pediste.</p>
+            </div>
+          </li>
+          <li class="process-step">
+            <div class="step-marker" aria-hidden="true"><span class="step-num">03</span></div>
+            <div class="step-body">
+              <h3>Desarrollo iterativo</h3>
+              <p>Entrego versiones funcionales desde la primera semana. Feedback real, ajustes reales.</p>
+            </div>
+          </li>
+          <li class="process-step">
+            <div class="step-marker" aria-hidden="true"><span class="step-num">04</span></div>
+            <div class="step-body">
+              <h3>Entrega y soporte</h3>
+              <p>Deploy, documentación técnica y soporte post-lanzamiento incluidos. No desaparezco al terminar.</p>
+            </div>
+          </li>
+        </ol>
+
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         SECCIÓN 4 — STACK
+         Se renderiza en runtime desde los `stack` de data/proyectos.json:
+         cada tecnología muestra evidencia real (en qué proyectos se usó).
+         ═══════════════════════════════════════════════════════════ -->
+    <section id="skills" data-section="skills" aria-labelledby="skills-heading">
+      <div class="section-inner">
+
+        <header class="section-header">
+          <span class="section-label" aria-hidden="true">03 — stack</span>
+          <h2 id="skills-heading">Con qué construyo</h2>
+          <p>Estas tecnologías no son una lista de deseos: salen de los proyectos que ya están funcionando. Cada una tiene su evidencia.</p>
+        </header>
+
+        <div id="skills-grid" class="skills-grid-wrap" aria-busy="true"></div>
+
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         SECCIÓN 5 — SOBRE MÍ
+         ═══════════════════════════════════════════════════════════ -->
+    <section id="sobre-mi" data-section="sobre-mi" aria-labelledby="sobre-mi-heading">
+      <div class="section-inner sobre-mi-inner">
+
+        <!-- Marquee decorativo: se mueve con CSS y se detiene con
+             prefers-reduced-motion. aria-hidden: no es contenido. -->
+        <div class="about-marquee" aria-hidden="true">
+          <span>backend · datos · integraciones · sin humo · backend · datos · integraciones · sin humo · </span>
+          <span>backend · datos · integraciones · sin humo · backend · datos · integraciones · sin humo · </span>
+        </div>
+
+        <p class="eyebrow">// 04. perfil_analitico.log</p>
+        <h2 id="sobre-mi-heading">Un commit a la vez.</h2>
+
+        <div id="reveal-text-target" class="reveal-text-container">
+          <p>INFO PERSONAL: Alan, 17 años, Argentino. Full Stack de verdad: me muevo del database hasta la interfaz sin pedir permiso. Mi fuerte es el backend —permisos, datos, integraciones— porque ahí es donde un proyecto se sostiene o se rompe. Trabajo con una regla: la solución más simple que resuelva el problema, bien construida, documentada y lista para que el próximo dev la entienda sin llamarme.</p>
+        </div>
+
+        <!-- Mini-timeline: conecta la formación con el enfoque, sin repetir
+             el detalle completo (ese vive en #formacion). -->
+        <ol class="about-timeline" role="list" aria-label="Mi recorrido">
+          <li class="about-timeline-item reveal">
+            <span class="about-dot" aria-hidden="true"></span>
+            <span class="about-timeline-label">01 — base</span>
+            <p>Tecnicatura en Programación, EEST N.° 5 de Berazategui.</p>
+          </li>
+          <li class="about-timeline-item reveal">
+            <span class="about-dot" aria-hidden="true"></span>
+            <span class="about-timeline-label">02 — práctica</span>
+            <p>Más de 200 horas construyendo y probando sistemas.</p>
+          </li>
+          <li class="about-timeline-item reveal">
+            <span class="about-dot" aria-hidden="true"></span>
+            <span class="about-timeline-label">03 — criterio</span>
+            <p>La solución más simple, bien construida y documentada.</p>
+          </li>
+        </ol>
+
+        <a class="about-link" href="#formacion">Ver formación completa <span aria-hidden="true">↓</span></a>
+
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         SECCIÓN 6 — FORMACIÓN
+         Datos reales del dueño. Los certificados no se inventan:
+         el de Python Básico es un PDF en assets/img.
+         ═══════════════════════════════════════════════════════════ -->
+    <section id="formacion" data-section="formacion" aria-labelledby="formacion-heading">
+      <div class="section-inner">
+
+        <header class="section-header">
+          <span class="section-label" aria-hidden="true">05 — formación</span>
+          <h2 id="formacion-heading">Base técnica, criterio real</h2>
+          <p>Formación formal, práctica sostenida y certificaciones que respaldan lo que construyo.</p>
+        </header>
+
+        <ol class="formacion-timeline reveal" role="list">
+
+          <li class="formacion-item">
+            <span class="formacion-mark" aria-hidden="true">01</span>
+            <div class="formacion-card">
+              <h3>Tecnicatura en Programación</h3>
+              <p class="formacion-place">EEST N.° 5 de Berazategui · Buenos Aires</p>
+              <p>Formación técnica en desarrollo de software: de la lógica de negocio a la entrega de sistemas funcionando.</p>
+            </div>
+          </li>
+
+          <li class="formacion-item">
+            <span class="formacion-mark" aria-hidden="true">02</span>
+            <div class="formacion-card">
+              <h3>+200 horas de práctica</h3>
+              <p class="formacion-place">entre cursos y proyectos</p>
+              <p>Horas de ejercicio sostenido convertidas en criterio: cómo se estructura, se prueba y se sostiene un sistema.</p>
+            </div>
+          </li>
+
+          <li class="formacion-item">
+            <span class="formacion-mark" aria-hidden="true">03</span>
+            <div class="formacion-card">
+              <h3>Educación para el Consumo Local</h3>
+              <p class="formacion-place">8.ª edición · Programa Municipal</p>
+              <p>Certificado por participar del Programa Municipal «Educación para el Consumo Local».</p>
+            </div>
+          </li>
+
+          <li class="formacion-item">
+            <span class="formacion-mark" aria-hidden="true">04</span>
+            <div class="formacion-card">
+              <h3>Mi Futuro Empleo</h3>
+              <p class="formacion-place">capacitación</p>
+              <p>Certificado por participar de la capacitación «Mi Futuro Empleo».</p>
+            </div>
+          </li>
+
+          <li class="formacion-item">
+            <span class="formacion-mark" aria-hidden="true">05</span>
+            <div class="formacion-card">
+              <h3>Python Básico</h3>
+              <p class="formacion-place">curso online</p>
+              <p>Certificado online de Python Básico.
+                <a href="assets/img/curso-python-basico-santander.pdf" target="_blank" rel="noopener noreferrer">Ver certificado ↗</a>
+              </p>
+            </div>
+          </li>
+
+        </ol>
+
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         SECCIÓN 7 — CONTACTO
+         Wizard debrief + formulario verificado contra Google Sheets
+         ═══════════════════════════════════════════════════════════ -->
+    <section id="contacto" data-section="contacto" aria-labelledby="contacto-heading">
+      <div class="section-inner">
+
+        <header class="section-header">
+          <span class="section-label" aria-hidden="true">06 — contacto</span>
+          <h2 id="contacto-heading">¿Cuánto cuesta tu proyecto?</h2>
+          <p>Respondé 2 preguntas y recibís una arquitectura recomendada + propuesta personalizada.</p>
+        </header>
+
+        <div id="wizard" class="wizard reveal" aria-label="Asistente de cotización">
+
+          <!-- Barra de progreso -->
+          <div class="wizard-progress" aria-hidden="true">
+            <div class="wizard-progress-track">
+              <div class="wizard-progress-bar" id="wizard-progress-bar" style="width:33.33%"></div>
+            </div>
+            <span class="wizard-progress-label" id="wizard-progress-label">Paso 1 de 3</span>
+          </div>
+
+          <!-- PASO 1 -->
           <div class="wizard-step" id="wizard-step-1" data-step="1">
-            <p class="wizard-question">¿Qué necesita tu negocio?</p>
+            <p class="wizard-question">
+              <span class="wizard-q-num" aria-hidden="true">01.</span>
+              ¿Qué necesita tu negocio?
+            </p>
             <div class="wizard-options">
               <button class="wizard-option" data-value="ecommerce" data-next="2">
                 <span class="wizard-option-icon" aria-hidden="true">🛒</span>
-                <span>Vender Online / Ecommerce</span>
+                <span class="wizard-option-label">Vender online / Ecommerce</span>
+                <span class="wizard-option-hint" aria-hidden="true">tienda, catálogo, pagos</span>
               </button>
               <button class="wizard-option" data-value="control-interno" data-next="2">
                 <span class="wizard-option-icon" aria-hidden="true">📦</span>
-                <span>Control Interno / Stock</span>
+                <span class="wizard-option-label">Control interno / Stock</span>
+                <span class="wizard-option-hint" aria-hidden="true">inventario, reportes, roles</span>
               </button>
             </div>
           </div>
 
-          <!-- PASO 2: Requisito de conectividad -->
+          <!-- PASO 2 -->
           <div class="wizard-step" id="wizard-step-2" data-step="2" aria-hidden="true">
-            <p class="wizard-question">¿Requiere trabajar sin conexión a internet?</p>
+            <p class="wizard-question">
+              <span class="wizard-q-num" aria-hidden="true">02.</span>
+              ¿Necesita funcionar sin internet?
+            </p>
             <div class="wizard-options">
               <button class="wizard-option" data-value="offline" data-next="3">
                 <span class="wizard-option-icon" aria-hidden="true">📡</span>
-                <span>Sí, es crítico</span>
+                <span class="wizard-option-label">Sí, es crítico</span>
+                <span class="wizard-option-hint" aria-hidden="true">modo offline + sincronización</span>
               </button>
               <button class="wizard-option" data-value="online" data-next="3">
                 <span class="wizard-option-icon" aria-hidden="true">☁️</span>
-                <span>No, siempre hay conexión</span>
+                <span class="wizard-option-label">No, siempre hay conexión</span>
+                <span class="wizard-option-hint" aria-hidden="true">100% en la nube</span>
               </button>
             </div>
           </div>
 
-          <!-- PASO 3: Arquitectura recomendada + formulario final -->
+          <!-- PASO 3 -->
           <div class="wizard-step" id="wizard-step-3" data-step="3" aria-hidden="true">
-            <!-- Bloque de arquitectura recomendada con efecto typewriter -->
-            <div class="arch-recommendation" role="status" aria-live="polite">
-              <span class="arch-label" aria-hidden="true">// arquitectura_recomendada.json</span>
+
+            <div class="arch-recommendation" role="status" aria-live="polite" aria-label="Arquitectura recomendada">
+              <p class="arch-label" aria-hidden="true">// arquitectura_recomendada.generate()</p>
               <p class="arch-text" id="arch-text"></p>
             </div>
 
-            <!-- Formulario final de contacto -->
-            <form
-              name="contacto"
-              method="POST"
-              action="#"
-              novalidate
-              aria-label="Formulario de propuesta"
-            >
-              <div class="form-group">
-                <label for="nombre">Nombre</label>
-                <input type="text" id="nombre" name="nombre"
-                  placeholder="Tu nombre" autocomplete="name" required />
+            <form name="contacto" method="POST" action="#" novalidate aria-label="Formulario de propuesta">
+
+              <!-- Campo trampa (honeypot): oculto para humans, los bots
+                   lo rellenan y el envío se descarta sin llegar a la base. -->
+              <div class="hp-field" aria-hidden="true">
+                <label for="empresa">Empresa</label>
+                <input type="text" id="empresa" name="empresa"
+                       tabindex="-1" autocomplete="off" />
               </div>
-              <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email"
-                  placeholder="tu@email.com" autocomplete="email" required />
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="nombre">Nombre</label>
+                  <input type="text" id="nombre" name="nombre" placeholder="Tu nombre completo" autocomplete="name" required />
+                </div>
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input type="email" id="email" name="email" placeholder="tu@email.com" autocomplete="email" required />
+                </div>
               </div>
-              <button type="submit" class="btn-primary">Enviar propuesta →</button>
+
+              <div class="form-group">
+                <label for="mensaje">
+                  Contexto adicional
+                  <span class="field-optional">(opcional)</span>
+                </label>
+                <textarea id="mensaje" name="mensaje" rows="3" placeholder="Contame más sobre tu negocio o proyecto..."></textarea>
+              </div>
+
+              <button type="submit" class="btn-submit">
+                Enviar propuesta <span aria-hidden="true">→</span>
+              </button>
+
             </form>
-          </div>
 
-        </div><!-- /.wizard-viewport -->
-      </div><!-- /#quotation-wizard -->
+          </div><!-- /wizard-step-3 -->
 
+        </div><!-- /#wizard -->
+
+      </div>
     </section>
 
   </main>
 
 
-  <!-- =============================================
-       FOOTER — Cierre y enlaces técnicos
-       ============================================= -->
-  <footer role="contentinfo">
-
-    <p class="footer-brand">Alan.dev</p>
-
-    <!-- Redes técnicas -->
-    <nav aria-label="Redes profesionales">
-      <ul role="list">
-        <li>
-          <a
-            href="https://github.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Perfil de GitHub (abre en nueva pestaña)"
-          >GitHub</a>
-        </li>
-        <li>
-          <a
-            href="https://linkedin.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Perfil de LinkedIn (abre en nueva pestaña)"
-          >LinkedIn</a>
-        </li>
-      </ul>
-    </nav>
-
-    <small>
-      &copy; <time datetime="2025">2025</time> Alan. Todos los derechos reservados.
-    </small>
-
+  <!-- ═══════════════════════════════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════════════════════════════ -->
+  <footer id="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <span class="footer-brand">alan.dev</span>
+      <nav aria-label="Links externos">
+        <ul role="list">
+          <li><a href="https://github.com/gonzalezalan-23"       target="_blank" rel="noopener noreferrer">GitHub ↗</a></li>
+          <li><a href="https://wa.me/5491139053673"              target="_blank" rel="noopener noreferrer">WhatsApp ↗</a></li>
+          <li><a href="https://instagram.com/gonzalezalan.23"    target="_blank" rel="noopener noreferrer">Instagram ↗</a></li>
+          <li><a href="mailto:facundoalanfafa@gmail.com">Email</a></li>
+        </ul>
+      </nav>
+      <small>© 2026 Alan — Todos los derechos reservados</small>
+    </div>
   </footer>
 
+  </div><!-- /.scroll-container -->
 
-  <!-- Script principal — defer garantiza ejecución post-parseo del DOM -->
-  <script src="assets/js/app.js" defer></script>
+  <script src="assets/js/app.js?v=17" defer></script>
 
 </body>
-
 </html>
