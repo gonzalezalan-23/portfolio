@@ -1,22 +1,17 @@
 /* =============================================================
    proyecto.css — Ficha de detalle de proyecto (T2.2)
    Hereda tokens y componentes de styles.css (btn, footer,
-   sidebar, .section-label, .project-stack).
+   topbar, .section-label, .project-stack).
    Plantilla actual: A (caso de negocio) — ver docs/PROYECTOS.md §3.
    ============================================================= */
 
-/* ── Scroll propio: sin snap (la ficha es una lectura continua) ── */
-.pagina-detalle .detalle-scroll {
-  scroll-snap-type: none;
-}
-
 /* ── Contenedor principal ─────────────────────────────────────
-   padding-left 12rem = columna reservada para .line-sidebar
-   (misma medida que .section-inner en la home). */
+   La navegación ahora es horizontal: se recupera el ancho que antes
+   ocupaba el sidebar y se reserva la altura de la barra fija. */
 .detalle-main {
   max-width: 1080px;
   margin: 0 auto;
-  padding: 64px 24px 56px 12rem;
+  padding: calc(var(--topbar-h) + 48px) 24px 56px;
   box-sizing: border-box;
 }
 
@@ -368,10 +363,38 @@
 }
 
 
+/* ── Créditos en equipo (campo `equipo[]` del JSON) ────────── */
+.detalle-equipo {
+  margin-top: 18px;
+  padding: 12px 16px;
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-surface);
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+.detalle-equipo-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  margin-right: 8px;
+}
+.detalle-equipo-persona {
+  color: var(--text);
+  font-weight: 600;
+}
+.detalle-equipo-rol {
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
 /* ── Responsive ────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .pagina-detalle .detalle-main {
-    padding: 40px 1.5rem 40px;
+    padding: calc(var(--topbar-h) + 32px) 1.5rem 40px;
   }
   .pagina-detalle main section.detalle-cta {
     padding: 28px 20px;

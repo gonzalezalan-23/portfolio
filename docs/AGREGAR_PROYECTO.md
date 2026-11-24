@@ -65,6 +65,7 @@ Está en `D:\Portfolio\data\proyectos.json`. Es un archivo de datos (no código)
 | `demo` | Link a la versión funcionando | URL `https://…` o `null` (**si existe, debe abrirse**) |
 | `repo` | Link al código | URL `https://github.com/…` o `null` |
 | `destacado` | ¿Entra al carrusel Órbita? | `true`/`false` — **máximo 6 en total** |
+| `equipo` | Compañeros del proyecto | array de `{ "nombre": "...", "rol": "..." }`; el `rol` es opcional. Si trabajaste solo, `[]` o no lo pongas |
 | `video` | Video corto opcional | URL o `null` |
 
 ### 3b. El mapa `tecnologias` (arriba del todo, fuera de `"proyectos"`)
@@ -74,18 +75,20 @@ código. Está en la raíz del JSON y ya tiene estas categorías:
 
 ```json
 "tecnologias": {
-  "Frontend": ["JS vanilla", "Vue 3", "Tailwind CSS"],
-  "Backend": ["PHP", "Node", "Python"],
-  "Bases de datos": ["MySQL", "SQLite", "Supabase"],
-  "Hardware / IoT": ["Arduino", "ESP32"],
-  "Herramientas / Cloud": ["Vite", "Apache", "vitest"]
+  "Lo que se ve": ["HTML/CSS", "HTML/JS", "JS vanilla", "Vue 3", "Tailwind CSS", "CustomTkinter"],
+  "Detrás de escena": ["PHP", "Python", "Mercado Pago", "IA (Groq)", "EmailJS"],
+  "Datos": ["Supabase", "MySQL", "SQLite", "localStorage"],
+  "Dispositivos": ["Arduino", "Arduino/ESP32", "ESP32", "C++", "WiFi AP", "RF 433 MHz", "Modelado 3D"],
+  "Herramientas": ["Vite"]
 }
 ```
 
 **Regla:** si en un proyecto usás una tecnología nueva, agregala **también**
 al array de la categoría que corresponda (mismo texto, con la misma
 ortografía). El validador te avisa si te olvidaste; mientras tanto la tech
-aparece igual, en un bloque "Otros", para que no se pierda evidencia.
+aparece igual, en un bloque "En proyectos", para que no se pierda evidencia.
+El home muestra chips compactos; `proyectos.html` muestra el catálogo completo
+con filtros por `categoria` y los créditos de `equipo[]`.
 
 ### 3c. Regla de las dos capas (cómo se arma la ficha)
 
@@ -99,7 +102,9 @@ el proyecto en 30 segundos y puedo profundizar si quiere:
 - **Capa 2 (al desplegar "Ficha técnica"):** `stack`, tus `decisiones`
   técnicas y el link a GitHub (`repo`). Si no hay repo, no aparece el link.
 
-> `sistema-sad` es interno: su `repo` tiene que ser **siempre `null`**.
+> Proyectos en equipo: cargá siempre `equipo[]` con nombre y rol real. El
+> catálogo y la ficha lo muestran como "En equipo con…". `sistema-sad` y
+> `python-lab` ya no están en el catálogo.
 
 ### 4. Validá (30 segundos, evita romper nada)
 

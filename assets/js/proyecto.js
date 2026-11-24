@@ -57,29 +57,29 @@
         <li class="process-step">
           <div class="step-marker" aria-hidden="true"><span class="step-num">01</span></div>
           <div class="step-body">
-            <h3>Diagnóstico</h3>
-            <p>Entiendo el problema real antes de escribir una línea de código. Una reunión de 30 minutos define el 80% del proyecto.</p>
+            <h3>Charlamos</h3>
+            <p>Antes de escribir una línea, charlamos 30 minutos. Con eso ya sé qué te pasa y qué necesitás resolver.</p>
           </div>
         </li>
         <li class="process-step">
           <div class="step-marker" aria-hidden="true"><span class="step-num">02</span></div>
           <div class="step-body">
-            <h3>Arquitectura</h3>
-            <p>Diseño la solución más simple que resuelva el problema. Sin sobreingeniería y sin dependencias que no pediste.</p>
+            <h3>Armo el plan</h3>
+            <p>Elijo la forma más simple de resolverlo. Nada de vueltas innecesarias ni cosas que no pediste.</p>
           </div>
         </li>
         <li class="process-step">
           <div class="step-marker" aria-hidden="true"><span class="step-num">03</span></div>
           <div class="step-body">
-            <h3>Desarrollo iterativo</h3>
-            <p>Entrego versiones funcionales desde la primera semana. Feedback real, ajustes reales.</p>
+            <h3>Construyo y te muestro</h3>
+            <p>A la semana ya hay algo que podés probar. Lo probamos juntos y lo ajustamos con lo que me digas.</p>
           </div>
         </li>
         <li class="process-step">
           <div class="step-marker" aria-hidden="true"><span class="step-num">04</span></div>
           <div class="step-body">
-            <h3>Entrega y soporte</h3>
-            <p>Deploy, documentación técnica y soporte post-lanzamiento incluidos. No desaparezco al terminar.</p>
+            <h3>Lo dejo andando</h3>
+            <p>Lo publico, te explico cómo usarlo y sigo cerca por si aparece algo. No desaparezco al terminar.</p>
           </div>
         </li>
       </ol>`;
@@ -93,6 +93,21 @@
     const labelCat = CATEGORIA_LABELS[p.categoria] || p.categoria;
     const metaAnio  = p.anio != null ? `<span class="detalle-meta-item">${esc(p.anio)}</span>` : '';
     const metaRol   = p.rol  ? `<span class="detalle-meta-item">${esc(p.rol)}</span>` : '';
+
+    /* Créditos: los trabajos en equipo se acreditan por nombre (y rol si
+       lo hay), con el mismo formato que el catálogo proyectos.html. */
+    const equipo = (Array.isArray(p.equipo) && p.equipo.length)
+      ? `<p class="detalle-equipo">
+           <span class="detalle-equipo-label">En equipo con</span>
+           ${p.equipo.map(persona => {
+             const nombre = esc(persona.nombre || persona);
+             const rol = persona.rol
+               ? ` <span class="detalle-equipo-rol">(${esc(persona.rol)})</span>`
+               : '';
+             return `<span class="detalle-equipo-persona">${nombre}${rol}</span>`;
+           }).join(', ')}
+         </p>`
+      : '';
 
     /* Capa 1: demo + acceso rápido. Nunca se muestra un botón de demo si
        el JSON no tiene URL (regla de oro: cero demos falsas). El código
@@ -123,7 +138,7 @@
     const decisiones = (Array.isArray(p.decisiones) && p.decisiones.length)
       ? `
         <div class="ficha-tecnica-grupo">
-          <h3>Decisiones técnicas</h3>
+          <h3>Por qué lo hice así</h3>
           <ol class="detalle-decisiones" role="list">
             ${p.decisiones.map(d => `<li>${esc(d)}</li>`).join('')}
           </ol>
@@ -141,12 +156,12 @@
     const fichaTecnica = `
       <details class="ficha-tecnica">
         <summary>
-          <span class="ficha-tecnica-titulo">Stack, decisiones y código</span>
+          <span class="ficha-tecnica-titulo">Herramientas, decisiones y código</span>
           <span class="ficha-tecnica-pista" aria-hidden="true">desplegar ↓</span>
         </summary>
         <div class="ficha-tecnica-body">
           <div class="ficha-tecnica-grupo">
-            <h3>Stack</h3>
+            <h3>Herramientas usadas</h3>
             ${stack}
           </div>
           ${decisiones}
@@ -189,6 +204,7 @@
         <p class="detalle-lead">${esc(p.resumen)}</p>
         ${acciones ? `<div class="detalle-actions">${acciones}</div>` : ''}
         ${acceso}
+        ${equipo}
       </header>
 
       ${bloque('01', 'problema', 'bloque-problema', 'El problema',
@@ -199,12 +215,12 @@
         `<p>${esc(p.resultado)}</p>`)}
       ${bloque('04', 'proceso', 'bloque-proceso', 'Cómo trabajo', PROCESO_HTML)}
       ${bloque('05', 'producto', 'bloque-func', 'Qué hace', funcionalidades)}
-      ${bloque('06', 'arquitectura', 'bloque-stack', 'Ficha técnica', fichaTecnica)}
+      ${bloque('06', 'detalles', 'bloque-stack', 'Cómo está hecho', fichaTecnica)}
       ${bloque('07', 'evidencia', 'bloque-capturas', 'Capturas', capturas)}
 
       <section class="detalle-block detalle-cta" aria-labelledby="bloque-cta">
         <h2 id="bloque-cta">¿Tu proyecto tiene un problema parecido?</h2>
-        <p>Contame qué necesitás y te devuelvo una arquitectura recomendada con propuesta personalizada.</p>
+        <p>Contame qué necesitás y te respondo con una idea clara, un tiempo y un precio.</p>
         <a class="btn-primary" href="index.html#contacto">Quiero algo así →</a>
       </section>
 

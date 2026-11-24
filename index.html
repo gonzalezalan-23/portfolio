@@ -4,12 +4,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Alan, Full Stack. Sistemas a medida que resuelven problemas reales de negocio: problema, solución y resultado — sin humo." />
+  <meta name="description" content="Alan. Armo sistemas y páginas que resuelven problemas concretos de negocio. Te cuento qué pasó, qué hice y qué quedó funcionando." />
   <meta name="author" content="Alan" />
-  <meta property="og:title"       content="Alan.dev — Full Stack Developer" />
-  <meta property="og:description" content="Backend, datos e integraciones. Sistemas a medida que resuelven problemas reales — y siguen funcionando después del launch." />
+  <meta property="og:title"       content="Alan.dev — Sistemas y páginas que funcionan" />
+  <meta property="og:description" content="Trabajo con vos desde la idea hasta que queda andando. Sin palabras raras: qué hace falta, cuánto cuesta y qué vas a obtener." />
   <meta property="og:type"        content="website" />
-  <title>Alan.dev — Full Stack Developer</title>
+  <title>Alan.dev — Sistemas y páginas que funcionan</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -17,7 +17,7 @@
     href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Sans:wdth,wght@75..100,400..700&display=swap"
     rel="stylesheet"
   />
-  <link rel="stylesheet" href="assets/css/styles.css?v=12" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=17" />
 </head>
 
 <body>
@@ -37,63 +37,34 @@
 
 
   <!-- ═══════════════════════════════════════════════════════════
-       NAV — Line Sidebar (position: fixed, fuera del scroll-container)
-       JS añade .is-active al <li> correspondiente a la sección visible.
+       TOPBAR — fija, se comprime al scrollear. El link activo lo
+       marca app.js. En móvil nav.js convierte estos links en
+       hamburguesa + panel, sin duplicar markup.
        ═══════════════════════════════════════════════════════════ -->
-  <nav class="line-sidebar" id="line-sidebar" aria-label="Navegación principal">
-    <ul role="list">
+  <header class="topbar" id="topbar">
+    <div class="topbar-inner">
 
-      <li class="sidebar-item is-active">
-        <a href="#hero" class="sidebar-link" data-target="hero">
-          <span class="sidebar-line" aria-hidden="true"></span>
-          <span class="sidebar-label">00 // HOME</span>
-        </a>
-      </li>
+      <a class="topbar-brand" href="#hero" aria-label="A alan.dev — ir al inicio">
+        <span class="topbar-brand-mark" aria-hidden="true">A</span>
+        <span class="topbar-brand-name">alan<span class="topbar-brand-dot">.</span>dev</span>
+        <span class="topbar-brand-sub" aria-hidden="true">/ portfolio</span>
+      </a>
 
-      <li class="sidebar-item">
-        <a href="#proyectos" class="sidebar-link" data-target="proyectos">
-          <span class="sidebar-line" aria-hidden="true"></span>
-          <span class="sidebar-label">01 // WORK</span>
-        </a>
-      </li>
+      <nav class="topnav" aria-label="Navegación principal">
+        <ul role="list">
+          <li class="topnav-item is-active"><a href="#hero" class="topnav-link" data-target="hero">Inicio</a></li>
+          <li class="topnav-item"><a href="#proyectos" class="topnav-link" data-target="proyectos">Proyectos</a></li>
+          <li class="topnav-item"><a href="#proceso" class="topnav-link" data-target="proceso">Cómo trabajo</a></li>
+          <li class="topnav-item"><a href="#skills" class="topnav-link" data-target="skills">Herramientas</a></li>
+          <li class="topnav-item"><a href="#sobre-mi" class="topnav-link" data-target="sobre-mi">Sobre mí</a></li>
+          <li class="topnav-item"><a href="#formacion" class="topnav-link" data-target="formacion">Formación</a></li>
+        </ul>
+      </nav>
 
-      <li class="sidebar-item">
-        <a href="#proceso" class="sidebar-link" data-target="proceso">
-          <span class="sidebar-line" aria-hidden="true"></span>
-          <span class="sidebar-label">02 // PROCESS</span>
-        </a>
-      </li>
+      <a class="topbar-cta" href="#contacto" data-target="contacto">Hablemos <span aria-hidden="true">↗</span></a>
 
-      <li class="sidebar-item">
-        <a href="#skills" class="sidebar-link" data-target="skills">
-          <span class="sidebar-line" aria-hidden="true"></span>
-          <span class="sidebar-label">03 // STACK</span>
-        </a>
-      </li>
-
-      <li class="sidebar-item">
-        <a href="#sobre-mi" class="sidebar-link" data-target="sobre-mi">
-          <span class="sidebar-line" aria-hidden="true"></span>
-          <span class="sidebar-label">04 // ABOUT</span>
-        </a>
-      </li>
-
-      <li class="sidebar-item">
-        <a href="#formacion" class="sidebar-link" data-target="formacion">
-          <span class="sidebar-line" aria-hidden="true"></span>
-          <span class="sidebar-label">05 // EDUCATION</span>
-        </a>
-      </li>
-
-      <li class="sidebar-item">
-        <a href="#contacto" class="sidebar-link" data-target="contacto">
-          <span class="sidebar-line" aria-hidden="true"></span>
-          <span class="sidebar-label">06 // HIRE</span>
-        </a>
-      </li>
-
-    </ul>
-  </nav>
+    </div>
+  </header>
 
 
   <div class="scroll-container">
@@ -106,16 +77,16 @@
       <div class="section-inner hero-inner">
         <div class="hero-content">
 
-          <h1 id="hero-heading">Construyo sistemas que resuelven problemas reales.</h1>
+          <h1 id="hero-heading">Te armo la herramienta que tu negocio necesita.</h1>
 
           <p class="hero-desc">
-            Backend robusto, lógica de negocio clara y código que escala.
-            Sin magia negra: lo que prometo es lo que queda corriendo.
+            Trabajo con vos desde la idea hasta que queda andando.
+            Sin palabras raras: te digo qué hace falta, cuánto cuesta y qué vas a obtener.
           </p>
 
           <div class="hero-actions">
-            <a href="#proyectos" class="btn-primary">Ver proyectos</a>
-            <a href="#contacto" class="btn-secondary">Cotizar proyecto →</a>
+            <a href="#proyectos" class="btn-primary">Ver trabajos</a>
+            <a href="#contacto" class="btn-secondary">Pedir presupuesto →</a>
           </div>
 
         </div>
@@ -131,14 +102,19 @@
     <section id="proyectos" data-section="proyectos" aria-labelledby="proyectos-heading">
       <div class="section-inner">
 
-        <header class="section-header">
-          <span class="section-label" aria-hidden="true">01 — destacados</span>
-          <h2 id="proyectos-heading">Proyectos reales</h2>
-          <p>Del software al hardware: cada proyecto nació de un problema concreto y terminó con algo funcionando.</p>
-        </header>
+        <div class="section-header-row">
+          <header class="section-header">
+            <span class="section-label" aria-hidden="true">01 — destacados</span>
+            <h2 id="proyectos-heading">Cosas que ya hice y funcionan</h2>
+            <p>Cada una arrancó con un problema concreto y terminó con algo que se usa. Abrí el caso y mirá cómo fue.</p>
+          </header>
+          <a class="all-projects-link" href="proyectos.html">Ver todos los proyectos <span aria-hidden="true">↗</span></a>
+        </div>
 
         <!-- ÓRBITA — carrusel de destacados (render desde data/proyectos.json,
-             filtrando destacado === true y ordenando por `orden`). -->
+             filtrando destacado === true y ordenando por `orden`). La grilla
+             completa vive en proyectos.html para que esta sección entre en
+             una sola pantalla. -->
         <div class="orbita" id="orbita" role="region" aria-roledescription="carrusel"
              aria-label="Proyectos destacados" aria-busy="true">
           <button type="button" class="orbita-btn orbita-prev" aria-label="Proyecto destacado anterior">←</button>
@@ -146,10 +122,6 @@
           <button type="button" class="orbita-btn orbita-next" aria-label="Proyecto destacado siguiente">→</button>
           <div class="orbita-dots" id="orbita-dots"></div>
         </div>
-
-        <!-- Las tarjetas se renderizan desde data/proyectos.json (app.js).
-             Para agregar/quitar proyectos: editar SOLO el JSON. -->
-        <div class="projects-grid" aria-busy="true"></div>
 
       </div>
     </section>
@@ -166,36 +138,36 @@
         <header class="section-header">
           <span class="section-label" aria-hidden="true">02 — proceso</span>
           <h2 id="proceso-heading">Cómo trabajo</h2>
-          <p>Cuatro pasos, siempre los mismos: entender, diseñar, construir y dejar funcionando.</p>
+          <p>Cuatro pasos, siempre los mismos: escucho, pienso, construyo y dejo andando.</p>
         </header>
 
         <ol class="process-list reveal" role="list">
           <li class="process-step">
             <div class="step-marker" aria-hidden="true"><span class="step-num">01</span></div>
             <div class="step-body">
-              <h3>Diagnóstico</h3>
-              <p>Entiendo el problema real antes de escribir una línea de código. Una reunión de 30 minutos define el 80% del proyecto.</p>
+              <h3>Charlamos</h3>
+              <p>Antes de escribir una línea, charlamos 30 minutos. Con eso ya sé qué te pasa y qué necesitás resolver.</p>
             </div>
           </li>
           <li class="process-step">
             <div class="step-marker" aria-hidden="true"><span class="step-num">02</span></div>
             <div class="step-body">
-              <h3>Arquitectura</h3>
-              <p>Diseño la solución más simple que resuelva el problema. Sin sobreingeniería y sin dependencias que no pediste.</p>
+              <h3>Armo el plan</h3>
+              <p>Elijo la forma más simple de resolverlo. Nada de vueltas innecesarias ni cosas que no pediste.</p>
             </div>
           </li>
           <li class="process-step">
             <div class="step-marker" aria-hidden="true"><span class="step-num">03</span></div>
             <div class="step-body">
-              <h3>Desarrollo iterativo</h3>
-              <p>Entrego versiones funcionales desde la primera semana. Feedback real, ajustes reales.</p>
+              <h3>Construyo y te muestro</h3>
+              <p>A la semana ya hay algo que podés probar. Lo probamos juntos y lo ajustamos con lo que me digas.</p>
             </div>
           </li>
           <li class="process-step">
             <div class="step-marker" aria-hidden="true"><span class="step-num">04</span></div>
             <div class="step-body">
-              <h3>Entrega y soporte</h3>
-              <p>Deploy, documentación técnica y soporte post-lanzamiento incluidos. No desaparezco al terminar.</p>
+              <h3>Lo dejo andando</h3>
+              <p>Lo publico, te explico cómo usarlo y sigo cerca por si aparece algo. No desaparezco al terminar.</p>
             </div>
           </li>
         </ol>
@@ -213,9 +185,9 @@
       <div class="section-inner">
 
         <header class="section-header">
-          <span class="section-label" aria-hidden="true">03 — stack</span>
+          <span class="section-label" aria-hidden="true">03 — herramientas</span>
           <h2 id="skills-heading">Con qué construyo</h2>
-          <p>Estas tecnologías no son una lista de deseos: salen de los proyectos que ya están funcionando. Cada una tiene su evidencia.</p>
+          <p>No es una lista de modas: son las herramientas que usé en trabajos que ya están funcionando. Pasá el cursor por cada una y ves dónde.</p>
         </header>
 
         <div id="skills-grid" class="skills-grid-wrap" aria-busy="true"></div>
@@ -233,15 +205,15 @@
         <!-- Marquee decorativo: se mueve con CSS y se detiene con
              prefers-reduced-motion. aria-hidden: no es contenido. -->
         <div class="about-marquee" aria-hidden="true">
-          <span>backend · datos · integraciones · sin humo · backend · datos · integraciones · sin humo · </span>
-          <span>backend · datos · integraciones · sin humo · backend · datos · integraciones · sin humo · </span>
+          <span>gente · ideas · cosas que andan · sin humo · gente · ideas · cosas que andan · sin humo · </span>
+          <span>gente · ideas · cosas que andan · sin humo · gente · ideas · cosas que andan · sin humo · </span>
         </div>
 
-        <p class="eyebrow">// 04. perfil_analitico.log</p>
-        <h2 id="sobre-mi-heading">Un commit a la vez.</h2>
+        <p class="eyebrow">// 04. quién soy</p>
+        <h2 id="sobre-mi-heading">Tengo 17 años y ya dejé cosas andando.</h2>
 
         <div id="reveal-text-target" class="reveal-text-container">
-          <p>INFO PERSONAL: Alan, 17 años, Argentino. Full Stack de verdad: me muevo del database hasta la interfaz sin pedir permiso. Mi fuerte es el backend —permisos, datos, integraciones— porque ahí es donde un proyecto se sostiene o se rompe. Trabajo con una regla: la solución más simple que resuelva el problema, bien construida, documentada y lista para que el próximo dev la entienda sin llamarme.</p>
+          <p>Arranqué en la escuela técnica y seguí por mi cuenta, a fuerza de horas y proyectos reales. Me gusta laburar con otras personas, aprender lo que haga falta y quedarme con lo simple antes que con lo impresionante. Si algo no funciona, lo digo y lo arreglo.</p>
         </div>
 
         <!-- Mini-timeline: conecta la formación con el enfoque, sin repetir
@@ -255,16 +227,14 @@
           <li class="about-timeline-item reveal">
             <span class="about-dot" aria-hidden="true"></span>
             <span class="about-timeline-label">02 — práctica</span>
-            <p>Más de 200 horas construyendo y probando sistemas.</p>
+            <p>+200 horas practicando y armando proyectos reales.</p>
           </li>
           <li class="about-timeline-item reveal">
             <span class="about-dot" aria-hidden="true"></span>
             <span class="about-timeline-label">03 — criterio</span>
-            <p>La solución más simple, bien construida y documentada.</p>
+            <p>Prefiero lo simple y que se entienda, aunque haya que escribir más.</p>
           </li>
         </ol>
-
-        <a class="about-link" href="#formacion">Ver formación completa <span aria-hidden="true">↓</span></a>
 
       </div>
     </section>
@@ -280,8 +250,8 @@
 
         <header class="section-header">
           <span class="section-label" aria-hidden="true">05 — formación</span>
-          <h2 id="formacion-heading">Base técnica, criterio real</h2>
-          <p>Formación formal, práctica sostenida y certificaciones que respaldan lo que construyo.</p>
+          <h2 id="formacion-heading">De dónde vengo</h2>
+          <p>Escuela, práctica y algunos cursos que me fueron dando oficio. Sin títulos inventados.</p>
         </header>
 
         <ol class="formacion-timeline reveal" role="list">
@@ -291,7 +261,7 @@
             <div class="formacion-card">
               <h3>Tecnicatura en Programación</h3>
               <p class="formacion-place">EEST N.° 5 de Berazategui · Buenos Aires</p>
-              <p>Formación técnica en desarrollo de software: de la lógica de negocio a la entrega de sistemas funcionando.</p>
+              <p>Aprendí a pensar un problema y a llevarlo hasta algo que funcione, paso por paso.</p>
             </div>
           </li>
 
@@ -300,7 +270,7 @@
             <div class="formacion-card">
               <h3>+200 horas de práctica</h3>
               <p class="formacion-place">entre cursos y proyectos</p>
-              <p>Horas de ejercicio sostenido convertidas en criterio: cómo se estructura, se prueba y se sostiene un sistema.</p>
+              <p>Horas de práctica que se convirtieron en costumbre: probar, corregir y volver a probar.</p>
             </div>
           </li>
 
@@ -348,11 +318,11 @@
 
         <header class="section-header">
           <span class="section-label" aria-hidden="true">06 — contacto</span>
-          <h2 id="contacto-heading">¿Cuánto cuesta tu proyecto?</h2>
-          <p>Respondé 2 preguntas y recibís una arquitectura recomendada + propuesta personalizada.</p>
+          <h2 id="contacto-heading">¿Qué necesitás? Lo charlamos.</h2>
+          <p>Dos preguntas rápidas y te respondo con una idea clara, un tiempo y un precio. Sin compromiso.</p>
         </header>
 
-        <div id="wizard" class="wizard reveal" aria-label="Asistente de cotización">
+        <div id="wizard" class="wizard reveal" aria-label="Un par de preguntas rápidas">
 
           <!-- Barra de progreso -->
           <div class="wizard-progress" aria-hidden="true">
@@ -372,18 +342,18 @@
               <button class="wizard-option" data-value="ecommerce" data-next="2">
                 <span class="wizard-option-icon" aria-hidden="true">🛒</span>
                 <span class="wizard-option-label">Vender online / Ecommerce</span>
-                <span class="wizard-option-hint" aria-hidden="true">tienda, catálogo, pagos</span>
+                <span class="wizard-option-hint" aria-hidden="true">tienda, catálogo, cobros</span>
               </button>
               <button class="wizard-option" data-value="control-interno" data-next="2">
                 <span class="wizard-option-icon" aria-hidden="true">📦</span>
                 <span class="wizard-option-label">Control interno / Stock</span>
-                <span class="wizard-option-hint" aria-hidden="true">inventario, reportes, roles</span>
+                <span class="wizard-option-hint" aria-hidden="true">stock, reportes, accesos</span>
               </button>
             </div>
           </div>
 
           <!-- PASO 2 -->
-          <div class="wizard-step" id="wizard-step-2" data-step="2" aria-hidden="true">
+          <div class="wizard-step" id="wizard-step-2" data-step="2" aria-hidden="true" inert>
             <p class="wizard-question">
               <span class="wizard-q-num" aria-hidden="true">02.</span>
               ¿Necesita funcionar sin internet?
@@ -392,21 +362,21 @@
               <button class="wizard-option" data-value="offline" data-next="3">
                 <span class="wizard-option-icon" aria-hidden="true">📡</span>
                 <span class="wizard-option-label">Sí, es crítico</span>
-                <span class="wizard-option-hint" aria-hidden="true">modo offline + sincronización</span>
+                <span class="wizard-option-hint" aria-hidden="true">sigue andando sin conexión</span>
               </button>
               <button class="wizard-option" data-value="online" data-next="3">
                 <span class="wizard-option-icon" aria-hidden="true">☁️</span>
                 <span class="wizard-option-label">No, siempre hay conexión</span>
-                <span class="wizard-option-hint" aria-hidden="true">100% en la nube</span>
+                <span class="wizard-option-hint" aria-hidden="true">siempre con internet</span>
               </button>
             </div>
           </div>
 
           <!-- PASO 3 -->
-          <div class="wizard-step" id="wizard-step-3" data-step="3" aria-hidden="true">
+          <div class="wizard-step" id="wizard-step-3" data-step="3" aria-hidden="true" inert>
 
-            <div class="arch-recommendation" role="status" aria-live="polite" aria-label="Arquitectura recomendada">
-              <p class="arch-label" aria-hidden="true">// arquitectura_recomendada.generate()</p>
+            <div class="arch-recommendation" role="status" aria-live="polite" aria-label="Lo que te conviene">
+              <p class="arch-label" aria-hidden="true">// lo que te conviene</p>
               <p class="arch-text" id="arch-text"></p>
             </div>
 
@@ -465,7 +435,6 @@
         <ul role="list">
           <li><a href="https://github.com/gonzalezalan-23"       target="_blank" rel="noopener noreferrer">GitHub ↗</a></li>
           <li><a href="https://wa.me/5491139053673"              target="_blank" rel="noopener noreferrer">WhatsApp ↗</a></li>
-          <li><a href="https://instagram.com/gonzalezalan.23"    target="_blank" rel="noopener noreferrer">Instagram ↗</a></li>
           <li><a href="mailto:facundoalanfafa@gmail.com">Email</a></li>
         </ul>
       </nav>
@@ -475,7 +444,8 @@
 
   </div><!-- /.scroll-container -->
 
-  <script src="assets/js/app.js?v=17" defer></script>
+  <script src="assets/js/nav.js?v=1" defer></script>
+  <script src="assets/js/app.js?v=22" defer></script>
 
 </body>
 </html>

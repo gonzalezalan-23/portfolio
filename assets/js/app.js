@@ -5,7 +5,7 @@
  *   1. initHologramCanvas — Canvas de partículas/threads orbitales bajo el avatar
  *   2. initScrollytelling — IntersectionObserver → intercambia .in-* en el avatar
  *   3. initReveal         — Anima .reveal al entrar en viewport
- *   4. initNavMobile      — Hamburger toggle
+ *   4. (nav.js)           — Barra superior, menú móvil y progreso
  *   5. initWizard         — Pasos del wizard de contacto + pulso del avatar
  *   6. initContactForm    — Validación y envío a Google Sheets (Apps Script)
  */
@@ -260,17 +260,23 @@
   function initScrollytelling() {
     const avatarEl     = avatarVP();
     const AVATAR_CLS   = ['in-hero', 'in-sobre-mi', 'in-skills', 'in-proyectos', 'in-proceso', 'in-formacion', 'in-contacto'];
-    const sidebarItems = document.querySelectorAll('.sidebar-item');
+    const navItems     = document.querySelectorAll('.topnav-item');
+    const navCta       = document.querySelector('.topbar-cta');
     const scrollRoot   = document.querySelector('.scroll-container');
     const secciones    = [...document.querySelectorAll('[data-section]')];
     let actual         = null;
 
-    function syncSidebar(sectionId) {
-      sidebarItems.forEach(item => {
-        const link   = item.querySelector('.sidebar-link');
+    function syncNav(sectionId) {
+      navItems.forEach(item => {
+        const link   = item.querySelector('.topnav-link');
         const target = link?.dataset.target;
-        item.classList.toggle('is-active', target === sectionId);
+        const activo = target === sectionId;
+        item.classList.toggle('is-active', activo);
+        if (activo) link?.setAttribute('aria-current', 'page');
+        else link?.removeAttribute('aria-current');
       });
+      /* Contacto no está en la lista de links: vive en el CTA rojo. */
+      navCta?.classList.toggle('is-active', sectionId === 'contacto');
     }
 
     /* Sección dominante = la que ocupa MÁS PÍXELES del viewport.
@@ -315,8 +321,8 @@
         if (AVATAR_CLS.includes(cls)) avatarEl.classList.add(cls);
       }
 
-      /* b) Line sidebar */
-      syncSidebar(section);
+      /* b) Barra superior */
+      syncNav(section);
 
       /* c) Velocidad del holograma */
       hologram.setSpeed(SPEED_MAP[section] ?? 1);
@@ -332,7 +338,7 @@
     /* Fallback por scroll (rAF-throttled): con secciones mucho más altas
        que el viewport (skills mide ~5×, proyectos ~6×) la sección entrante
        NUNCA cruza el threshold 0.5 y el cruce final de la saliente a veces
-       no notifica — el sidebar/avatar quedaban congelados en la anterior.
+       no notifica — la barra/avatar quedaban congelados en la anterior.
        Recalcular en cada scroll (incluido el final del scroll programático
        por hash) garantiza el estado correcto. La histeresis de
        seccionDominante() evita el flicker. */
@@ -347,7 +353,7 @@
       spyTicking = true;
       /* rAF alinea el cálculo con el pintado. El timeout es un respaldo para
          pestañas en segundo plano / entornos donde rAF se congela: sin él el
-         sidebar y el avatar quedan trabados en la sección inicial (F7 QA). */
+         barra y el avatar quedan trabados en la sección inicial (F7 QA). */
       if (typeof requestAnimationFrame === 'function') requestAnimationFrame(updateSpy);
       setTimeout(updateSpy, 32);
     }, { passive: true });
@@ -401,54 +407,6 @@
       { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
     ));
   }
-
-  function tarjetaProyecto(p) {
-    const label = CATEGORIA_LABELS[p.categoria] || p.categoria;
-    const stack = p.stack.map(s => `<li>${escapeHTML(s)}</li>`).join('');
-    return `
-      <article class="project-card reveal" aria-labelledby="proj-${escapeHTML(p.slug)}-title">
-        <div class="project-card-inner">
-          <header>
-            <span class="project-type">${escapeHTML(label)}</span>
-            <h3 id="proj-${escapeHTML(p.slug)}-title">${escapeHTML(p.titulo)}</h3>
-          </header>
-          <p>${escapeHTML(p.resumen)}</p>
-          <footer>
-            <ul class="project-stack" aria-label="Tecnologías">${stack}</ul>
-            <a href="proyecto.html?slug=${p.slug}" class="project-link">Ver caso completo →</a>
-          </footer>
-        </div>
-      </article>`;
-  }
-
-  async function initProyectosGrid() {
-    const grid = document.querySelector('.projects-grid');
-    if (!grid) return;
-
-    try {
-      /* no-cache: si editás el JSON, la próxima recarga muestra el cambio */
-      const res = await fetch('data/proyectos.json', { cache: 'no-cache' });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data = await res.json();
-      const lista = Array.isArray(data.proyectos)
-        ? [...data.proyectos].sort((a, b) => a.orden - b.orden)
-        : [];
-      if (!lista.length) throw new Error('el array "proyectos" está vacío');
-
-      grid.innerHTML = lista.map(tarjetaProyecto).join('');
-      grid.removeAttribute('aria-busy');
-      observarReveals([...grid.querySelectorAll('.reveal')]);
-    } catch (err) {
-      /* No se rompe el resto del sitio: solo falla esta sección. */
-      console.error('[Proyectos] no se pudo cargar data/proyectos.json:', err);
-      grid.innerHTML = `
-        <p class="projects-error" role="status">
-          No se pudieron cargar los proyectos. Si estás en local, revisá que el sitio
-          se sirva por http (no por archivo directo) y que <code>data/proyectos.json</code> sea JSON válido.
-        </p>`;
-    }
-  }
-
 
   /* ═══════════════════════════════════════════════════════════════
      3c. SKILLS — chips con evidencia, desde los `stack` de data/proyectos.json
@@ -507,27 +465,27 @@
         })
         .filter(b => b.chips.length);
 
-      /* Toda tecnología usada en un proyecto pero aún no categorizada
-         aparece en "Otros": editar el JSON nunca rompe la evidencia. */
+      /* Si el dueño agrega una tecnología nueva y todavía no la categoria,
+         igual aparece: nunca se cae información del JSON. */
       const sinCategoria = ordenadas.filter(s => !asignadas.has(s.key));
-      if (sinCategoria.length) bloques.push({ nombre: 'Otros', chips: sinCategoria });
+      if (sinCategoria.length) bloques.push({ nombre: 'En proyectos', chips: sinCategoria });
 
+      /* Chips compactos: la evidencia va en el tooltip/aria-label para que
+         la sección no se convierta en una lista interminable. */
       const chipHTML = (s) => {
         const n = s.proyectos.length;
-        const ver = s.proyectos.slice(0, 3).map(p => p.titulo).join(' · ');
-        const resto = n > 3 ? ` +${n - 3} más` : '';
+        const ver = s.proyectos.slice(0, 4).map(p => p.titulo).join(' · ');
+        const resto = n > 4 ? ` +${n - 4} más` : '';
+        const detalle = `${ver}${resto}`;
         return `
-          <li class="skill-chip">
-            <div class="skill-top">
-              <span class="skill-name">${escapeHTML(s.label)}</span>
-              <span class="skill-count" aria-label="usado en ${n} proyecto${n === 1 ? '' : 's'}">×${n}</span>
-            </div>
-            <p class="skill-evidencia">${escapeHTML(ver + resto)}</p>
+          <li class="skill-chip" title="Usado en ${detalle}">
+            <span class="skill-name">${escapeHTML(s.label)}</span>
+            <span class="skill-count" aria-label="usado en ${n} proyecto${n === 1 ? '' : 's'}: ${escapeHTML(detalle)}">×${n}</span>
           </li>`;
       };
 
       grid.innerHTML = bloques.map(b => `
-        <section class="skill-category reveal">
+        <section class="skill-category">
           <h3 class="skill-category-title">
             <span aria-hidden="true">// </span>${escapeHTML(b.nombre)}
             <span class="skill-category-count" aria-hidden="true">${b.chips.length}</span>
@@ -659,64 +617,7 @@
   }
 
 
-  /* ═══════════════════════════════════════════════════════════════
-     4. NAV MOBILE — Hamburger toggle
-     ═══════════════════════════════════════════════════════════════ */
-  /* El .line-sidebar es position:fixed y se oculta via CSS en mobile.
-     No requiere lógica JS adicional. */
-  function initNavMobile() {
-    const sidebar = document.querySelector('.line-sidebar');
-    if (!sidebar) return;   /* página sin sidebar (no debería pasar) */
-
-    /* Se genera todo en runtime: ni index.html ni proyecto.html necesitan
-       markup duplicado — los links se clonan del sidebar existente. */
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'nav-toggle';
-    btn.setAttribute('aria-label', 'Abrir menú de navegación');
-    btn.setAttribute('aria-expanded', 'false');
-    btn.setAttribute('aria-controls', 'nav-panel');
-    btn.innerHTML =
-      '<span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>';
-    document.body.appendChild(btn);
-
-    const panel = document.createElement('div');
-    panel.id = 'nav-panel';
-    panel.className = 'nav-overlay';
-    panel.hidden = true;
-    panel.innerHTML =
-      '<nav aria-label="Menú de navegación"><ul role="list">' +
-      [...sidebar.querySelectorAll('.sidebar-link')].map(a => {
-        const label = a.querySelector('.sidebar-label')?.textContent?.trim() || '';
-        const href = a.getAttribute('href') || '#';
-        return `<li><a href="${href}"><span class="nav-line" aria-hidden="true"></span>${label}</a></li>`;
-      }).join('') +
-      '</ul></nav>';
-    document.body.appendChild(panel);
-
-    function abrir() {
-      panel.hidden = false;
-      btn.setAttribute('aria-expanded', 'true');
-      btn.setAttribute('aria-label', 'Cerrar menú de navegación');
-      panel.querySelector('a')?.focus();
-    }
-    function cerrar() {
-      panel.hidden = true;
-      btn.setAttribute('aria-expanded', 'false');
-      btn.setAttribute('aria-label', 'Abrir menú de navegación');
-    }
-
-    btn.addEventListener('click', () => (panel.hidden ? abrir() : cerrar()));
-    /* Clic en cualquier link del panel: navega y cierra */
-    panel.addEventListener('click', e => { if (e.target.closest('a')) cerrar(); });
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape' && !panel.hidden) { cerrar(); btn.focus(); }
-    });
-    /* Si vuelven a desktop, el botón desaparece: el panel no puede quedar huerfano */
-    window.addEventListener('resize', () => {
-      if (window.innerWidth > 768 && !panel.hidden) cerrar();
-    });
-  }
+  /* 4. Navegación: la gestiona nav.js (barra superior + panel móvil). */
 
 
   /* ═══════════════════════════════════════════════════════════════
@@ -742,10 +643,10 @@
     const offline = conexion === 'offline';
     const ecomm   = objetivo === 'ecommerce';
     let base;
-    if (ecomm && offline)  base = 'Arquitectura recomendada:\n→ Frontend PWA con caché offline\n→ SQLite local para operaciones sin red\n→ Sincronización híbrida con Supabase al reconectar\n→ API REST para catálogo y pedidos';
-    else if (ecomm && !offline) base = 'Arquitectura recomendada:\n→ Frontend dinámico con Supabase\n→ PostgreSQL en la nube\n→ API REST para catálogo, carrito y pagos\n→ Autenticación con Supabase Auth';
-    else if (!ecomm && offline) base = 'Arquitectura recomendada:\n→ App web local con SQLite embebido\n→ Sincronización periódica con Supabase Cloud\n→ Panel de reportes con acceso offline\n→ Sin dependencia de conexión constante';
-    else base = 'Arquitectura recomendada:\n→ Sistema web centralizado en Supabase\n→ PostgreSQL con RLS por roles\n→ Dashboard en tiempo real (Supabase Realtime)\n→ Acceso multi-usuario con permisos diferenciados';
+    if (ecomm && offline)  base = 'Lo que te conviene:\n→ Una tienda que siga andando sin internet\n→ Los pedidos se guardan y se envían solos al volver la conexión\n→ Catálogo y cobros fáciles de administrar';
+    else if (ecomm && !offline) base = 'Lo que te conviene:\n→ Una tienda propia, con tu marca y tus cobros\n→ Catálogo, carrito y pagos en un mismo lugar\n→ Accesos distintos para quien administra y quien compra';
+    else if (!ecomm && offline) base = 'Lo que te conviene:\n→ Una herramienta que funcione también sin internet\n→ Los datos se guardan y se acomodan después\n→ Reportes claros para ver cómo va todo';
+    else base = 'Lo que te conviene:\n→ Un sistema único, al que entrás desde donde trabajes\n→ Cada persona ve solo lo que le toca\n→ Datos y reportes al día, sin planillas duplicadas';
     return base + ARCH_CIERRE;
   }
 
@@ -762,8 +663,10 @@
   function transitionStep(currentEl, nextEl, onEnter) {
     currentEl.classList.add('slide-out-left');
     currentEl.setAttribute('aria-hidden', 'true');
+    currentEl.setAttribute('inert', '');
     nextEl.classList.add('slide-right');
     nextEl.removeAttribute('aria-hidden');
+    nextEl.removeAttribute('inert');
     void nextEl.offsetWidth;
     requestAnimationFrame(() => nextEl.classList.remove('slide-right'));
     setTimeout(() => {
@@ -996,9 +899,7 @@
 
     initScrollytelling();
     initReveal();
-    initNavMobile();
     initWizard();
-    initProyectosGrid();   /* tarjetas desde data/proyectos.json (async) */
     initSkills();          /* chips de skills desde los stack del JSON (async) */
     initOrbita();          /* carrusel de destacados desde el JSON (async) */
   }

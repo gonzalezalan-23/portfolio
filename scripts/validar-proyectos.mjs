@@ -22,7 +22,7 @@ const PLANTILLAS = ['A', 'B', 'C'];
 const SLUG_RE = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 const URL_RE = /^https:\/\//;
 const CAPTURA_RE = /^assets\/img\/proyectos\/[a-z0-9-]+\/[a-zA-Z0-9_-]+\.(webp|png|jpg|jpeg|avif)$/;
-const TEC_CATEGORIAS = ['Frontend', 'Backend', 'Bases de datos', 'Hardware / IoT', 'Herramientas / Cloud'];
+const TEC_CATEGORIAS = ['Lo que se ve', 'Detrás de escena', 'Datos', 'Dispositivos', 'Herramientas'];
 
 const errores = [];
 const warnings = [];
