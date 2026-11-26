@@ -23,22 +23,22 @@ El sitio ya está publicado en **https://gonzalezalan-23.github.io/portfolio/**.
 
 8. **Crear repo público `gonzalezalan-23`** y pegar `docs/README-perfil-github.md` como README. GitHub sólo muestra ese README si el repo se llama exactamente como el usuario.
 9. **Completar bio, ubicación y email** del perfil con los textos del draft.
-10. **Descripción del repo `portfolio`** y campo "Website": hoy están vacíos en la API de GitHub.
-11. **README y commits de los repos enlazados:** aplicar `docs/README-Biblioteca-Virtual.md` a Biblioteca. En los demás, revisar mensajes de commit y agregar README breve antes de compartirlos.
+10. **README y commits de los repos enlazados:** aplicar `docs/README-Biblioteca-Virtual.md` a Biblioteca. En los demás, revisar mensajes de commit y agregar README breve antes de compartirlos.
 
 ## Seguridad
 
-12. **Rotar credenciales antiguas de Biblioteca Virtual** si siguen activas: el historial Git contuvo una credencial expuesta y capturas con datos personales. Quitar los archivos actuales no limpia commits anteriores.
-13. **Revisar la demo de ViajesPro** antes de seguir linkeándola: es un ejemplo escolar con datos simulados.
+11. **Rotar credenciales antiguas de Biblioteca Virtual** si siguen activas: el historial Git contuvo una credencial expuesta y capturas con datos personales. Quitar los archivos actuales no limpia commits anteriores.
+12. **Revisar la demo de ViajesPro** antes de seguir linkeándola: es un ejemplo escolar con datos simulados.
 
 ## CV
 
-14. **Variante Web & IoT:** lista para armar cuando quieras; ahí sí van Comando Estelar, ESP32 y C++.
+13. **Variante Web & IoT:** lista para armar cuando quieras; ahí sí van Comando Estelar, ESP32 y C++.
 
 ## Ya resuelto
 
 - GitHub Pages activo en `https://gonzalezalan-23.github.io/portfolio/`, servido desde `main`; el workflow de Actions es sólo de validación.
 - URL pública cargada en el CV (HTML y PDF) y en el README de perfil.
+- Descripción del repo `portfolio` y campo Website cargados en GitHub con esa misma URL.
 - Capturas del catálogo en `NN.webp` (79 en total, 9 de SAD) y originales movidos a `D:\Portfolio-originales-2026-11-26`.
 - SAD reincorporado al catálogo: 9 capturas (se descartaron los 2 mockups previos), deploy de Render y `repo: null`.
 - Validador: 0 errores, 16 advertencias informativas; el sitio se puede publicar.
