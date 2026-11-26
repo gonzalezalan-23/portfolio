@@ -9,13 +9,13 @@ Estado al 26/11/2026, después de ordenar el repo para publicar.
 
 ## Datos reales que faltan (no inventar)
 
-3. **Volumen de SAD:** cantidad de legajos o docentes. Se puede agregar al CV, al portfolio y al README de perfil.
+3. **SAD:** cantidad exacta de legajos/docentes (hoy sólo hay "cerca de 5 años") y link de la documentación en Drive/Docs. Se puede agregar al CV, al portfolio y al README de perfil.
 4. **Volumen de Biblioteca:** `count(*) de libros, préstamos, usuarios` en Supabase. Las 6 pantallas y 4 roles ya están documentados; el catálogo real todavía no está cargado.
 5. **Métrica de CoursED:** usuarios, cursos o ventas; hoy sólo hay funcionalidades.
 
 ## Contenido del portfolio
 
-6. **Orden sugerido de proyectos destacados:** SAD, Biblioteca, CoursED, ScoreEd, Milonga, Totem o Mini Pekka (elegir uno de hardware). Hoy los seis destacados mezclan dos proyectos escolares ajenos y hardware.
+6. **Orden sugerido de proyectos destacados:** SAD, Biblioteca, CoursED, ScoreEd, Milonga, Totem o Mini Pekka (elegir uno de hardware). SAD ya está en el catálogo pero **no** en el carrusel, para no agrandar los seis destacados aprobados. Si querés que entre, hay que sacar uno de los actuales.
 7. **Repos ajenos:** ScoreEd y Nexo Destinos apuntan a `jjclassroomnico`. Si no son tuyos, aclarar crédito o migrar el código a tu cuenta antes de mostrarlos como propios.
 8. **Comando Estelar:** prototipo incompleto. Mantenerlo como *experimento* o sacarlo del portfolio; no va en el CV Web Junior.
 9. **Certificados:** el link a `curso-python-basico-santander.pdf` todavía existe en `index.html`. Si no lo querés mostrar, quitar la tarjeta; si lo querés, revisar que el archivo esté en `assets/img/`.
@@ -38,8 +38,9 @@ Estado al 26/11/2026, después de ordenar el repo para publicar.
 
 ## Ya resuelto
 
-- 58 capturas normalizadas a `NN.webp` y originales movidos a `D:\Portfolio-originales-2026-11-26`.
-- Validador: 0 errores, 15 advertencias informativas; el sitio se puede publicar.
+- Capturas del catálogo en `NN.webp` (81 en total, 9 nuevas de SAD) y originales movidos a `D:\Portfolio-originales-2026-11-26`.
+- SAD reincorporado al catálogo: 11 capturas (9 nuevas + 2 mockups que ya estaban), deploy de Render y `repo: null`.
+- Validador: 0 errores, 16 advertencias informativas; el sitio se puede publicar.
 - CV Web Junior: 1 página, links teal, sin Figma, sin IoT y sin Comando Estelar.
 - Mail profesional en sitio, CV y documentación.
 - Formulario: mayor contraste en la propuesta recomendada (superficie oscura y texto claro, 16,4:1).

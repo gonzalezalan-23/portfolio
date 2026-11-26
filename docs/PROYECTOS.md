@@ -1,7 +1,7 @@
 # MODELO DE DATOS — Proyectos (T1.3)
 
 > Fuente única de verdad: **`data/proyectos.json`** (objeto con `tecnologias` y `proyectos`).
-> El carrusel Órbita del home, el catálogo `proyectos.html` y las 9 fichas de detalle se **generan** de este archivo.
+> El carrusel Órbita del home, el catálogo `proyectos.html` y las 10 fichas de detalle se **generan** de este archivo.
 > Nada de proyecto se duplica en el HTML: si cambia un dato, cambia acá y se propaga.
 
 ---
@@ -125,7 +125,7 @@
 }
 ```
 
-*(Copia real de `data/proyectos.json` — el archivo está poblado con los 9 proyectos vigentes.)*
+*(Copia real de `data/proyectos.json` — el archivo está poblado con los 10 proyectos vigentes.)*
 
 ---
 

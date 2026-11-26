@@ -103,8 +103,9 @@ el proyecto en 30 segundos y puedo profundizar si quiere:
   técnicas y el link a GitHub (`repo`). Si no hay repo, no aparece el link.
 
 > Proyectos en equipo: cargá siempre `equipo[]` con nombre y rol real. El
-> catálogo y la ficha lo muestran como "En equipo con…". `sistema-sad` y
-> `python-lab` ya no están en el catálogo.
+> catálogo y la ficha lo muestran como "En equipo con…". `sistema-sad` volvió
+> al catálogo con el deploy de Render y sin repo público; `python-lab` sigue
+> fuera.
 
 ### 4. Validá (30 segundos, evita romper nada)
 

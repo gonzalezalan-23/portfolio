@@ -47,7 +47,7 @@ Secciones en orden (cada una `min-height:100vh`):
 
 ## 3. Detalle de proyecto — `proyecto.html?slug=<slug>`
 
-- **9 fichas**, generadas desde `data/proyectos.json` (fuente única de verdad). El dueño sacó `sistema-sad` y `python-lab` del catálogo.
+- **10 fichas**, generadas desde `data/proyectos.json` (fuente única de verdad). `sistema-sad` volvió al catálogo; `python-lab` sigue fuera.
 - URL con query param (`proyecto.html?slug=biblioteca-virtual`): GitHub Pages no hace rewrite y así un proyecto nuevo entra **solo con editar el JSON** — sin build ni un archivo HTML por slug.
 - **3 plantillas** (tipos aún **por confirmar** contra la tabla maestra — ver §6):
 
@@ -97,7 +97,7 @@ Secciones en orden (cada una `min-height:100vh`):
 
 ## 6. Por confirmar (bloqueos de T1.3)
 
-1. ~~Tabla maestra de los 12 proyectos~~ → resuelto: la fuente única es `data/proyectos.json` (9 proyectos tras la poda confirmada).
+1. ~~Tabla maestra de los 12 proyectos~~ → resuelto: la fuente única es `data/proyectos.json` (10 proyectos; `sistema-sad` se reincorporó el 26/11/2026 y `python-lab` sigue fuera).
 2. **Las 3 plantillas**: propuse A/B/C arriba (razón: coinciden con las 3 categorías de las tarjetas actuales: Control Interno / Ecommerce / SaaS-Dashboard). Confirmar o corregir.
 3. **Orden final**: ✅ decidido por el dueño e implementado en F7: **Hero → Destacados → Proceso → Stack → Sobre mí → Formación → Contacto**. Los proyectos van temprano porque venden; Sobre mí y Formación quedan como respaldo, después de saber qué hace y cómo trabaja.
-4. **Los 9 proyectos**: confirmados por el dueño; `sistema-sad` y `python-lab` quedaron fuera del catálogo. Ver `INVENTARIO_2026.md` para el histórico.
+4. **Los 10 proyectos**: confirmados por el dueño; `sistema-sad` se reincorporó con `repo: null` (sólo deploy en Render, acceso interno) y `python-lab` quedó fuera. Ver `INVENTARIO_2026.md` para el histórico.
