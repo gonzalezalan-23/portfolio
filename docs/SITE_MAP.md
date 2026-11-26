@@ -41,7 +41,7 @@ Secciones en orden (cada una `min-height:100vh`):
 |------------|----------|--------|
 | Desktop (≥981px) | `.topbar` fija: marca + 6 links (Inicio, Proyectos, Cómo trabajo, Herramientas, Sobre mí, Formación) + CTA rojo "Hablemos" | ✅ se comprime al scrollear y muestra línea de progreso |
 | Mobile (≤980px) | Hamburguesa dentro de la barra + panel clonado de los links por `nav.js` | ✅ probado en 390/557/768px; Escape y resize cierran el panel |
-| Footer (todas las rutas) | marca + enlaces reales | ✅ GitHub `gonzalezalan-23`, WhatsApp `5491139053672`, mail `gonzalez.alan.dev@gmail.com`. Sin Instagram ni LinkedIn |
+| Footer (todas las rutas) | marca + enlaces reales | ✅ logos SVG de GitHub `gonzalezalan-23` y WhatsApp `5491139053672`, link al formulario y mail `gonzalez.alan.dev@gmail.com`. En Avengers se suma el logo de Insta (handle sólo en el href). Sin LinkedIn |
 
 ---
 

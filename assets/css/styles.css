@@ -1584,6 +1584,21 @@ main > section + section { border-top: 1px solid var(--border); }
 
 .footer-inner nav a:hover { color: var(--accent); }
 
+/* Redes sociales del footer: logo en vez de texto. El nombre queda en
+   aria-label; el SVG hereda currentColor para respetar ambos modos. */
+.footer-inner nav a.footer-social {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+}
+.footer-inner nav a.footer-social svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
 .footer-inner small {
   font-size: 12px;
   color: var(--text-muted);

@@ -26,6 +26,14 @@
     url: 'https://www.instagram.com/gonzalezalan.23/',
   };
 
+  const ICONO_IG =
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" ' +
+    'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' +
+    '<rect x="3" y="3" width="18" height="18" rx="5"/>' +
+    '<circle cx="12" cy="12" r="4"/>' +
+    '<circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>' +
+    '</svg>';
+
   const OCULTAS = ['proyectos', 'proceso', 'skills', 'formacion'];
 
   const HERO_SECRETO = {
@@ -129,7 +137,7 @@
       'aria-label',
       'Instagram de Alan: ' + INSTAGRAM.usuario + ' ↗ (se abre en pestaña nueva)'
     );
-    ig.textContent = INSTAGRAM.usuario + ' ↗';
+    ig.innerHTML = ICONO_IG;
     contenedor.appendChild(ig);
   }
 
@@ -182,13 +190,7 @@
       'aria-label',
       'Instagram de Alan: ' + INSTAGRAM.usuario + ' ↗ (se abre en pestaña nueva)'
     );
-    ig.innerHTML =
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" ' +
-      'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
-      '<rect x="3" y="3" width="18" height="18" rx="5"/>' +
-      '<circle cx="12" cy="12" r="4"/>' +
-      '<circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>' +
-      '</svg>';
+    ig.innerHTML = ICONO_IG;
     bar.appendChild(ig);
 
     const back = document.createElement('button');

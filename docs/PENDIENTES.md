@@ -37,8 +37,9 @@ El sitio ya está publicado en **https://gonzalezalan-23.github.io/portfolio/**.
 ## Ya resuelto
 
 - GitHub Pages activo en `https://gonzalezalan-23.github.io/portfolio/`, servido desde `main`; el workflow de Actions es sólo de validación.
-- URL pública cargada en el CV (HTML y PDF) y en el README de perfil.
+- URL pública cargada en el README de perfil; en el CV se prefirió no incluirla para mantener el encabezado en una línea (está en la descripción/Website del repo).
 - Descripción del repo `portfolio` y campo Website cargados en GitHub con esa misma URL.
+- Footer con logos SVG en vez de texto para GitHub, WhatsApp e Insta; el handle de Instagram sigue sólo en el href.
 - Capturas del catálogo en `NN.webp` (79 en total, 9 de SAD) y originales movidos a `D:\Portfolio-originales-2026-11-26`.
 - SAD reincorporado al catálogo: 9 capturas (se descartaron los 2 mockups previos), deploy de Render y `repo: null`.
 - Validador: 0 errores, 16 advertencias informativas; el sitio se puede publicar.
