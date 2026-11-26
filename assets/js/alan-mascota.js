@@ -54,12 +54,18 @@
     'Todo bien por acá 🧉. El mate no se cae.',
     'Sigo acá, como diría Alan: probando nomás 😃.',
     'Hola hola 👋. Vos mandá, yo acompaño.',
+    'Hice una lista de tareas. Tenía tres ítems y ya me aburrí 🙃',
+    'Aviso: estoy brillante. No sé si es talento o el brillo de la pantalla 😎',
   ];
   const SALUDOS_JARVIS = [
     'JARVIS en línea. ¿Qué necesitás, jefe? 😎',
     'Calculando mate, cables y chistes malos 😜',
     'Modo Avengers: yo pongo la voz, Alan pone el warnings 🤓',
     'No vendo nada. Sólo muestro lo que hay adentro 😎',
+    'Soy un asistente con opinión. La mayoría de los asistentes sólo tienen WiFi 😏',
+    'Si la elegancia fuera un bug, ya la habría reportado dos veces 😎',
+    'Alan dice que soy exagerado. Yo digo que él subestima el drama 🤓',
+    'Hay dos tipos de personas: las que leen las instrucciones y las que hacen que las escriba yo 😈',
   ];
 
   function pagina() {
@@ -118,6 +124,8 @@
       'Aviso: esto tiene menos reuniones y más risas que cualquier proyecto 😜',
       'JARVIS aprueba los gustos de Alan. Su humor, en cambio, necesita mantenimiento 🤓',
       'Si esto fuera un error, ya lo habríamos llamado “función nueva” 😈',
+      'JARVIS confirma: {titulo} tiene más personalidad que el endpoint de login 😎',
+      'Eso va en la bóveda. Si un auditor pregunta, era documentación 😏',
     ],
   };
 
@@ -136,7 +144,7 @@
       id: 'cta',
       selector: '.topbar-cta',
       client: 'Ahí va el formulario. Mandale nomás 😃',
-      secret: 'Mandale, yo escucho y filtro todo 😎',
+      secret: 'Mandale. Yo filtro el ruido y dejo pasar el talento 😎',
       estado: 'saluda',
       duracion: 4200,
     },
@@ -144,7 +152,7 @@
       id: 'proyecto',
       selector: '.project-link, .proyecto-tarjeta',
       client: 'Abrí esa ficha: ahí están el problema y la solución 🧐',
-      secret: 'Esa ficha es modo cliente. Acá somos más de persona 😎',
+      secret: 'Esa ficha está en modo cliente. Acá hacemos código con sentimiento 😎',
       estado: 'curioso',
       duracion: 4200,
     },
@@ -152,7 +160,7 @@
       id: 'ig',
       selector: '.footer-ig, .secret-bar-ig',
       client: 'Insta ↗',
-      secret: 'Insta, sin handle y sin vueltas 😎',
+      secret: 'Insta: la red social donde hasta el mate tiene filtro 😎',
       estado: 'saluda',
       duracion: 4200,
     },
@@ -160,7 +168,7 @@
       id: 'volver',
       selector: '.secret-bar-back',
       client: null,
-      secret: '¿Volvés al modo cliente? Me voy a extrañar 😜',
+      secret: '¿Volvés al modo cliente? Me voy a extrañar. Lo diré con elegancia 😜',
       estado: 'enojado',
       duracion: 4600,
     },
@@ -185,7 +193,7 @@
       id: 'formulario',
       selector: 'input, textarea',
       client: 'Escribí nomás, el formulario espera 👋',
-      secret: 'Dejale un mensaje a Alan; yo lo custodio 😎',
+      secret: 'Dejale un mensaje a Alan. Yo lo custodio como quien cuida un café antes del primer deploy 😎',
       estado: 'saluda',
       duracion: 4200,
     },
@@ -213,6 +221,8 @@
     'está en modo "después vemos"',
     'salió bien, pero con drama',
     'se arregló con mate',
+    'terminó pidiendo disculpas en el commit',
+    'aprobó la prueba, no así mi paciencia',
   ];
   const PLANTILLAS = {
     client: [
@@ -228,6 +238,8 @@
       '{tema} hizo su versión de “va a salir bien”. Spoiler: {resultado} 😈',
       'Con {tema} aprendimos que {resultado}. Treinta segundos de silencio, por favor 🤓',
       '{tema} salió y {resultado}. Lo digo con cara de poker, jefe 😎',
+      'Informe técnico: {tema} {resultado}. Traducción: fue interesante 😏',
+      '{tema} se dio el lujo de {resultado}. Yo también, pero con estilo 🤓',
     ],
   };
 

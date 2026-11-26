@@ -36,7 +36,7 @@
   };
 
   const SOBRE_SECRETO = {
-    eyebrow: '// 04. la persona',
+    eyebrow: '// detrás del código · la persona',
     titulo: 'Alan González. La persona detrás de esto.',
     texto:
       'Me gusta la música: bajo, guitarra y teclado, rock de entrada y cumbia para bailar. Me gusta el voley, aunque la técnica no me deja tiempo. Vi casi todas las películas de Marvel y estoy esperando Doomsday. Soy scout asambleísta de la D3Z6, presidente del centro de estudiantes y voy a la iglesia. Autodidacta por costumbre: si no sé algo, lo busco, lo pruebo y vuelvo.',
@@ -62,6 +62,7 @@
 
   let originalHero = null;
   let originalSobre = null;
+  let originalContactoLabel = null;
   let eggShown = false;
 
   function activo() {
@@ -332,7 +333,12 @@
     const texto = section.querySelector('#reveal-text-target p');
     const cita = section.querySelector('.about-quote');
     const metricas = [...section.querySelectorAll('.about-pulse-item')];
+    const contactoLabel = document.querySelector('#contacto .section-label');
     if (!h2 || !texto || !cita) return;
+
+    if (contactoLabel && !originalContactoLabel) {
+      originalContactoLabel = contactoLabel.textContent;
+    }
 
     if (!originalSobre) {
       originalSobre = {
@@ -350,6 +356,9 @@
 
     if (encendido) {
       if (eyebrow) eyebrow.textContent = SOBRE_SECRETO.eyebrow;
+      /* En modo Avengers se ocultan proyectos/proceso/skills/formación:
+         numerar "04" sería contradictorio. Etiquetas sin número. */
+      if (contactoLabel) contactoLabel.textContent = '// escribirme';
       h2.textContent = SOBRE_SECRETO.titulo;
       h2.setAttribute('aria-label', SOBRE_SECRETO.titulo);
       h2.removeAttribute('aria-hidden');
@@ -366,6 +375,9 @@
       });
     } else {
       if (eyebrow) eyebrow.textContent = originalSobre.eyebrow;
+      if (contactoLabel && originalContactoLabel) {
+        contactoLabel.textContent = originalContactoLabel;
+      }
       h2.textContent = originalSobre.h2;
       if (originalSobre.h2Aria) h2.setAttribute('aria-label', originalSobre.h2Aria);
       else h2.removeAttribute('aria-label');
@@ -428,7 +440,7 @@
     section.innerHTML =
       '<div class="section-inner">' +
         '<header class="section-header lab-header">' +
-          '<span class="section-label" aria-hidden="true">// 05. mi mundo</span>' +
+          '<span class="section-label" aria-hidden="true">// mi mundo · bóveda A.L.A.N.</span>' +
           '<h2 id="lab-heading">Esto es lo que me mueve.</h2>' +
           '<p>No es una lista de habilidades. Es lo que hago cuando nadie me está mirando: música, voley, Marvel, scout, asamblea, iglesia y un cerebro que no para.</p>' +
           '<div class="secret-collage" aria-hidden="true">' +

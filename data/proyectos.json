@@ -127,8 +127,8 @@
       "anio": 2026,
       "rol": "Análisis de requerimientos y Documentación",
       "equipo": [
-        { "nombre": "Nicolás Caballero" },
-        { "nombre": "Tobías Musil" }
+        { "nombre": "Nicolás Caballero", "rol": "Desarrollo Full Stack y Documentación" },
+        { "nombre": "Tobías Musil", "rol": "Diseño" }
       ],
       "resumen": "Un sitio para seguir torneos escolares: resultados, tabla de posiciones y próximos partidos.",
       "problema": "Los resultados se anotaban a mano y cada equipo podía tener una versión distinta de la tabla.",
@@ -270,11 +270,11 @@
       "plantilla": "C",
       "orden": 7,
       "anio": 2026,
-      "rol": "Analista de requerimientos y Desarrollador de software",
+      "rol": "Análisis de requerimientos y Desarrollo de software",
       "equipo": [
-        { "nombre": "Thiago Cuervo" ,"rol": "Documentador" },
-        { "nombre": "Joaquín Obregón" ,"rol": "Desarrollador de hardware" },
-        { "nombre": "Alondra Peralta" ,"rol": "Desarrollador de hardware" }
+        { "nombre": "Thiago Cuervo" ,"rol": "Documentación" },
+        { "nombre": "Joaquín Obregón" ,"rol": "Desarrollo de hardware" },
+        { "nombre": "Alondra Peralta" ,"rol": "Desarrollo de hardware" }
       ],
       "resumen": "Un puesto de información que saluda a quien se acerca y cuenta datos de la escuela con una cara animada.",
       "problema": "La escuela quería recibir a los visitantes con un punto de información que no necesitara una persona atendiéndolo.",
@@ -302,9 +302,9 @@
       "plantilla": "C",
       "orden": 8,
       "anio": 2026,
-      "rol": "Desarrollador de software, Documentador",
+      "rol": "Desarrollo de software, Documentación",
       "equipo": [
-        { "nombre": "Nicolás Caballero", "rol": "desarrollador de hardware" },
+        { "nombre": "Nicolás Caballero", "rol": "Desarrollo de hardware" },
         { "nombre": "Guadalupe Arrieta", "rol": "Asistente" }
       ],
       "resumen": "Un robot para las tres pruebas de un torneo: sumo, seguidor de línea y despeje, con control desde el celular.",
@@ -338,10 +338,10 @@
       "plantilla": "C",
       "orden": 9,
       "anio": 2026,
-      "rol": "Desarrollo de hardware · equipo de 3",
+      "rol": "Desarrollo de software y Documentación",
       "equipo": [
-        { "nombre": "Guadalupe Arrieta", "rol": "asistente" },
-        { "nombre": "Nicolás Caballero", "rol": "desarrollador de Hardware" }
+        { "nombre": "Guadalupe Arrieta", "rol": "Asistente" },
+        { "nombre": "Nicolás Caballero", "rol": "Desarrollo de hardware" }
       ],
       "resumen": "Una central de alarma para avisarse entre vecinos, con pantalla y avisos que llegan sin internet.",
       "problema": "Una comunidad necesitaba avisarse ante emergencias sin depender del celular ni de una aplicación para instalar.",

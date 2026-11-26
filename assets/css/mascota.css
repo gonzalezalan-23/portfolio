@@ -165,6 +165,7 @@ html[data-theme="doomsday"] #alan-mascota {
 
 @media (max-width: 720px) {
   #alan-mascota {
+    --m-size: clamp(72px, 20vw, 96px);
     right: 12px;
     left: auto;
     bottom: 12px;

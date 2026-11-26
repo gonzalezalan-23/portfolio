@@ -42,3 +42,6 @@ Estado al 26/11/2026, después de ordenar el repo para publicar.
 - Validador: 0 errores, 15 advertencias informativas; el sitio se puede publicar.
 - CV Web Junior: 1 página, links teal, sin Figma, sin IoT y sin Comando Estelar.
 - Mail profesional en sitio, CV y documentación.
+- Formulario: mayor contraste en la propuesta recomendada (superficie oscura y texto claro, 16,4:1).
+- Modo Avengers: etiquetas sin numeración y collage compacto en móvil, sin tapar los hobbies.
+- Mascota: frases nuevas con humor tipo Tony Stark, sin repetir epígrafes.

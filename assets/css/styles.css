@@ -1301,14 +1301,26 @@ main > section + section { border-top: 1px solid var(--border); }
 .wizard-option-label { font-size: 14px; font-weight: 600; color: var(--text); }
 .wizard-option-hint  { font-size: 12px; color: var(--text-muted); }
 
-/* Arquitectura recomendada — "pantalla secundaria" roja con texto negro */
+/* Arquitectura recomendada: superficie elevada y texto claro. El bloque
+   rojo sólido tenía contraste aceptable (5,4:1) pero cansaba la lectura. */
 .arch-recommendation {
-  background-color: var(--accent);
-  border: 1px solid var(--accent);
+  position: relative;
+  background-color: #171717;
+  border: 1px solid rgba(255, 45, 45, 0.55);
+  border-left: 3px solid var(--accent);
   border-radius: var(--radius-sm);
   padding: 16px 18px;
   margin-bottom: 20px;
-  box-shadow: 0 0 36px rgba(255, 45, 45, 0.18);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.arch-recommendation::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(255, 45, 45, 0.08), transparent 62%);
+  pointer-events: none;
 }
 
 .arch-label {
@@ -1316,7 +1328,7 @@ main > section + section { border-top: 1px solid var(--border); }
   font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 600;
-  color: var(--on-accent);
+  color: var(--accent-strong);
   margin-bottom: 8px;
   letter-spacing: 0.05em;
 }
@@ -1324,14 +1336,14 @@ main > section + section { border-top: 1px solid var(--border); }
 .arch-text {
   font-family: var(--font-mono);
   font-size: 13px;
-  color: var(--on-accent);
+  color: #F5F5F5;
   line-height: 1.8;
   white-space: pre-wrap;
 }
 
 .arch-text.typing::after {
   content: '█';
-  color: var(--on-accent);
+  color: var(--accent-strong);
   animation: blink 800ms step-end infinite;
 }
 
