@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200" role="img" aria-label="Iguazú">
+  <defs>
+    <linearGradient id="c" x2="0" y2="1"><stop stop-color="#8ecae6"/><stop offset="1" stop-color="#cde7b0"/></linearGradient>
+  </defs>
+  <rect width="300" height="200" fill="url(#c)"/>
+  <rect x="35" y="30" width="230" height="150" rx="10" fill="#2a7f62"/><path d="M70 40h160v75c-25 18-55 18-80 0-25 18-55 18-80 0z" fill="#8ce0ff"/><path d="M70 115h160v65H70z" fill="#bdf0ff" opacity=".65"/>
+  <rect x="8" y="164" width="284" height="28" rx="8" fill="#080808" opacity=".72"/>
+  <text x="22" y="183" fill="#fff" font-family="Segoe UI, sans-serif" font-size="14" font-weight="600">Iguazú</text>
+</svg>

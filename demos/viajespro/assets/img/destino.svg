@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200" role="img" aria-label="Destino">
+  <defs>
+    <linearGradient id="c" x2="0" y2="1"><stop stop-color="#8ecae6"/><stop offset="1" stop-color="#cde7b0"/></linearGradient>
+  </defs>
+  <rect width="300" height="200" fill="url(#c)"/>
+  <path d="M0 160 120 90l60 70 55-60 65 60v40H0z" fill="#355c7d"/><path d="M130 200 175 110l18 90z" fill="#ffd166"/>
+  <rect x="8" y="164" width="284" height="28" rx="8" fill="#080808" opacity=".72"/>
+  <text x="22" y="183" fill="#fff" font-family="Segoe UI, sans-serif" font-size="14" font-weight="600">Destino</text>
+</svg>

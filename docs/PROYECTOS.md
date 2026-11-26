@@ -1,7 +1,7 @@
 # MODELO DE DATOS — Proyectos (T1.3)
 
 > Fuente única de verdad: **`data/proyectos.json`** (objeto con `tecnologias` y `proyectos`).
-> El carrusel Órbita del home, el catálogo `proyectos.html` y las 10 fichas de detalle se **generan** de este archivo.
+> El carrusel Órbita del home, el catálogo `proyectos.html` y las 9 fichas de detalle se **generan** de este archivo.
 > Nada de proyecto se duplica en el HTML: si cambia un dato, cambia acá y se propaga.
 
 ---
@@ -29,6 +29,7 @@
 | `capturas` | string[] | ✅ | paths relativos `assets/img/proyectos/<slug>/NN.webp`; **mín. 1** para el corte, ideal 3–5; webp ≤ 200 KB c/u |
 | `demo` | string \| null | ⚠️ | **si existe debe responder 200** (requisito de recepción R9). `null` si no hay |
 | `repo` | string \| null | ⚠️ | si existe: URL de `github.com/gonzalezalan-23/…`; `null` si es privado/inexistente |
+| `documentacion` | string \| null | ⚠️ | link de Google Drive/Google Docs con la documentación del proyecto (archivo o carpeta). Se muestra como acción secundaria **“Ver documentación”**; `null` mientras no se cargue |
 | `destacado` | boolean | ✅ | `true` solo en los elegibles para el Órbita (máx. 6 — elegidos por el dueño) |
 | `video` | string \| null | ❌ | opcional: screencast corto (webm/mp4) si existe |
 
@@ -55,7 +56,8 @@
 ```
 
 - `version`: para migraciones futuras del formato.
-- `tecnologias`: mapa raíz curado que arma la sección Stack del home por categorías (chips compactos; la evidencia va en `title`/`aria-label`). Lo que no esté en el mapa cae en "En proyectos", no se pierde.
+- `tecnologias`: mapa raíz curado que arma la sección Stack del home por categorías (tarjetas con logo SVG local y los proyectos donde se usó cada herramienta). Lo que no esté en el mapa cae en "En proyectos", no se pierde.
+- Catálogo `proyectos.html`: cada tarjeta muestra solo imagen, categoría, título, resumen y colaboradores. `problema`, `solucion`, `resultado`, `stack` y `decisiones` se leen en la ficha completa, no se duplican en el listado.
 - El archivo se valida con un checklist antes de cada deploy: slugs únicos, `orden` sin huecos, demos respondiendo 200, `resumen` ≤160 y regla de dos capas.
 
 ---
@@ -117,12 +119,13 @@
   ],
   "demo": "https://alan-gonzalez-23.github.io/Biblioteca-Virtual/",
   "repo": "https://github.com/alan-gonzalez-23/Biblioteca-Virtual",
+  "documentacion": null,
   "destacado": true,
   "video": null
 }
 ```
 
-*(Copia real de `data/proyectos.json` — el archivo está poblado con los 10 proyectos vigentes.)*
+*(Copia real de `data/proyectos.json` — el archivo está poblado con los 9 proyectos vigentes.)*
 
 ---
 
@@ -140,5 +143,6 @@
 - [ ] `decisiones`: 2–3 textos por proyecto (Capa 2 de la ficha)
 - [ ] `equipo[]`: nombres y roles reales en los trabajos en equipo (ScoreEd, ViajesPro, Biblioteca, Tótem, Mini Pekka, Monumento, Comando Estelar, Milonga)
 - [ ] `repo`: apuntan a `gonzalezalan-23` o a la cuenta real del proyecto (los `null` no renderizan enlace)
+- [ ] `documentacion`: link de Drive/Docs cargado (o `null` con aviso pendiente)
 - [ ] `destacado: true` ≤ 6 proyectos
 - [ ] Todo campo de texto sin placeholders ni lorem ipsum

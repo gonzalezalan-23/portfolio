@@ -1,0 +1,103 @@
+{
+  "version": 1,
+  "nota": "Bóveda de gustos y experimentos. No es un portfolio técnico: es lo que me movió mientras aprendía.",
+  "experimentos": [
+    {
+      "clave": "MARK-I",
+      "titulo": "Bajo, guitarra y teclado",
+      "estado": "en vivo",
+      "descripcion": "Tres instrumentos, un mismo problema: si el ritmo afloja, todo se desarma. Ensayo, error y otra vez.",
+      "chiste": "Si suena raro, es estilo. Si suena muy raro, es cumbia.",
+      "meta": "Rock de entrada · cumbia para bailar",
+      "icono": "musica",
+      "imagen": "assets/img/Sin Ensayo.png",
+      "alt": "Escena de ensayo de la banda"
+    },
+    {
+      "clave": "PROTOCOLO CANCHA",
+      "titulo": "Voley",
+      "estado": "en espera",
+      "descripcion": "Me gusta, pero la técnica no me deja tiempo. Igual sé dónde está la red y cuándo gritar ¡vamos!.",
+      "chiste": "(Spoiler, no bloqueó)",
+      "meta": "La técnica me gana por ahora",
+      "icono": "voley",
+      "imagen": "assets/img/Voley.png",
+      "alt": "Foto de voley"
+    },
+    {
+      "clave": "ARCHIVO MARVEL",
+      "titulo": "Casi todas las pelis",
+      "estado": "actualizando",
+      "descripcion": "Vi casi todo el universo. Ahora espero Doomsday con la calma de quien ya sabía que iban a volver a juntarlos.",
+      "chiste": "Spoilers: no. Teorías: muchas. Paciencia para Doomsday: cero.",
+      "meta": "Spoilers: no",
+      "icono": "escudo",
+      "imagen": "assets/img/Alan G - Avengers.png",
+      "alt": "Alan con estética Avengers Doomsday"
+    },
+    {
+      "clave": "D3Z6",
+      "titulo": "Asamblea scout",
+      "estado": "activo",
+      "descripcion": "D3Z6. Asambleísta. Aprendí a escuchar antes de hablar y a hacer lo que toca sin que me lo pidan dos veces.",
+      "chiste": "Asamblea: donde «una palabra» dura cuarenta minutos.",
+      "meta": "Scout de los de quedarse",
+      "icono": "scout",
+      "imagen": "assets/img/Grupo-scout.png",
+      "alt": "Grupo scout de la D3Z6"
+    },
+    {
+      "clave": "CENTRO DE ESTUDIANTES",
+      "titulo": "Presidente",
+      "estado": "en curso",
+      "descripcion": "Reuniones, notas y café. Representar a los cursos me enseñó que un acuerdo a medias no es acuerdo.",
+      "chiste": "Presidente, o sea: el que escribe el acta y después se entera de lo que firmó.",
+      "meta": "Actas, no discursos",
+      "icono": "asamblea"
+    },
+    {
+      "clave": "BLOQUE DOMÉSTICO",
+      "titulo": "Iglesia",
+      "estado": "fijo",
+      "descripcion": "Un lugar para bajar el volumen, ordenar las ideas y volver con la cabeza más liviana.",
+      "chiste": "Lugar para bajar el volumen. Literal y figurado.",
+      "meta": "Sin ruido, con gente",
+      "icono": "iglesia",
+      "imagen": "assets/img/Iglesia.png",
+      "alt": "Iglesia a la que va Alan"
+    },
+    {
+      "clave": "MODO HIPER",
+      "titulo": "No me quedo quieto",
+      "estado": "permanente",
+      "descripcion": "Si estoy sentado, algo está pensando por mi cuenta. Camino, escribo, cambio de tema y vuelvo. Autodidacta por costumbre.",
+      "chiste": "Sentarse a pensar también cuenta como movimiento.",
+      "meta": "Ensayo · error · insisto",
+      "icono": "rayo",
+      "imagen": "assets/img/Alan.png",
+      "alt": "Foto de Alan"
+    },
+    {
+      "clave": "PROTOCOLO MATE",
+      "titulo": "Mucho mate",
+      "estado": "permanente",
+      "descripcion": "El termo siempre está a mano. Si algo no anda, primero reviso el mate y después el código.",
+      "chiste": "El mate es el único sistema que nunca se cae. Aunque se enfría, y ahí sí hay problema.",
+      "meta": "Cebadura continua · Berazategui",
+      "icono": "mate",
+      "imagen": "assets/img/Mate.png",
+      "alt": "Mate cebado"
+    },
+    {
+      "clave": "CHASIS DESARMADO",
+      "titulo": "Robótica",
+      "estado": "en taller",
+      "descripcion": "Sensores, motores y pruebas en la mesa. Sumo, seguidor y despeje: si se enreda, se arregla.",
+      "chiste": "Ignoren la cantidad de cables en ese auto: funciona. Hasta que se enreda.",
+      "meta": "Cables de más · lógica de menos",
+      "icono": "robot",
+      "imagen": "assets/img/Auto-destruido.png",
+      "alt": "Auto desarmado con cables a la vista"
+    }
+  ]
+}

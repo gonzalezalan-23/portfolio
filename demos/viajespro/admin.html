@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administrativo - ViajesPro</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="main-header admin-header">
+        <div class="container header-container">
+            <div class="logo"><a href="index.html">ViajesPro Admin</a></div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="catalog.html">Paquetes</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions" id="headerActions">
+                <!-- Contenido dinámico (nombre admin, salir) -->
+            </div>
+            <div class="mobile-menu-toggle">☰</div>
+        </div>
+    </header>
+
+    <!-- El resto del admin.html se mantiene igual -->
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <ul>
+                <li><a href="#" data-section="dashboard" class="active">Dashboard</a></li>
+                <li><a href="#" data-section="productos">Productos</a></li>
+                <li><a href="#" data-section="pedidos">Pedidos pendientes</a></li>
+                <li><a href="#" data-section="cuenta">Estado de cuenta</a></li>
+                <li><a href="#" data-section="email">Destinatarios email</a></li>
+            </ul>
+        </aside>
+        <main class="dashboard-content">
+            <div id="dashboard" class="admin-section active">
+                <div class="kpi-cards" id="adminKpis"></div>
+                <h2>Actividad reciente</h2>
+                <div id="recentActivity"></div>
+            </div>
+            <div id="productos" class="admin-section">
+                <div class="admin-header-bar"><h2>Gestión de productos</h2><button class="btn btn-primary" id="newProductBtn">+ Nuevo producto</button></div>
+                <div class="admin-table" id="productsTable"></div>
+                <div id="productModal" class="modal" style="display:none;"><div class="modal-content"><span class="close-modal">&times;</span><h3 id="productModalTitle">Nuevo producto</h3><form id="productForm"><input type="hidden" id="productId"><div class="form-group"><label>Código</label><input type="text" id="productCode" required></div><div class="form-group"><label>Descripción</label><input type="text" id="productDesc" required></div><div class="form-group"><label>Categoría</label><select id="productCategory"><option>Paquete</option><option>Estadía</option><option>Vuelo</option><option>Auto</option></select></div><div class="form-group"><label>Precio (USD)</label><input type="number" id="productPrice" step="0.01" required></div><button type="submit" class="btn btn-primary">Guardar</button></form></div></div>
+            </div>
+            <div id="pedidos" class="admin-section">
+                <h2>Pedidos pendientes de entrega</h2>
+                <div class="admin-table" id="pendingOrdersAdmin"></div>
+            </div>
+            <div id="cuenta" class="admin-section">
+                <h2>Estado de cuenta</h2>
+                <div class="admin-table" id="accountStatement"></div>
+            </div>
+            <div id="email" class="admin-section">
+                <h2>Destinatarios internos para notificaciones</h2>
+                <div class="admin-table" id="emailRecipientsTable"></div>
+                <button class="btn btn-primary" id="addRecipientBtn">+ Agregar destinatario</button>
+            </div>
+        </main>
+    </div>
+
+    <footer class="main-footer">
+        <div class="container footer-grid">
+            <div><h4>ViajesPro</h4><p>Panel administrativo</p></div>
+            <div><h4>ENLACES</h4><ul><li><a href="index.html">Inicio</a></li><li><a href="catalog.html">Paquetes</a></li><li><a href="login.html">Iniciar Sesión</a></li></ul></div>
+            <div><h4>CONTACTO</h4><address>Buenos Aires, Argentina<br>+54 11 4000–0000<br><a href="mailto:ventas@viajespro.com">ventas@viajespro.com</a></address></div>
+        </div>
+        <div class="copyright"><p>&copy; 2025 ViajesPro</p></div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

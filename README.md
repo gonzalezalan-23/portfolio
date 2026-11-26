@@ -1,92 +1,61 @@
-# Biblioteca Virtual — EEST N.º 5
+# Alan González — Portfolio
 
-Aplicación web para consultar el catálogo de la biblioteca escolar y gestionar usuarios, material de estudio, reservas, préstamos y devoluciones.
+Portfolio público con proyectos, casos de estudio y CV descargable. Está preparado para publicarse en GitHub Pages sin dependencias ni pasos de compilación.
 
-## Contenido del repositorio
+## Estructura
 
 ```text
-Biblioteca-Virtual/
-├── Sistema/                         # Aplicación web estática
-│   ├── index.html                   # Catálogo público
-│   ├── portal-login.html             # Acceso y registro
-│   ├── panel-alumno.html             # Portal del alumno
-│   ├── panel-docente.html            # Portal del docente
-│   ├── admin/                        # Administración
-│   └── assets/{css,js,img}/          # Recursos compartidos
-├── Documentación/                   # Base de datos, seguridad, SQL y capturas
-├── Manuales/                        # Manuales HTML para los roles
-├── Fotos/                           # Material del proyecto (si se completa)
-├── Presentación/                    # Material de exposición (si se completa)
-├── Carpeta de Campo/                # Entregables escolares (si se completa)
-├── .github/workflows/pages.yml      # Publicación de Sistema en GitHub Pages
-├── .gitignore
-└── README.md
+├── index.html                  # Inicio
+├── proyectos.html              # Grilla de proyectos
+├── proyecto.html               # Ficha dinámica (?id=slug)
+├── 404.html                    # Página de error
+├── assets/
+│   ├── css/                    # Estilos
+│   ├── js/                     # Lógica del sitio y modo secreto
+│   ├── img/proyectos/          # Capturas webp por proyecto
+│   ├── img/icons/              # Iconos SVG
+│   └── cv/                     # Fuente HTML y PDF del CV
+├── data/proyectos.json         # Fuente única de proyectos
+├── demos/                      # Demos locales de hardware
+├── docs/                       # Documentación del sitio
+├── scripts/validar-proyectos.mjs
+└── .github/workflows/validar.yml
 ```
 
-Los archivos de la aplicación permanecen agrupados en `Sistema`. No necesita compilación: el navegador carga HTML, CSS y JavaScript directamente.
+## Desarrollo local
 
-## Funcionalidades
-
-| Perfil | Funciones principales |
-|---|---|
-| Visitante | Buscar y filtrar el catálogo, consultar disponibilidad y estadísticas públicas. |
-| Alumno | Consultar préstamos, reservar libros, pedir extensiones y acceder a material de estudio. |
-| Docente | Consultar historial y pedir libros individualmente o por lotes para un curso. |
-| Administrador | Aprobar cuentas y gestionar préstamos, usuarios, inventario, categorías, materiales y estadísticas. |
-
-## Tecnologías
-
-- HTML, CSS y JavaScript sin framework ni paso de compilación.
-- Supabase para PostgreSQL, autenticación y API.
-- EmailJS para notificaciones desde el panel administrativo.
-- Open Library para autocompletar datos bibliográficos por ISBN.
-- GitHub Pages para alojar el frontend.
-
-## Ejecutar localmente
-
-Desde la raíz del repositorio:
+El sitio es estático. Serví la carpeta con Python:
 
 ```bash
-cd Sistema
-npx serve .
+python -m http.server 8080
 ```
 
-También puede usarse `python -m http.server 8080` si Python está instalado. Abrí la URL local que indique el servidor. No abras los HTML directamente con `file://`, porque el navegador limita algunas funciones de autenticación.
+Abrí `http://localhost:8080`. No uses `file://`: el cargador de `data/proyectos.json` necesita HTTP.
 
-La aplicación requiere que `Sistema/assets/js/config.js` apunte a un proyecto Supabase configurado. La URL y la clave `anon` son valores públicos de frontend; nunca debe incluirse una clave `service_role`, contraseñas ni tokens privados.
+Antes de publicar, validá los datos:
 
-## Configurar Supabase
-
-1. Crear un proyecto Supabase.
-2. Seguir el esquema de [`Documentación/database.md`](Documentación/database.md).
-3. Aplicar, en orden, los cambios de [`Documentación/DB-cambios-pendientes.md`](Documentación/DB-cambios-pendientes.md), [`Documentación/seguridad-rls.sql`](Documentación/seguridad-rls.sql), [`Documentación/migracion-flujos-criticos.sql`](Documentación/migracion-flujos-criticos.sql) y [`Documentación/migracion-asignacion-lotes-docente.sql`](Documentación/migracion-asignacion-lotes-docente.sql). Revisar las instrucciones de cada script y respaldar la base antes de aplicar cambios.
-4. Configurar la URL y clave pública `anon` en `Sistema/assets/js/config.js`.
-5. Crear el primer usuario administrador en Supabase Auth y darlo de alta con rol `admin` según [`Documentación/SEGURIDAD.md`](Documentación/SEGURIDAD.md).
-
-Las políticas RLS son parte esencial de la seguridad: una clave `anon` en el navegador no protege por sí sola los datos. EmailJS también utiliza configuración pública en cliente; limitar sus orígenes y cuotas desde su panel.
+```bash
+node scripts/validar-proyectos.mjs
+```
 
 ## Publicar en GitHub Pages
 
-El frontend vive en `Sistema/`. GitHub Pages no permite elegir cualquier subcarpeta como fuente de una rama, así que el workflow de este repositorio publica esa carpeta mediante GitHub Actions.
-
-1. En GitHub, abrir **Settings → Pages**.
+1. En el repositorio: **Settings → Pages**.
 2. En **Build and deployment → Source**, elegir **GitHub Actions**.
-3. Enviar los cambios a la rama `main`; el workflow `.github/workflows/pages.yml` publicará `Sistema/`.
+3. Publicar en `main`. El workflow de validación corre en cada push; el sitio se sirve desde la raíz.
 
-La URL de Pages depende del propietario y nombre efectivos del repositorio; consultala en Settings → Pages.
+La URL final depende del nombre del repositorio. Cuando esté activa, agregarla al CV, al README de perfil y a los enlaces de contacto.
 
-## Seguridad antes de hacer público el repositorio
+## Modo secreto
 
-Los archivos actuales fueron revisados para evitar publicar credenciales privadas y datos personales evidentes en capturas. Sin embargo, el historial Git ya existente contiene versiones anteriores con una credencial expuesta y capturas con datos personales. Quitar esos datos de los archivos actuales **no los elimina de los commits anteriores**. Antes de publicar el historial, hay que rotar cualquier contraseña que pudiera seguir activa y decidir entre sanear el historial completo o publicar una copia limpia. Ver [`Documentación/SEGURIDAD.md`](Documentación/SEGURIDAD.md).
+El sitio arranca en modo cliente. El footer tiene un disparador discreto que activa el modo A.L.A.N./JARVIS: guarda la preferencia en `localStorage` (`alan:mode`), cambia el tema a esmeralda y muestra la barra de protocolo. Es una capa visual personal, no un contenido comercial.
 
-## Documentación
+## Seguridad
 
-- [`Documentación/database.md`](Documentación/database.md): esquema de datos.
-- [`Documentación/SEGURIDAD.md`](Documentación/SEGURIDAD.md): preparación segura y configuración.
-- [`Documentación/Diagramas/diagrama-er.html`](Documentación/Diagramas/diagrama-er.html): diagrama de entidades.
-- [`Documentación/Análisis de requerimientos/analisis-requerimientos.md`](Documentación/Análisis%20de%20requerimientos/analisis-requerimientos.md): requisitos.
-- [`Manuales/`](Manuales/): guías de uso.
+No hay archivos `.env`, tokens ni credenciales en este repositorio. Los originales de las capturas y los archivos personales que no se usan en el sitio quedaron fuera de `D:\Portfolio`. Antes de futuros commits, evitar subir claves, PDFs con datos personales o capturas sin revisar.
 
-## Equipo
+## Contacto
 
-Proyecto escolar de la EEST N.º 5, Berazategui.
+- Email: gonzalez.alan.dev@gmail.com
+- GitHub: https://github.com/gonzalezalan-23
+

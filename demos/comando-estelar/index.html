@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual de Usuario | Comando Estelar</title>
+    <!-- Hoja de estilos externa -->
+    <link rel="stylesheet" href="styles/manual.css">
+    <!-- Fuente Google Fonts -->
+</head>
+<body>
+
+    <!-- Navegación Superior -->
+    <header class="navbar">
+        <div class="logo">
+            <span class="star-icon">★</span>
+            <h1>Comando <span>Estelar</span></h1>
+        </div>
+        <p class="subtitle">Manual Interactivo de Operación — E.E.S.T. N° 5</p>
+    </header>
+
+    <main class="container">
+
+        <!-- Hero / Introducción -->
+        <section class="hero-card">
+            <div class="hero-text">
+                <h2>Central de Alarma Vecinal Comunitaria</h2>
+                <p>Bienvenido al manual interactivo de uso. Aquí aprenderás a operar la central de alerta, entender su pantalla visual, sus avisos por voz y las pautas de seguridad.</p>
+                <a href="#pasos" class="btn-primary">Ver Pasos de Uso ↓</a>
+            </div>
+            <div class="hero-image">
+                <!-- Reemplaza "img/central-banner.jpg" con la foto de tu central -->
+                <div class="img-placeholder">
+                    <span>[ Foto de la Central Completa ]</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección 1: Conexión y Energía -->
+        <section class="section-card">
+            <h2 class="section-title">1. Conexión y Alimentación Eléctrica</h2>
+            <div class="grid-2">
+                <div class="info-box">
+                    <h3>Puesta en Marcha</h3>
+                    <ul>
+                        <li><strong>Alimentación Principal:</strong> Conecte la fuente o cargador de <strong>5V CC</strong> (1.5A) a la entrada USB de la central.</li>
+                        <li><strong>Respaldo (Cortes de Luz):</strong> Puede conectar un <em>Power Bank</em> de celular de 5V al puerto auxiliar. El sistema seguirá funcionando sin interrumpir sus funciones.</li>
+                        <li><strong>Parlante:</strong> Verifique que los cables del parlante de 8 Ohms estén firmemente conectados a las salidas del módulo de audio.</li>
+                    </ul>
+                </div>
+                <div class="media-box">
+                    <div class="img-placeholder">
+                        <span>[ Imagen / GIF: Conexión de Fuente 5V y Power Bank ]</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección 2: Pasos de Uso -->
+        <section id="pasos" class="section-card">
+            <h2 class="section-title">2. Modos de Operación y Uso</h2>
+            
+            <div class="steps-grid">
+                
+                <!-- Paso A: Pánico -->
+                <div class="step-card danger">
+                    <div class="step-header">
+                        <span class="step-num">A</span>
+                        <h3>Activar Alerta de Pánico</h3>
+                    </div>
+                    <p>Ante una situación de riesgo, presione el <strong>Botón Principal (A)</strong> de su control remoto llavero durante 1 segundo.</p>
+                    
+                    <div class="media-box small">
+                        <div class="img-placeholder">
+                            <span>[ GIF: Presionando Llavero ]</span>
+                        </div>
+                    </div>
+
+                    <div class="response-box">
+                        <strong>Respuesta de la Central:</strong>
+                        <ul>
+                            <li>🔊 Reproduce voz hablada: <em>"¡Alerta! Alarma activada en vivienda 855"</em>.</li>
+                            <li>📺 Pantalla Nokia 5110 enciende luz y muestra la dirección.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Paso B: Desactivar -->
+                <div class="step-card success">
+                    <div class="step-header">
+                        <span class="step-num">B</span>
+                        <h3>Desactivación Manual</h3>
+                    </div>
+                    <p>Si la emergencia fue controlada o realizó un ensayo, presione el <strong>Botón Secundario (B)</strong> de su llavero.</p>
+                    
+                    <div class="media-box small">
+                        <div class="img-placeholder">
+                            <span>[ Imagen: Apagado con Llavero ]</span>
+                        </div>
+                    </div>
+
+                    <div class="response-box">
+                        <strong>Respuesta de la Central:</strong>
+                        <ul>
+                            <li>🔇 El audio se silencia de inmediato.</li>
+                            <li>🔄 La pantalla regresa a la leyenda <code>SISTEMA LISTO</code>.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Paso C: Temporizador -->
+                <div class="step-card warning">
+                    <div class="step-header">
+                        <span class="step-num">C</span>
+                        <h3>Temporizador (3 Minutos)</h3>
+                    </div>
+                    <p>Si nadie apaga la alarma manualmente, la central activa su sistema de control de ruido urbano.</p>
+                    
+                    <div class="media-box small">
+                        <div class="img-placeholder">
+                            <span>[ Gráfico: Temporizador de 3 Min ]</span>
+                        </div>
+                    </div>
+
+                    <div class="response-box">
+                        <strong>Respuesta de la Central:</strong>
+                        <ul>
+                            <li>⏱️ El sonido se apaga a los <strong>3 minutos exactos</strong>.</li>
+                            <li>📌 La pantalla <strong>mantiene fijo el número de la vivienda</strong> para guiar a los vecinos.</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Sección 3: Preguntas Frecuentes y Mantenimiento -->
+        <section class="section-card">
+            <h2 class="section-title">3. Mantenimiento y Preguntas Frecuentes</h2>
+            
+            <div class="accordion">
+                <details>
+                    <summary>🔑 ¿Cómo cambiar la pila del control remoto (llavero)?</summary>
+                    <div class="details-content">
+                        <p>Si la distancia de alcance disminuye, retire el tornillo posterior del llavero y reemplace la pila interna por una nueva modelo <strong>12V A27 o A23</strong>.</p>
+                    </div>
+                </details>
+
+                <details>
+                    <summary>⚡ ¿Qué pasa si se corta la luz de la calle?</summary>
+                    <div class="details-content">
+                        <p>Si la central tiene conectado un Power Bank de respaldo, seguirá funcionando con normalidad. Si no, se reiniciará automáticamente apenas vuelva el suministro eléctrico.</p>
+                    </div>
+                </details>
+
+                <details>
+                    <summary>🖥️ ¿Por qué la pantalla queda prendida aunque se apague el sonido?</summary>
+                    <div class="details-content">
+                        <p>Es una función de seguridad. El sonido se apaga a los 3 minutos para no generar ruidos molestos, pero la pantalla guarda la dirección visible para que la policía o los vecinos sepan dónde ocurrió la emergencia.</p>
+                    </div>
+                </details>
+            </div>
+        </section>
+
+        <!-- Alerta de Advertencia -->
+        <div class="alert-banner">
+            <div class="alert-icon">⚠️</div>
+            <div>
+                <h4>Aviso para Uso Didáctico en el Taller</h4>
+                <p>Al manipular la central dentro del laboratorio escolar, no conecte el terminal VCC de la pantalla Nokia 5110 directamente a los 5V. Use siempre la salida regulada de <strong>3.3V de la ESP32</strong> para evitar dañarla.</p>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Pie de página -->
+    <footer class="footer">
+        <p><strong>Proyecto Comando Estelar (2026)</strong> — E.E.S.T. N° 5 Berazategui</p>
+        <p>Desarrollado por Alan González, Nicolás Caballero y Guadalupe Arrieta | Tutor: Prof. Gustavo Gómez</p>
+    </footer>
+
+</body>
+</html>

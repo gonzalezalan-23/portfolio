@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi cuenta - ViajesPro</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container header-container">
+            <div class="logo"><a href="index.html">ViajesPro</a></div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="catalog.html">Paquetes</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions" id="headerActions">
+                <!-- Contenido dinámico (nombre, carrito, salir) -->
+            </div>
+            <div class="mobile-menu-toggle">☰</div>
+        </div>
+    </header>
+
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <ul>
+                <li><a href="#" data-section="resumen" class="active">Resumen</a></li>
+                <li><a href="#" data-section="pedidos">Mis pedidos</a></li>
+                <li><a href="#" data-section="carrito">Carrito</a></li>
+                <li><a href="#" data-section="historial">Historial</a></li>
+                <li><a href="#" data-section="perfil">Mi perfil</a></li>
+            </ul>
+        </aside>
+        <main class="dashboard-content">
+            <div id="resumen" class="dashboard-section active">
+                <h1>Bienvenido, <span id="resumenUserName"></span></h1>
+                <div class="client-kpis" id="clientKpis"></div>
+                <h2>Próximos viajes</h2>
+                <div id="proximosViajes"></div>
+            </div>
+            <div id="pedidos" class="dashboard-section">
+                <h2>Mis pedidos pendientes</h2>
+                <div id="pendingOrdersList"></div>
+            </div>
+            <div id="carrito" class="dashboard-section">
+                <h2>Carrito de compras</h2>
+                <div id="cartItemsList"></div>
+                <div class="cart-total" id="cartTotal"></div>
+                <button class="btn btn-primary" id="checkoutBtn">Finalizar compra</button>
+            </div>
+            <div id="historial" class="dashboard-section">
+                <h2>Historial de pedidos entregados</h2>
+                <div id="orderHistoryList"></div>
+            </div>
+            <div id="perfil" class="dashboard-section">
+                <h2>Mi perfil</h2>
+                <form id="profileForm">
+                    <div class="form-group"><label>Nombre completo</label><input type="text" id="profileName" required></div>
+                    <div class="form-group"><label>Email</label><input type="email" id="profileEmail" required></div>
+                    <div class="form-group"><label>Teléfono</label><input type="tel" id="profilePhone"></div>
+                    <button type="submit" class="btn btn-primary">Actualizar datos</button>
+                </form>
+                <hr>
+                <h3>Cambiar contraseña</h3>
+                <form id="changePasswordForm">
+                    <div class="form-group"><label>Contraseña actual</label><input type="password" id="currentPassword" required></div>
+                    <div class="form-group"><label>Nueva contraseña</label><input type="password" id="newPassword" required></div>
+                    <button type="submit" class="btn btn-primary">Cambiar contraseña</button>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <footer class="main-footer">
+        <div class="container footer-grid">
+            <div><h4>ViajesPro</h4><p>Tu agencia de viajes de confianza.</p></div>
+            <div><h4>ENLACES</h4><ul><li><a href="index.html">Inicio</a></li><li><a href="catalog.html">Paquetes</a></li><li><a href="login.html">Iniciar Sesión</a></li></ul></div>
+            <div><h4>CONTACTO</h4><address>Buenos Aires, Argentina<br>+54 11 4000–0000<br><a href="mailto:ventas@viajespro.com">ventas@viajespro.com</a></address></div>
+        </div>
+        <div class="copyright"><p>&copy; 2025 ViajesPro</p></div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

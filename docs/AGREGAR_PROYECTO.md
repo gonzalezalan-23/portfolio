@@ -54,7 +54,7 @@ Está en `D:\Portfolio\data\proyectos.json`. Es un archivo de datos (no código)
 | `plantilla` | Tipo de ficha de detalle | `A` caso de negocio · `B` producto/demo · `C` hardware |
 | `orden` | Posición en la home (de menor a mayor) | 1, 2, 3… sin repetir. Usá 13, 14… para seguir al final |
 | `anio` | Año del proyecto | número `2025` o `null` si no lo sabés |
-| `rol` | Tu rol | `"Full Stack"` / `"Diseño + Front-end"` o `null` |
+| `rol` | Tu rol | `"Diseño y desarrollo"` / `"Análisis y documentación"` o `null` |
 | `resumen` | Frase de la tarjeta | **máx. 160 caracteres** |
 | `problema` / `solucion` / `resultado` | El corazón del caso | 1–3 frases cada uno (Capa 1) |
 | `decisiones` | Por qué construiste así | 2–3 frases técnicas (Capa 2, va en "Ficha técnica") |
@@ -62,7 +62,7 @@ Está en `D:\Portfolio\data\proyectos.json`. Es un archivo de datos (no código)
 | `stack` | Chips de tecnologías | 3–6 textos |
 | `funcionalidades` | Qué hace | mínimo 3 |
 | `capturas` | Fotos de la interfaz | ruta dentro del sitio, formato `…/NN.webp`. **mínimo 1** |
-| `demo` | Link a la versión funcionando | URL `https://…` o `null` (**si existe, debe abrirse**) |
+| `demo` | Link a la versión funcionando | demo local `demos/<proyecto>/index.html`, URL `https://…` o `null` (**si existe, debe abrirse**) |
 | `repo` | Link al código | URL `https://github.com/…` o `null` |
 | `destacado` | ¿Entra al carrusel Órbita? | `true`/`false` — **máximo 6 en total** |
 | `equipo` | Compañeros del proyecto | array de `{ "nombre": "...", "rol": "..." }`; el `rol` es opcional. Si trabajaste solo, `[]` o no lo pongas |

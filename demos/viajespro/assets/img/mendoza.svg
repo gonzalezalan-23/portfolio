@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200" role="img" aria-label="Mendoza">
+  <defs>
+    <linearGradient id="c" x2="0" y2="1"><stop stop-color="#8ecae6"/><stop offset="1" stop-color="#cde7b0"/></linearGradient>
+  </defs>
+  <rect width="300" height="200" fill="url(#c)"/>
+  <circle cx="230" cy="48" r="26" fill="#ffca3a"/><path d="M0 150h300v50H0z" fill="#6a4c93"/><path d="M20 150v-45m40 45v-45m40 45v-45m40 45v-45m40 45v-45m40 45v-45" stroke="#2d1b4e" stroke-width="6"/>
+  <rect x="8" y="164" width="284" height="28" rx="8" fill="#080808" opacity=".72"/>
+  <text x="22" y="183" fill="#fff" font-family="Segoe UI, sans-serif" font-size="14" font-weight="600">Mendoza</text>
+</svg>

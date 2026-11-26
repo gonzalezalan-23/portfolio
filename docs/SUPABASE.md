@@ -1,6 +1,8 @@
 # SUPABASE — backend del formulario (T1.6)
 
-> ⛔ **DESCARTADO — no usar.** Supabase Free llegó a su límite de proyectos
+> ⛔ **DESCARTADO — no usar.** El contacto del sitio abre Gmail/Outlook web,
+> sin backend propio.
+> Supabase Free llegó a su límite de proyectos
 > en la cuenta del usuario y no se pudo crear el proyecto nuevo. El backend
 > del form es ahora **Google Sheets + Apps Script** → ver
 > **`docs/GOOGLE_SHEETS.md`**. Este archivo y la migración de `supabase/`

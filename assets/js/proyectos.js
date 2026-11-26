@@ -1,8 +1,9 @@
 /**
  * proyectos.js — Catálogo completo de proyectos.html
  * Única fuente: data/proyectos.json. Sin proyectos ni categorías escritos a mano.
- * Cada tarjeta muestra primero problema → resultado (Capa 1) y debajo
- * stack, decisiones/equipo y enlaces (Capa 2).
+ * La tarjeta es solo un avance: imagen, categoría, título, resumen y
+ * colaboradores. Problema, solución, resultado y tecnologías se leen en la
+ * ficha completa (proyecto.html?slug=...), con el contexto adecuado.
  */
 (() => {
   'use strict';
@@ -33,11 +34,6 @@
     return CATEGORIA_LABELS[categoria] || categoria;
   }
 
-  function recortar(texto, max = 150) {
-    const limpio = String(texto ?? '').trim();
-    return limpio.length > max ? `${limpio.slice(0, max - 1).trimEnd()}…` : limpio;
-  }
-
   function equipoHTML(proyecto) {
     if (!Array.isArray(proyecto.equipo) || !proyecto.equipo.length) return '';
     const personas = proyecto.equipo
@@ -49,14 +45,13 @@
 
   function tarjetaHTML(p, index) {
     const label = labelDe(p.categoria);
-    const stack = (p.stack || []).map(s => `<li>${escapeHTML(s)}</li>`).join('');
     const img = p.capturas?.[0]
       ? `<img src="${escapeHTML(p.capturas[0])}"
                 alt="${escapeHTML(p.titulo)} — captura del proyecto"
                 loading="${index === 0 ? 'eager' : 'lazy'}" />`
       : '<span class="proyecto-media-ph" aria-hidden="true">alan.dev</span>';
     const demo = p.demo
-      ? `<a class="proyecto-demo" href="${escapeHTML(p.demo)}" target="_blank" rel="noopener noreferrer">Ver demo ↗</a>`
+      ? `<a class="proyecto-demo" href="${escapeHTML(p.demo)}" target="_blank" rel="noopener noreferrer">Probar demo ↗</a>`
       : '';
 
     return `
@@ -71,21 +66,7 @@
           <h3 id="cat-${escapeHTML(p.slug)}-title">${escapeHTML(p.titulo)}</h3>
           <p class="proyecto-resumen">${escapeHTML(p.resumen)}</p>
 
-          <dl class="proyecto-hechos">
-            <div class="proyecto-hecho">
-              <dt>Problema</dt>
-              <dd>${escapeHTML(recortar(p.problema))}</dd>
-            </div>
-            <div class="proyecto-hecho">
-              <dt>Resultado</dt>
-              <dd>${escapeHTML(recortar(p.resultado))}</dd>
-            </div>
-          </dl>
-
-          <div class="proyecto-capa-dos">
-            <ul class="proyecto-stack" aria-label="Herramientas usadas">${stack}</ul>
-            ${equipoHTML(p)}
-          </div>
+          ${equipoHTML(p)}
 
           <div class="proyecto-acciones">
             <a class="project-link" href="proyecto.html?slug=${encodeURIComponent(p.slug)}">

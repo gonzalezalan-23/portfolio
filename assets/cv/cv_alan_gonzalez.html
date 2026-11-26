@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CV – Alan González</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 30px 10px;
+      color: #2d2d2d;
+    }
+
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      max-height: 297mm;
+      background: #ffffff;
+      display: grid;
+      grid-template-columns: 230px 1fr;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+      border-radius: 4px;
+      overflow: hidden;
+      padding: 0.5in;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      background: linear-gradient(170deg, #1a3a5c 0%, #0f2540 60%, #0a1e35 100%);
+      color: #e8eef5;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .photo-wrapper {
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      padding: 10px;
+    }
+    .photo-wrapper img {
+      width: 100%;
+      aspect-ratio: 1/1;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      filter: brightness(0.92) contrast(1.05);
+    }
+    .photo-overlay {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 60px;
+    }
+
+    .sidebar-inner {
+      padding: 10px 22px 0 22px;
+      flex: 1;
+    }
+
+    .sidebar-section {
+      margin-bottom: 28px;
+    }
+
+    .sidebar-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #5db8f5;
+      border-bottom: 1px solid rgba(93,184,245,0.3);
+      padding-bottom: 6px;
+      margin-bottom: 14px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 10px;
+      font-size: 11.5px;
+      line-height: 1.5;
+      color: #c8d8e8;
+    }
+    .contact-item .icon {
+      width: 16px;
+      min-width: 16px;
+      text-align: center;
+      margin-top: 1px;
+      color: #5db8f5;
+      font-size: 12px;
+    }
+
+    .lang-item {
+      margin-bottom: 12px;
+    }
+    .lang-name {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 12px;
+      color: #e0eaf5;
+      margin-bottom: 2px;
+    }
+    .lang-level {
+      font-size: 10.5px;
+      color: #8ab4d4;
+      margin-bottom: 6px;
+    }
+    .lang-bar-bg {
+      height: 4px;
+      background: rgba(255,255,255,0.12);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .lang-bar-fill {
+      height: 100%;
+      border-radius: 2px;
+      background: linear-gradient(90deg, #5db8f5, #3a9de0);
+    }
+
+    .skill-tag {
+      display: inline-block;
+      background: rgba(93,184,245,0.12);
+      border: 1px solid rgba(93,184,245,0.25);
+      color: #c0d8ee;
+      font-size: 10.5px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin: 3px 3px 3px 0;
+      line-height: 1.4;
+    }
+
+    .skills-tag {
+      display: inline-block;
+      background: rgba(93,184,245,0.12);
+      border: 1px solid rgba(93,184,245,0.25);
+      color: #c0d8ee;
+      font-size: 10.5px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin: 3px 3px 3px 0;
+      line-height: 1.4;
+    }
+
+    /* ── MAIN ── */
+    .main {
+      padding: 20px 40px 20px 38px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .header-name {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 36px;
+      font-weight: 800;
+      color: #0f2540;
+      line-height: 1.1;
+      letter-spacing: -0.5px;
+    }
+    .header-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      color: #00375c;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: 5px;
+      margin-bottom: 28px;
+    }
+
+    .section {
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #0f2540;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(90deg, #00375c 0%, rgba(93,184,245,0.1) 100%);
+      border-radius: 1px;
+    }
+    .section-title .dot {
+      width: 8px;
+      height: 8px;
+      background: #00375c;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .resumen{
+      font-size: 11.5px;
+      color: #00375c;
+      font-weight: 600;
+    }
+
+
+    /* Timeline */
+    .timeline {
+      position: relative;
+      padding-left: 20px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 5px;
+      top: 6px;
+      bottom: 6px;
+      width: 2px;
+      background: linear-gradient(to bottom, #00375c, rgba(93,184,245,0.1));
+      border-radius: 1px;
+    }
+
+    .tl-item {
+      position: relative;
+      margin-bottom: 20px;
+    }
+    .tl-item:last-child { margin-bottom: 0; }
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: -17px;
+      top: 6px;
+      width: 8px;
+      height: 8px;
+      background: #00375c;
+      border-radius: 50%;
+      border: 2px solid #fff;
+      box-shadow: 0 0 0 2px #00375c41;
+    }
+
+    .tl-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 3px;
+    }
+    .tl-job {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      color: #1a3a5c;
+      line-height: 1.3;
+    }
+    .tl-date {
+      font-size: 10.5px;
+      color: #00375c;
+      font-weight: 600;
+      white-space: nowrap;
+      background: rgba(93,184,245,0.1);
+      padding: 2px 8px;
+      border-radius: 10px;
+      flex-shrink: 0;
+    }
+    .tl-company {
+      font-size: 11.5px;
+      color: #7a9ab5;
+      font-style: italic;
+      margin-bottom: 6px;
+    }
+    .tl-desc {
+      font-size: 11.5px;
+      color: #4a5568;
+      line-height: 1.6;
+      padding-left: 2px;
+    }
+    .tl-desc li {
+      list-style: none;
+      padding-left: 12px;
+      position: relative;
+      margin-bottom: 2px;
+    }
+    .tl-desc li::before {
+      content: '›';
+      position: absolute;
+      left: 0;
+      color: #00375c;
+      font-weight: 700;
+    }
+
+    /* Formación */
+    .edu-item {
+      border-left: 3px solid #00375c;
+      border-radius: 0 6px 6px 0;
+      padding: 12px 16px;
+      margin-bottom: 10px;
+    }
+    .edu-degree {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      color: #1a3a5c;
+    }
+    .edu-school {
+      font-size: 11.5px;
+      color: #00375c;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+    .edu-date {
+      font-size: 10.5px;
+      color: #8aa0b8;
+      margin-top: 3px;
+    }
+
+    /* Logros */
+    .award-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 12px;
+      padding: 10px 14px;
+      background: linear-gradient(135deg, #00375c41 0%, #00375c11 100%);
+      border-left: 3px solid #00375c;
+      border-radius: 0 6px 6px 0;
+    }
+    .award-icon {
+      font-size: 18px;
+      line-height: 1;
+      flex-shrink: 0;
+      color: #00375c;
+    }
+    .award-text {
+      font-size: 11.5px;
+      color: #4a5568;
+      line-height: 1.5;
+    }
+    .award-text strong {
+      color: #1a3a5c;
+      font-weight: 600;
+    }
+
+    /* Info adicional */
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .info-chip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #f4f7fb;
+      border: 1px solid #dce8f5;
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-size: 11.5px;
+      color: #00375c;
+    }
+    .info-chip .chip-dot {
+      width: 6px;
+      height: 6px;
+      background: #00375c;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    @media print {
+      body { background: white; padding: 0; }
+      .page { box-shadow: none; border-radius: 0; width: 100%; min-height: auto; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ══════════ SIDEBAR ══════════ -->
+  <aside class="sidebar">
+    <div class="photo-wrapper">
+      <img src="foto_perfil.jpg" alt="Foto de Alan González"/>
+      <div class="photo-overlay"></div>
+    </div>
+
+    <div class="sidebar-inner">
+
+      <!-- CONTACTO -->
+      <div class="sidebar-section">
+        <div class="sidebar-title">Contacto</div>
+
+        <div class="contact-item">
+          <span class="icon">&#10687;</span>
+          <span>Berazategui, Buenos Aires</span>
+        </div>
+        <div class="contact-item">
+          <span class="icon">&#9742;</span>
+          <span>(54) 11 3905-3672</span>
+        </div>
+        <div class="contact-item">
+          <span class="icon">&#9993;</span>
+          <span>facundoalanfafa@gmail.com</span>
+        </div>
+        <div class="contact-item">
+          <span class="icon">&#10022;</span>
+          <span>23 de mayo de 2008</span>
+        </div>
+      </div>
+
+      <!-- IDIOMAS -->
+      <div class="sidebar-section">
+        <div class="sidebar-title">Idiomas</div>
+
+        <div class="lang-item">
+          <div class="lang-name">Español</div>
+          <div class="lang-level">Idioma nativo</div>
+          <div class="lang-bar-bg"><div class="lang-bar-fill" style="width:100%"></div></div>
+        </div>
+        <div class="lang-item">
+          <div class="lang-name">Inglés</div>
+          <div class="lang-level">A1 – Principiante</div>
+          <div class="lang-bar-bg"><div class="lang-bar-fill" style="width:15%"></div></div>
+        </div>
+      </div>
+
+      <!-- APTITUDES -->
+      <div class="sidebar-section">
+        <div class="sidebar-title">Aptitudes</div>
+        <div>
+          <span class="skill-tag">Atención al cliente</span>
+          <span class="skill-tag">Puntualidad</span>
+          <span class="skill-tag">Eficiencia</span>
+          <span class="skill-tag">Nuevas tecnologías</span>
+          <span class="skill-tag">Calidad de servicio</span>
+          <span class="skill-tag">Responsabilidad</span>
+          <span class="skill-tag">Profesionalismo</span>
+          <span class="skill-tag">Fortaleza física</span>
+          <span class="skill-tag">Liderazgo</span>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-title">Tecnologías</div>
+        <div>
+          <span class="skill-tag">HTML</span>
+          <span class="skill-tag">CSS</span>
+          <span class="skill-tag">JS</span>
+          <span class="skill-tag">PHP</span>
+          <span class="skill-tag">SQL</span>
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">Figma</span>
+          <span class="skill-tag">Arduino (C++)</span>
+        </div>
+      </div>
+
+    </div>
+  </aside>
+
+  <!-- ══════════ MAIN ══════════ -->
+  <main class="main">
+
+    <!-- HEADER -->
+    <div>
+      <div class="header-name">Alan González</div>
+      <div class="header-title">Programador Junior</div>
+    </div>
+
+
+    <!-- PERFIL -->
+    <div class="section">
+      <div class="section-title"><span class="dot"></span>Perfil</div>
+      <div class="resumen">
+        Joven responsable, dispuesto a trabajar bajo presión, con alto nivel de adaptabilidad , paciencia y resiliencia. Disposición y capacidad de aprender rápidamente y trabajar en equipo.
+      </div>
+    </div>
+
+    <!-- FORMACIÓN -->
+    <div class="section">
+      <div class="section-title"><span class="dot"></span>Formación</div>
+      <div class="edu-item">
+        <div class="edu-degree">Tecnicatura en Programación</div>
+        <div class="edu-school">EESTN°5 – Berazategui</div>
+        <div class="edu-date">Marzo 2020 – En curso</div>
+      </div>
+    </div>
+
+    <!-- HISTORIAL LABORAL -->
+    <div class="section">
+      <div class="section-title"><span class="dot"></span>Historial Laboral</div>
+      <div class="timeline">
+
+        <div class="tl-item">
+          <div class="tl-header">
+            <div class="tl-job">Atención al Cliente</div>
+            <div class="tl-date">06/2025 – Actual</div>
+          </div>
+          <div class="tl-company">EESTN°5 – Berazategui</div>
+          <ul class="tl-desc">
+            <li>Control y seguimiento de presupuestos y gastos.</li>
+            <li>Atención y servicio al cliente.</li>
+          </ul>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-header">
+            <div class="tl-job">Atención al Cliente</div>
+            <div class="tl-date">12/2024 – 03/2025</div>
+          </div>
+          <div class="tl-company">Verdulería "El Ceibo"</div>
+          <ul class="tl-desc">
+            <li>Atención al cliente y proveedores, gestionando la recogida y entrega de materiales.</li>
+          </ul>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-header">
+            <div class="tl-job">Tareas Administrativas</div>
+            <div class="tl-date">10/2024 – 10/2024</div>
+          </div>
+          <div class="tl-company">Grupo Scout "Virgen Morena"</div>
+          <ul class="tl-desc">
+            <li>Realización de tareas administrativas.</li>
+            <li>Atención al cliente en la entrega de recibos y devoluciones.</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ÉXITOS PROFESIONALES -->
+    <div class="section">
+      <div class="section-title"><span class="dot"></span>Éxitos Profesionales</div>
+
+      <div class="award-item">
+        <div class="award-icon">&#9672;</div>
+        <div class="award-text">
+          <strong>3.er lugar</strong> — Encuentros Distritales de Matemáticas<br>
+          EESTN°3 Berazategui, 2023
+        </div>
+      </div>
+
+      <div class="award-item">
+        <div class="award-icon">&#9672;</div>
+        <div class="award-text">
+          <strong>1.er lugar</strong> — Encuentros Distritales de Matemáticas<br>
+          EESTN°3 Berazategui, 2024
+        </div>
+      </div>
+
+      <div class="award-item">
+        <div class="award-icon">&#9672;</div>
+        <div class="award-text">
+          <strong>Presidente</strong> — Centro de estudiantes<br>
+          EESTN°5 Berazategui, 2026
+        </div>
+      </div>
+    </div>
+
+    <!-- INFORMACIÓN ADICIONAL -->
+    <div class="section">
+      <div class="section-title"><span class="dot"></span>Información Adicional</div>
+      <div class="info-grid">
+        <div class="info-chip"><span class="chip-dot"></span>Scout</div>
+        <div class="info-chip"><span class="chip-dot"></span>Bandas musicales</div>
+        <div class="info-chip"><span class="chip-dot"></span>Atletismo y vóleiboll</div>
+        <div class="info-chip"><span class="chip-dot"></span>Eventos de robótica</div>
+      </div>
+    </div>
+
+  </main>
+</div>
+</body>
+</html>

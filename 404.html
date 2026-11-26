@@ -8,13 +8,10 @@
   <meta name="description" content="La página que buscás no existe. Volvé al inicio del portfolio." />
   <title>404 — Página no encontrada · Alan.dev</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
-    rel="stylesheet"
-  />
-  <link rel="stylesheet" href="assets/css/styles.css?v=17" />
+  <script src="assets/js/secret-boot.js"></script>
+  <link rel="stylesheet" href="assets/css/styles.css?v=42" />
+  <link rel="stylesheet" href="assets/css/secret-mode.css?v=19" />
+  <link rel="stylesheet" href="assets/css/mascota.css?v=10" />
   <style>
     /* Página mínima y autocontenida: si styles.css no carga, igual se lee bien. */
     body.pagina-404 {
@@ -22,8 +19,16 @@
       align-items: center;
       justify-content: center;
       min-height: 100vh;
-      padding: 24px;
+      position: relative;
+      padding: 24px 24px 96px;
       overflow: auto;
+    }
+    /* El footer es absoluto para no romper el centrado del bloque 404. */
+    body.pagina-404 #site-footer {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
     }
     .err-box {
       max-width: 560px;
@@ -82,6 +87,16 @@
     </div>
     <p class="err-meta">alan.dev — cosas que funcionan</p>
   </main>
+
+  <footer id="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <span class="footer-brand">alan.dev</span>
+      <small>© 2026 Alan — Todos los derechos reservados</small>
+    </div>
+  </footer>
+
+  <script src="assets/js/secret-mode.js?v=21" defer></script>
+  <script src="assets/js/alan-mascota.js?v=12" defer></script>
 </body>
 
 </html>

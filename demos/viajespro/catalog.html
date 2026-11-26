@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo - ViajesPro</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container header-container">
+            <div class="logo"><a href="index.html">ViajesPro</a></div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="catalog.html" class="active">Paquetes</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions" id="headerActions"></div>
+            <div class="mobile-menu-toggle">☰</div>
+        </div>
+    </header>
+
+    <main>
+        <section class="catalog-header">
+            <div class="container">
+                <h1>Nuestros Paquetes</h1>
+                <p>Descubrí destinos increíbles con todo incluido</p>
+            </div>
+        </section>
+
+        <section class="catalog-filters">
+            <div class="container">
+                <form id="filterForm" class="filter-form">
+                    <div class="filter-group">
+                        <label>Tipo:</label>
+                        <select id="filterType">
+                            <option value="all">Todos los tipos</option>
+                            <option value="Paquete">Paquete</option>
+                            <option value="Estadía">Estadía</option>
+                            <option value="Vuelo">Vuelo</option>
+                            <option value="Auto">Auto</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Precio máx (USD):</label>
+                        <input type="range" id="priceMax" min="0" max="2000" step="10" value="2000">
+                        <span id="priceValue">2000</span>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Buscar</button>
+                </form>
+            </div>
+        </section>
+
+        <section class="catalog-results">
+            <div class="container">
+                <div id="catalogGrid" class="product-grid"></div>
+                <div id="noResults" class="no-results" style="display:none;">No se encontraron paquetes con esos criterios</div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container footer-grid">
+            <div><h4>ViajesPro</h4><p>Tu agencia de viajes de confianza.</p></div>
+            <div><h4>ENLACES</h4><ul><li><a href="index.html">Inicio</a></li><li><a href="catalog.html">Paquetes</a></li><li><a href="login.html">Iniciar Sesión</a></li></ul></div>
+            <div><h4>CONTACTO</h4><address>Buenos Aires, Argentina<br>+54 11 4000–0000<br><a href="mailto:ventas@viajespro.com">ventas@viajespro.com</a></address></div>
+        </div>
+        <div class="copyright"><p>&copy; 2025 ViajesPro</p></div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

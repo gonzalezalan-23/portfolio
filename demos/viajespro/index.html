@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ViajesPro | Paquetes turísticos al mejor precio</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container header-container">
+            <div class="logo">
+                <a href="index.html">ViajesPro</a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html" class="active">Inicio</a></li>
+                    <li><a href="catalog.html">Paquetes</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions" id="headerActions">
+                <!-- Contenido dinámico según sesión -->
+            </div>
+            <div class="mobile-menu-toggle">☰</div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-overlay"></div>
+            <div class="container hero-content">
+                <h1>Viajá por el Mundo</h1>
+                <p>Encontrá los mejores paquetes turísticos nacionales e internacionales al mejor precio</p>
+                <div class="quick-links">
+                    <a href="catalog.html?type=Paquete" class="quick-link">Paquetes</a>
+                    <a href="catalog.html?type=Vuelo" class="quick-link">Vuelos</a>
+                    <a href="catalog.html?type=Estadía" class="quick-link">Alojamientos</a>
+                </div>
+                <div class="search-container">
+                    <form class="search-form" id="heroSearchForm">
+                        <div class="search-group">
+                            <label>¿A dónde querés ir?</label>
+                            <input type="text" id="heroDestination" placeholder="Ej: Bariloche, Cataratas, Salta...">
+                        </div>
+                        <button type="submit" class="btn btn-large btn-search">Buscar Paquetes</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section class="trust-section">
+            <div class="container">
+                <h2>La experiencia ViajesPro</h2>
+                <div class="trust-grid">
+                    <div class="trust-card">
+                        <div class="trust-icon">✈️</div>
+                        <h3>Vuelos Incluidos</h3>
+                        <p>Los mejores precios en vuelos nacionales e internacionales</p>
+                    </div>
+                    <div class="trust-card">
+                        <div class="trust-icon">🏨</div>
+                        <h3>Hoteles Seleccionados</h3>
+                        <p>Hoteles verificados de 3 a 5 estrellas en todo el mundo</p>
+                    </div>
+                    <div class="trust-card">
+                        <div class="trust-icon">🔒</div>
+                        <h3>Pago Seguro</h3>
+                        <p>Pagos protegidos con Stripe. Tu seguridad es nuestra prioridad</p>
+                    </div>
+                    <div class="trust-card">
+                        <div class="trust-icon">🕒</div>
+                        <h3>Atención 24/7</h3>
+                        <p>Nuestro equipo está disponible para ayudarte en todo momento</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="featured-packages">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Paquetes Destacados</h2>
+                    <a href="catalog.html" class="view-all">Ver todos los paquetes →</a>
+                </div>
+                <div class="product-grid" id="featuredGrid"></div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <div class="container">
+                <h2>¿Listo para tu próxima aventura?</h2>
+                <p>Explorá más de 10 destinos increíbles con todo incluido</p>
+                <a href="catalog.html" class="btn btn-primary btn-large">Explorar Paquetes</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container footer-grid">
+            <div>
+                <h4>ViajesPro</h4>
+                <p>Tu agencia de viajes de confianza. Paquetes nacionales e internacionales al mejor precio.</p>
+            </div>
+            <div>
+                <h4>ENLACES</h4>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="catalog.html">Paquetes</a></li>
+                    <li><a href="login.html">Iniciar Sesión</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>CONTACTO</h4>
+                <address>
+                    Buenos Aires, Argentina<br>
+                    +54 11 4000–0000<br>
+                    <a href="mailto:ventas@viajespro.com">ventas@viajespro.com</a>
+                </address>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 ViajesPro - Todos los derechos reservados</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

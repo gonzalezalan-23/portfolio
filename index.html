@@ -4,36 +4,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Alan. Armo sistemas y páginas que resuelven problemas concretos de negocio. Te cuento qué pasó, qué hice y qué quedó funcionando." />
+  <meta name="description" content="Alan González. Desarrollo sistemas y páginas que resuelven problemas concretos. Cada caso explica qué había que resolver, qué se hizo y qué quedó funcionando." />
   <meta name="author" content="Alan" />
   <meta property="og:title"       content="Alan.dev — Sistemas y páginas que funcionan" />
-  <meta property="og:description" content="Trabajo con vos desde la idea hasta que queda andando. Sin palabras raras: qué hace falta, cuánto cuesta y qué vas a obtener." />
+  <meta property="og:description" content="Acompaño el trabajo desde la idea hasta la puesta en marcha. Con claridad: qué hace falta, cuánto cuesta y qué resultado se obtiene." />
   <meta property="og:type"        content="website" />
   <title>Alan.dev — Sistemas y páginas que funcionan</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Sans:wdth,wght@75..100,400..700&display=swap"
-    rel="stylesheet"
-  />
-  <link rel="stylesheet" href="assets/css/styles.css?v=17" />
+  <script src="assets/js/secret-boot.js"></script>
+  <link rel="stylesheet" href="assets/css/styles.css?v=42" />
+  <link rel="stylesheet" href="assets/css/secret-mode.css?v=19" />
+  <link rel="stylesheet" href="assets/css/mascota.css?v=10" />
 </head>
 
 <body>
-
-  <!-- ═══════════════════════════════════════════════════════════
-       AVATAR VIEWPORT — #avatar-viewport
-       Dos capas apiladas: canvas de partículas (fondo) + imagen.
-       JS intercambia .in-* para scrollytelling.
-       aria-hidden: puramente decorativo.
-       ═══════════════════════════════════════════════════════════ -->
-  <div id="avatar-viewport" class="in-hero" aria-hidden="true">
-    <canvas id="hologram-canvas"></canvas>
-    <img src="assets/img/alan-avatar.png" alt="" />
-  </div>
-
-
 
 
   <!-- ═══════════════════════════════════════════════════════════
@@ -77,19 +61,34 @@
       <div class="section-inner hero-inner">
         <div class="hero-content">
 
-          <h1 id="hero-heading">Te armo la herramienta que tu negocio necesita.</h1>
+          <h1 id="hero-heading">Desarrollo la herramienta que su negocio necesita.</h1>
 
           <p class="hero-desc">
-            Trabajo con vos desde la idea hasta que queda andando.
-            Sin palabras raras: te digo qué hace falta, cuánto cuesta y qué vas a obtener.
+            Acompaño el proceso desde la definición de la idea hasta su puesta en marcha.
+            Con claridad: qué hace falta, cuánto cuesta y qué resultado se obtiene.
           </p>
 
           <div class="hero-actions">
-            <a href="#proyectos" class="btn-primary">Ver trabajos</a>
-            <a href="#contacto" class="btn-secondary">Pedir presupuesto →</a>
+            <a href="#proyectos" class="btn-primary">Ver proyectos</a>
+            <a href="#contacto" class="btn-secondary">Solicitar presupuesto →</a>
           </div>
 
         </div>
+      </div>
+
+      <!-- Avatar del hero en modo cliente: imagen en flujo, scrollea con
+           la sección. En Avengers se reemplaza por el readout de JARVIS. -->
+      <div class="avatar-seccion avatar-hero" aria-hidden="true">
+        <canvas id="hologram-canvas"></canvas>
+        <img src="assets/img/alan-avatar.png" alt="" />
+      </div>
+
+      <!-- Detalle secreto: avatar a medio cargar, detrás del panel. -->
+      <div class="avatar-glitch" aria-hidden="true">
+        <img src="assets/img/alan-avatar.png" alt="" />
+        <span class="glitch-code">ERR_IMG_07
+ 0x1F 0x00 0x2A
+ // buffer 68%</span>
       </div>
     </section>
 
@@ -105,8 +104,8 @@
         <div class="section-header-row">
           <header class="section-header">
             <span class="section-label" aria-hidden="true">01 — destacados</span>
-            <h2 id="proyectos-heading">Cosas que ya hice y funcionan</h2>
-            <p>Cada una arrancó con un problema concreto y terminó con algo que se usa. Abrí el caso y mirá cómo fue.</p>
+            <h2 id="proyectos-heading">Proyectos que resolvieron problemas</h2>
+            <p>Cada caso explica el problema, la solución y el resultado.</p>
           </header>
           <a class="all-projects-link" href="proyectos.html">Ver todos los proyectos <span aria-hidden="true">↗</span></a>
         </div>
@@ -138,36 +137,48 @@
         <header class="section-header">
           <span class="section-label" aria-hidden="true">02 — proceso</span>
           <h2 id="proceso-heading">Cómo trabajo</h2>
-          <p>Cuatro pasos, siempre los mismos: escucho, pienso, construyo y dejo andando.</p>
+          <p>Cuatro etapas, siempre las mismas: escuchar, definir, construir y verificar que funcione.</p>
         </header>
 
         <ol class="process-list reveal" role="list">
           <li class="process-step">
-            <div class="step-marker" aria-hidden="true"><span class="step-num">01</span></div>
+            <div class="step-marker" aria-hidden="true">
+              <span class="step-symbol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H7l-4 2 1.2-4A8 8 0 1 1 21 12z"/></svg></span>
+              <span class="step-num">01</span>
+            </div>
             <div class="step-body">
-              <h3>Charlamos</h3>
-              <p>Antes de escribir una línea, charlamos 30 minutos. Con eso ya sé qué te pasa y qué necesitás resolver.</p>
+              <h3>Reunión inicial</h3>
+              <p>Antes de comenzar, una conversación de 30 minutos para entender la situación y definir qué necesita resolverse.</p>
             </div>
           </li>
           <li class="process-step">
-            <div class="step-marker" aria-hidden="true"><span class="step-num">02</span></div>
+            <div class="step-marker" aria-hidden="true">
+              <span class="step-symbol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13"/><circle cx="4" cy="6" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="18" r="1"/></svg></span>
+              <span class="step-num">02</span>
+            </div>
             <div class="step-body">
-              <h3>Armo el plan</h3>
-              <p>Elijo la forma más simple de resolverlo. Nada de vueltas innecesarias ni cosas que no pediste.</p>
+              <h3>Definición del plan</h3>
+              <p>Se elige la forma más simple de resolverlo, sin pasos innecesarios ni elementos que no se pidieron.</p>
             </div>
           </li>
           <li class="process-step">
-            <div class="step-marker" aria-hidden="true"><span class="step-num">03</span></div>
+            <div class="step-marker" aria-hidden="true">
+              <span class="step-symbol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 8l-4 4 4 4M16 8l4 4-4 4M14 4l-4 16"/></svg></span>
+              <span class="step-num">03</span>
+            </div>
             <div class="step-body">
-              <h3>Construyo y te muestro</h3>
-              <p>A la semana ya hay algo que podés probar. Lo probamos juntos y lo ajustamos con lo que me digas.</p>
+              <h3>Construcción y revisión</h3>
+              <p>En una semana ya hay algo que se puede probar. Se revisa junto al cliente y se ajusta según sus comentarios.</p>
             </div>
           </li>
           <li class="process-step">
-            <div class="step-marker" aria-hidden="true"><span class="step-num">04</span></div>
+            <div class="step-marker" aria-hidden="true">
+              <span class="step-symbol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg></span>
+              <span class="step-num">04</span>
+            </div>
             <div class="step-body">
-              <h3>Lo dejo andando</h3>
-              <p>Lo publico, te explico cómo usarlo y sigo cerca por si aparece algo. No desaparezco al terminar.</p>
+              <h3>Puesta en marcha</h3>
+              <p>Se publica, se explica su uso y se mantiene la disponibilidad ante cualquier inconveniente. El acompañamiento no termina con la entrega.</p>
             </div>
           </li>
         </ol>
@@ -187,7 +198,7 @@
         <header class="section-header">
           <span class="section-label" aria-hidden="true">03 — herramientas</span>
           <h2 id="skills-heading">Con qué construyo</h2>
-          <p>No es una lista de modas: son las herramientas que usé en trabajos que ya están funcionando. Pasá el cursor por cada una y ves dónde.</p>
+          <p>Son las herramientas utilizadas en trabajos que ya están funcionando. Cada una indica en qué proyecto se usó.</p>
         </header>
 
         <div id="skills-grid" class="skills-grid-wrap" aria-busy="true"></div>
@@ -210,32 +221,40 @@
         </div>
 
         <p class="eyebrow">// 04. quién soy</p>
-        <h2 id="sobre-mi-heading">Tengo 17 años y ya dejé cosas andando.</h2>
+        <h2 id="sobre-mi-heading">Tengo 18 años y ya dejé proyectos funcionando.</h2>
 
-        <div id="reveal-text-target" class="reveal-text-container">
-          <p>Arranqué en la escuela técnica y seguí por mi cuenta, a fuerza de horas y proyectos reales. Me gusta laburar con otras personas, aprender lo que haga falta y quedarme con lo simple antes que con lo impresionante. Si algo no funciona, lo digo y lo arreglo.</p>
+        <div class="about-pulse" aria-label="En números">
+          <div class="about-pulse-item">
+            <strong>18</strong>
+            <span>años</span>
+          </div>
+          <div class="about-pulse-item">
+            <strong>+200</strong>
+            <span>horas practicando</span>
+          </div>
+          <div class="about-pulse-item">
+            <strong>10</strong>
+            <span>proyectos reales</span>
+          </div>
         </div>
 
-        <!-- Mini-timeline: conecta la formación con el enfoque, sin repetir
-             el detalle completo (ese vive en #formacion). -->
-        <ol class="about-timeline" role="list" aria-label="Mi recorrido">
-          <li class="about-timeline-item reveal">
-            <span class="about-dot" aria-hidden="true"></span>
-            <span class="about-timeline-label">01 — base</span>
-            <p>Tecnicatura en Programación, EEST N.° 5 de Berazategui.</p>
-          </li>
-          <li class="about-timeline-item reveal">
-            <span class="about-dot" aria-hidden="true"></span>
-            <span class="about-timeline-label">02 — práctica</span>
-            <p>+200 horas practicando y armando proyectos reales.</p>
-          </li>
-          <li class="about-timeline-item reveal">
-            <span class="about-dot" aria-hidden="true"></span>
-            <span class="about-timeline-label">03 — criterio</span>
-            <p>Prefiero lo simple y que se entienda, aunque haya que escribir más.</p>
-          </li>
-        </ol>
+        <div id="reveal-text-target" class="reveal-text-container">
+          <p>Comencé en la escuela técnica y continué de forma autodidacta, con horas de práctica y proyectos reales. Valoro el trabajo con otras personas, el aprendizaje constante y las soluciones simples por encima de lo llamativo.</p>
+        </div>
 
+        <blockquote class="about-quote">Si algo no funciona, lo digo y lo arreglo.</blockquote>
+
+        <div class="sobre-mi-acciones">
+          <a class="btn-secondary cv-download"
+             href="assets/cv/alan-gonzalez-cv.pdf"
+             download="Alan-Gonzalez-CV.pdf">Descargar CV ↓</a>
+        </div>
+
+      </div>
+
+      <!-- El avatar también acompaña esta sección, en ambos modos. -->
+      <div class="avatar-seccion avatar-sobre-mi" aria-hidden="true">
+        <img src="assets/img/alan-avatar.png" alt="" />
       </div>
     </section>
 
@@ -251,7 +270,7 @@
         <header class="section-header">
           <span class="section-label" aria-hidden="true">05 — formación</span>
           <h2 id="formacion-heading">De dónde vengo</h2>
-          <p>Escuela, práctica y algunos cursos que me fueron dando oficio. Sin títulos inventados.</p>
+          <p>Escuela, práctica y los cursos que cursé realmente. Cada dato se puede verificar.</p>
         </header>
 
         <ol class="formacion-timeline reveal" role="list">
@@ -311,15 +330,15 @@
 
     <!-- ═══════════════════════════════════════════════════════════
          SECCIÓN 7 — CONTACTO
-         Wizard debrief + formulario verificado contra Google Sheets
+         Wizard debrief + mailto: el correo se abre con el mensaje ya escrito
          ═══════════════════════════════════════════════════════════ -->
     <section id="contacto" data-section="contacto" aria-labelledby="contacto-heading">
       <div class="section-inner">
 
         <header class="section-header">
           <span class="section-label" aria-hidden="true">06 — contacto</span>
-          <h2 id="contacto-heading">¿Qué necesitás? Lo charlamos.</h2>
-          <p>Dos preguntas rápidas y te respondo con una idea clara, un tiempo y un precio. Sin compromiso.</p>
+          <h2 id="contacto-heading">¿Qué necesita resolver?</h2>
+          <p>Dos preguntas breves permiten responder con una propuesta clara, un plazo y un precio. Sin compromiso.</p>
         </header>
 
         <div id="wizard" class="wizard reveal" aria-label="Un par de preguntas rápidas">
@@ -336,7 +355,7 @@
           <div class="wizard-step" id="wizard-step-1" data-step="1">
             <p class="wizard-question">
               <span class="wizard-q-num" aria-hidden="true">01.</span>
-              ¿Qué necesita tu negocio?
+              ¿Qué necesita su negocio?
             </p>
             <div class="wizard-options">
               <button class="wizard-option" data-value="ecommerce" data-next="2">
@@ -362,7 +381,7 @@
               <button class="wizard-option" data-value="offline" data-next="3">
                 <span class="wizard-option-icon" aria-hidden="true">📡</span>
                 <span class="wizard-option-label">Sí, es crítico</span>
-                <span class="wizard-option-hint" aria-hidden="true">sigue andando sin conexión</span>
+                <span class="wizard-option-hint" aria-hidden="true">funciona sin conexión</span>
               </button>
               <button class="wizard-option" data-value="online" data-next="3">
                 <span class="wizard-option-icon" aria-hidden="true">☁️</span>
@@ -375,20 +394,12 @@
           <!-- PASO 3 -->
           <div class="wizard-step" id="wizard-step-3" data-step="3" aria-hidden="true" inert>
 
-            <div class="arch-recommendation" role="status" aria-live="polite" aria-label="Lo que te conviene">
-              <p class="arch-label" aria-hidden="true">// lo que te conviene</p>
+            <div class="arch-recommendation" role="status" aria-live="polite" aria-label="Propuesta recomendada">
+              <p class="arch-label" aria-hidden="true">// propuesta recomendada</p>
               <p class="arch-text" id="arch-text"></p>
             </div>
 
-            <form name="contacto" method="POST" action="#" novalidate aria-label="Formulario de propuesta">
-
-              <!-- Campo trampa (honeypot): oculto para humans, los bots
-                   lo rellenan y el envío se descarta sin llegar a la base. -->
-              <div class="hp-field" aria-hidden="true">
-                <label for="empresa">Empresa</label>
-                <input type="text" id="empresa" name="empresa"
-                       tabindex="-1" autocomplete="off" />
-              </div>
+            <form name="contacto" novalidate aria-label="Formulario de propuesta">
 
               <div class="form-row">
                 <div class="form-group">
@@ -406,12 +417,13 @@
                   Contexto adicional
                   <span class="field-optional">(opcional)</span>
                 </label>
-                <textarea id="mensaje" name="mensaje" rows="3" placeholder="Contame más sobre tu negocio o proyecto..."></textarea>
+                <textarea id="mensaje" name="mensaje" rows="3" placeholder="Describa su negocio o proyecto..."></textarea>
               </div>
 
               <button type="submit" class="btn-submit">
-                Enviar propuesta <span aria-hidden="true">→</span>
+                Abrir correo web <span aria-hidden="true">→</span>
               </button>
+              <p class="form-hint">Se abre Gmail con el mensaje listo. También puede usar Outlook o copiar el texto.</p>
 
             </form>
 
@@ -419,6 +431,12 @@
 
         </div><!-- /#wizard -->
 
+      </div>
+
+      <!-- En Contacto el avatar convive con la mascota fija, también en
+           modo Avengers. -->
+      <div class="avatar-seccion avatar-contacto" aria-hidden="true">
+        <img src="assets/img/alan-avatar.png" alt="" />
       </div>
     </section>
 
@@ -434,8 +452,8 @@
       <nav aria-label="Links externos">
         <ul role="list">
           <li><a href="https://github.com/gonzalezalan-23"       target="_blank" rel="noopener noreferrer">GitHub ↗</a></li>
-          <li><a href="https://wa.me/5491139053673"              target="_blank" rel="noopener noreferrer">WhatsApp ↗</a></li>
-          <li><a href="mailto:facundoalanfafa@gmail.com">Email</a></li>
+          <li><a href="https://wa.me/5491139053672"              target="_blank" rel="noopener noreferrer">WhatsApp ↗</a></li>
+          <li><a href="#contacto">Formulario →</a></li>
         </ul>
       </nav>
       <small>© 2026 Alan — Todos los derechos reservados</small>
@@ -445,7 +463,9 @@
   </div><!-- /.scroll-container -->
 
   <script src="assets/js/nav.js?v=1" defer></script>
-  <script src="assets/js/app.js?v=22" defer></script>
+  <script src="assets/js/app.js?v=34" defer></script>
+  <script src="assets/js/secret-mode.js?v=21" defer></script>
+  <script src="assets/js/alan-mascota.js?v=12" defer></script>
 
 </body>
 </html>

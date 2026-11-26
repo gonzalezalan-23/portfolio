@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200" role="img" aria-label="Salta y Jujuy">
+  <defs>
+    <linearGradient id="c" x2="0" y2="1"><stop stop-color="#8ecae6"/><stop offset="1" stop-color="#cde7b0"/></linearGradient>
+  </defs>
+  <rect width="300" height="200" fill="url(#c)"/>
+  <path d="M0 160 60 90l55 70 45-40 60 40 80-55v95H0z" fill="#a4472f"/><circle cx="235" cy="50" r="24" fill="#ffb703"/>
+  <rect x="8" y="164" width="284" height="28" rx="8" fill="#080808" opacity=".72"/>
+  <text x="22" y="183" fill="#fff" font-family="Segoe UI, sans-serif" font-size="14" font-weight="600">Salta y Jujuy</text>
+</svg>

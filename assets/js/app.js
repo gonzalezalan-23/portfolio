@@ -3,21 +3,18 @@
  * Módulos:
  *   0. initBlurText       — BlurText replica: anima el h1 del Hero palabra a palabra (Web Animations API)
  *   1. initHologramCanvas — Canvas de partículas/threads orbitales bajo el avatar
- *   2. initScrollytelling — IntersectionObserver → intercambia .in-* en el avatar
+ *   2. initScrollytelling — detecta la sección dominante para la nav y el canvas
  *   3. initReveal         — Anima .reveal al entrar en viewport
  *   4. (nav.js)           — Barra superior, menú móvil y progreso
- *   5. initWizard         — Pasos del wizard de contacto + pulso del avatar
- *   6. initContactForm    — Validación y envío a Google Sheets (Apps Script)
+ *   5. initWizard         — Pasos del wizard de contacto + pulso del canvas
+ *   6. initContactForm    — Validación y armado de correo web (sin servidores)
  */
 (() => {
   'use strict';
 
-  /* Endpoint del web app de Google Apps Script (docs/GOOGLE_SHEETS.md).
-     Vacío = backend todavía no configurado: el form muestra el estado
-     de error en vez de fingir que envió. */
-  const FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwsiGGr7tBjZSiuSBQ04OsmzfpXKQNoirnDn_LhcdYyeOM5iZUiMrpG4Fvhuce-1P7A/exec';
-
-  const avatarVP   = () => document.getElementById('avatar-viewport');
+  /* Contacto sin backend: el wizard arma un correo web con asunto y cuerpo.
+     No hay fetch, endpoint ni servicio externo en el sitio. */
+  const CONTACTO_EMAIL = 'gonzalez.alan.dev@gmail.com';
 
 
   /* ═══════════════════════════════════════════════════════════════
@@ -244,8 +241,8 @@
 
   /* ═══════════════════════════════════════════════════════════════
      2. SCROLLYTELLING — IntersectionObserver
-     Intercambia .in-{section} en avatar-viewport.
-     Ajusta la velocidad del canvas según la sección.
+     Detecta la sección dominante para marcar la navegación y ajustar
+     la velocidad del canvas. Los avatares son imágenes en flujo.
      ═══════════════════════════════════════════════════════════════ */
   const SPEED_MAP = {
     hero:        1,
@@ -258,8 +255,6 @@
   };
 
   function initScrollytelling() {
-    const avatarEl     = avatarVP();
-    const AVATAR_CLS   = ['in-hero', 'in-sobre-mi', 'in-skills', 'in-proyectos', 'in-proceso', 'in-formacion', 'in-contacto'];
     const navItems     = document.querySelectorAll('.topnav-item');
     const navCta       = document.querySelector('.topbar-cta');
     const scrollRoot   = document.querySelector('.scroll-container');
@@ -314,17 +309,10 @@
       if (!section || section === actual) return;
       actual = section;
 
-      /* a) Avatar viewport */
-      const cls = `in-${section}`;
-      if (avatarEl) {
-        AVATAR_CLS.forEach(c => avatarEl.classList.remove(c));
-        if (AVATAR_CLS.includes(cls)) avatarEl.classList.add(cls);
-      }
-
-      /* b) Barra superior */
+      /* a) Barra superior */
       syncNav(section);
 
-      /* c) Velocidad del holograma */
+      /* b) Velocidad del holograma */
       hologram.setSpeed(SPEED_MAP[section] ?? 1);
     }
 
@@ -470,27 +458,63 @@
       const sinCategoria = ordenadas.filter(s => !asignadas.has(s.key));
       if (sinCategoria.length) bloques.push({ nombre: 'En proyectos', chips: sinCategoria });
 
-      /* Chips compactos: la evidencia va en el tooltip/aria-label para que
-         la sección no se convierta en una lista interminable. */
+      /* Logos guardados en local (Simple Icons, CC0). Ninguna petición
+         externa: el sitio sigue andando sin wifi. Si una herramienta no
+         tiene logo, cae a un monograma con el mismo estilo. */
+      const ICONOS = {
+        'html/css':      ['html5', 'css'],
+        'html/js':       ['html5', 'javascript'],
+        'js vanilla':    ['javascript'],
+        'vue 3':         ['vuedotjs'],
+        'tailwind css':  ['tailwindcss'],
+        'php':           ['php'],
+        'python':        ['python'],
+        'mercado pago':  ['mercadopago'],
+        'supabase':      ['supabase'],
+        'mysql':         ['mysql'],
+        'sqlite':        ['sqlite'],
+        'arduino':       ['arduino'],
+        'arduino/esp32': ['arduino'],
+        'c++':           ['cplusplus'],
+        'vite':          ['vite'],
+      };
+      const MONOGRAMAS = {
+        'customtkinter': 'CT', 'ia (groq)': 'IA', 'emailjs': 'EJ',
+        'localstorage': 'LS', 'esp32': 'E32', 'wifi ap': 'AP',
+        'rf 433 mhz': 'RF', 'modelado 3d': '3D',
+      };
+      const iconoHTML = (s) => {
+        const archivos = ICONOS[s.key] || [];
+        if (archivos.length) {
+          return `<span class="skill-icon" aria-hidden="true">${archivos
+            .map(a => `<img src="assets/img/icons/${a}.svg" alt="" />`).join('')}</span>`;
+        }
+        const siglas = MONOGRAMAS[s.key] || s.label.slice(0, 2).toUpperCase();
+        return `<span class="skill-icon skill-icon-text" aria-hidden="true">${escapeHTML(siglas)}</span>`;
+      };
+
+      /* Chips compactos: la evidencia sigue disponible en el tooltip y en
+         el aria-label, pero la grilla de 5 columnas desaparece. */
       const chipHTML = (s) => {
         const n = s.proyectos.length;
-        const ver = s.proyectos.slice(0, 4).map(p => p.titulo).join(' · ');
-        const resto = n > 4 ? ` +${n - 4} más` : '';
+        const ver = s.proyectos.slice(0, 2).map(p => p.titulo).join(' · ');
+        const resto = n > 2 ? ` +${n - 2}` : '';
         const detalle = `${ver}${resto}`;
         return `
-          <li class="skill-chip" title="Usado en ${detalle}">
-            <span class="skill-name">${escapeHTML(s.label)}</span>
-            <span class="skill-count" aria-label="usado en ${n} proyecto${n === 1 ? '' : 's'}: ${escapeHTML(detalle)}">×${n}</span>
+          <li class="skill-chip" title="Usado en ${escapeHTML(detalle)}">
+            ${iconoHTML(s)}
+            <span class="skill-chip-name">${escapeHTML(s.label)}</span>
+            <span class="skill-chip-count" aria-label="usado en ${n} proyecto${n === 1 ? '' : 's'}: ${escapeHTML(detalle)}">×${n}</span>
           </li>`;
       };
 
       grid.innerHTML = bloques.map(b => `
-        <section class="skill-category">
-          <h3 class="skill-category-title">
+        <section class="skill-row">
+          <h3 class="skill-row-title">
             <span aria-hidden="true">// </span>${escapeHTML(b.nombre)}
-            <span class="skill-category-count" aria-hidden="true">${b.chips.length}</span>
+            <span class="skill-row-count" aria-hidden="true">${b.chips.length}</span>
           </h3>
-          <ul class="skills-grid" role="list">${b.chips.map(chipHTML).join('')}</ul>
+          <ul class="skill-chips" role="list">${b.chips.map(chipHTML).join('')}</ul>
         </section>`).join('');
 
       grid.removeAttribute('aria-busy');
@@ -626,27 +650,21 @@
   const wizardState = { step: 1, objetivo: '', conexion: '' };
 
   function pulseAvatar() {
-    const el = avatarVP();
-    if (!el) return;
-    el.classList.remove('avatar-pulse');
-    void el.offsetWidth;
-    el.classList.add('avatar-pulse');
-    el.addEventListener('animationend', () => el.classList.remove('avatar-pulse'), { once: true });
-    // Pulso del canvas de partículas (holograma)
+    /* El avatar es una imagen estática: sólo responde el holograma. */
     hologram.burst();
   }
 
   /* Cierre común de las 4 recomendaciones — voz del sitio (T1.2) */
-  const ARCH_CIERRE = '\n\n↓ Dejame tus datos y te lo cotizo con números.';
+  const ARCH_CIERRE = '\n\n↓ Deje sus datos y recibirá una cotización con valores.';
 
   function getArchText(objetivo, conexion) {
     const offline = conexion === 'offline';
     const ecomm   = objetivo === 'ecommerce';
     let base;
-    if (ecomm && offline)  base = 'Lo que te conviene:\n→ Una tienda que siga andando sin internet\n→ Los pedidos se guardan y se envían solos al volver la conexión\n→ Catálogo y cobros fáciles de administrar';
-    else if (ecomm && !offline) base = 'Lo que te conviene:\n→ Una tienda propia, con tu marca y tus cobros\n→ Catálogo, carrito y pagos en un mismo lugar\n→ Accesos distintos para quien administra y quien compra';
-    else if (!ecomm && offline) base = 'Lo que te conviene:\n→ Una herramienta que funcione también sin internet\n→ Los datos se guardan y se acomodan después\n→ Reportes claros para ver cómo va todo';
-    else base = 'Lo que te conviene:\n→ Un sistema único, al que entrás desde donde trabajes\n→ Cada persona ve solo lo que le toca\n→ Datos y reportes al día, sin planillas duplicadas';
+    if (ecomm && offline)  base = 'Propuesta recomendada:\n→ Una tienda que funcione también sin internet\n→ Los pedidos se guardan y se envían al volver la conexión\n→ Catálogo y cobros fáciles de administrar';
+    else if (ecomm && !offline) base = 'Propuesta recomendada:\n→ Una tienda propia, con su marca y sus cobros\n→ Catálogo, carrito y pagos en un mismo lugar\n→ Accesos distintos para quien administra y quien compra';
+    else if (!ecomm && offline) base = 'Propuesta recomendada:\n→ Una herramienta que funcione también sin internet\n→ Los datos se guardan y se acomodan después\n→ Informes claros para seguir el estado del trabajo';
+    else base = 'Propuesta recomendada:\n→ Un sistema único, al que se accede desde donde se trabaje\n→ Cada persona ve sólo lo que le corresponde\n→ Datos e informes al día, sin planillas duplicadas';
     return base + ARCH_CIERRE;
   }
 
@@ -782,10 +800,8 @@
     fields.email?.addEventListener('blur',  () => validateField(fields.email,  v => v.length > 0 && EMAIL_RE.test(v)));
 
     const STATES = {
-      idle:       { text: 'Enviar propuesta →', disabled: false },
-      processing: { text: 'Enviando...',         disabled: true  },
-      success:    { text: '✓ Propuesta enviada', disabled: true  },
-      error:      { text: 'Reintentar →',         disabled: false },
+      idle:    { text: 'Abrir correo web →', disabled: false },
+      success: { text: '✓ Correo abierto',     disabled: true  },
     };
 
     function setBtn(state) {
@@ -793,97 +809,230 @@
       submitBtn.disabled    = STATES[state].disabled;
     }
 
-    /* POST al web app de Google Apps Script.
-       Content-Type text/plain mantiene el request "simple" (sin preflight
-       OPTIONS, que Apps Script no maneja). La respuesta final llega con
-       Access-Control-Allow-Origin: * → la leemos y verificamos
-       {"status":"ok"}: el ✓ del botón ahora significa que el servidor
-       confirmó el guardado, no un éxito optimista (antes: no-cors opaco). */
-    async function enviarForm(row) {
-      if (!FORM_ENDPOINT) throw new Error('[Form] endpoint no configurado');
-      const res = await fetch(FORM_ENDPOINT, {
-        method: 'POST',
-        mode: 'cors',
-        redirect: 'follow',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify(row),
-      });
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-      let data;
-      try { data = await res.json(); }
-      catch { throw new Error('respuesta inesperada del servidor'); }
-      if (data.status !== 'ok') {
-        const err = new Error(data.message || 'el servidor rechazó el mensaje');
-        err.detalle = data.detalle;
-        throw err;
-      }
-      return data;
+    const OBJETIVO_LABEL = {
+      ecommerce:         'Vender online / Ecommerce',
+      'control-interno': 'Control interno / Stock',
+    };
+    const CONEXION_LABEL = {
+      offline: 'Sí, es crítico',
+      online:  'No, siempre hay conexión',
+    };
+
+    /* Arma el correo con lo que eligió en el wizard. Cero fetch, cero
+       endpoint: el mensaje existe aunque el equipo no tenga app de correo. */
+    function armarMensaje() {
+      const nombre   = fields.nombre.value.trim();
+      const email    = fields.email.value.trim();
+      const mensaje  = fields.mensaje?.value.trim() ?? '';
+      const objetivo = OBJETIVO_LABEL[form.dataset.objetivo] || 'No especificado';
+      const conexion = CONEXION_LABEL[form.dataset.conexion] || 'No especificado';
+      const idea     = form.dataset.archCompleta
+                       || document.getElementById('arch-text')?.textContent.trim()
+                       || '';
+
+      const asunto = `Consulta desde alan.dev — ${objetivo}`;
+      const cuerpo = [
+        'Hola Alan,',
+        '',
+        'Me contacto desde su portfolio.',
+        '',
+        `Nombre: ${nombre}`,
+        `Email: ${email}`,
+        `Qué necesito: ${objetivo}`,
+        `Sin internet: ${conexion}`,
+        '',
+        idea,
+        '',
+        'Contexto adicional:',
+        mensaje || '(sin datos adicionales)',
+        '',
+        'Gracias.',
+      ].join('\n');
+
+      const gmail = 'https://mail.google.com/mail/?view=cm&fs=1'
+                  + `&to=${encodeURIComponent(CONTACTO_EMAIL)}`
+                  + `&su=${encodeURIComponent(asunto)}`
+                  + `&body=${encodeURIComponent(cuerpo)}`;
+      const outlook = 'https://outlook.live.com/mail/0/deeplink/compose'
+                    + `?to=${encodeURIComponent(CONTACTO_EMAIL)}`
+                    + `&subject=${encodeURIComponent(asunto)}`
+                    + `&body=${encodeURIComponent(cuerpo)}`;
+      return { asunto, cuerpo, gmail, outlook };
     }
 
-    /* Éxito compartido: el envío real y el descarte por honeypot
-       muestran el mismo mensaje (no se avisa a los bots). */
-    function mostrarExito() {
+    /* El correo web se abre en una pestaña; el panel deja todo visible y se
+       puede copiar si algo falla. Nunca borramos lo que escribió la persona. */
+    function mostrarListo(datos) {
       setBtn('success');
-      form.reset();
-      const msg = document.createElement('div');
-      msg.className = 'form-success';
-      msg.setAttribute('role', 'status');
-      msg.textContent = '✓ ¡Propuesta enviada! Alan la recibió y se pondrá en contacto pronto.';
-      submitBtn.insertAdjacentElement('beforebegin', msg);
-      setTimeout(() => { msg.remove(); setBtn('idle'); }, 7000);
+      pulseAvatar();
+      form.querySelector('.form-mail-ready')?.remove();
+
+      const panel = document.createElement('div');
+      panel.className = 'form-mail-ready';
+      panel.setAttribute('role', 'status');
+
+      const titulo = document.createElement('p');
+      titulo.className = 'form-ready-title';
+      titulo.textContent = '✓ Tu correo web se abrió en una pestaña nueva.';
+
+      const copy = document.createElement('p');
+      copy.className = 'form-ready-copy';
+      copy.textContent = 'El mensaje ya tiene para, asunto y texto cargados. Si no se abrió, usá los botones de abajo o copialo a ';
+      const mailLink = document.createElement('a');
+      mailLink.href = `mailto:${CONTACTO_EMAIL}`;
+      mailLink.textContent = CONTACTO_EMAIL;
+      copy.appendChild(mailLink);
+      copy.appendChild(document.createTextNode('.'));
+
+      const meta = document.createElement('dl');
+      meta.className = 'form-ready-meta';
+      const fila = (etiqueta, valor) => {
+        const div = document.createElement('div');
+        const dt = document.createElement('dt');
+        dt.textContent = etiqueta;
+        const dd = document.createElement('dd');
+        dd.textContent = valor;
+        div.append(dt, dd);
+        return div;
+      };
+      meta.append(fila('Para', CONTACTO_EMAIL), fila('Asunto', datos.asunto));
+
+      const label = document.createElement('label');
+      label.className = 'form-ready-label';
+      label.htmlFor = 'mensaje-listo';
+      label.textContent = 'Mensaje';
+
+      const area = document.createElement('textarea');
+      area.id = 'mensaje-listo';
+      area.className = 'form-ready-text';
+      area.rows = 9;
+      area.readOnly = true;
+      area.value = datos.cuerpo;
+
+      const actions = document.createElement('div');
+      actions.className = 'form-ready-actions';
+
+      const gmail = document.createElement('a');
+      gmail.className = 'btn-open-mail';
+      gmail.href = datos.gmail;
+      gmail.target = '_blank';
+      gmail.rel = 'noopener noreferrer';
+      gmail.textContent = 'Abrir Gmail ↗';
+
+      const outlook = document.createElement('a');
+      outlook.className = 'btn-secondary';
+      outlook.href = datos.outlook;
+      outlook.target = '_blank';
+      outlook.rel = 'noopener noreferrer';
+      outlook.textContent = 'Abrir Outlook ↗';
+
+      const copiar = document.createElement('button');
+      copiar.type = 'button';
+      copiar.className = 'btn-secondary';
+      copiar.textContent = 'Copiar mensaje';
+
+      const cerrar = document.createElement('button');
+      cerrar.type = 'button';
+      cerrar.className = 'btn-ready-close';
+      cerrar.textContent = 'Cerrar';
+
+      copiar.addEventListener('click', async () => {
+        let ok = false;
+        try {
+          if (navigator.clipboard?.writeText) {
+            await navigator.clipboard.writeText(datos.cuerpo);
+            ok = true;
+          }
+        } catch { /* cae al método de abajo */ }
+        if (!ok) {
+          area.focus();
+          area.select();
+          ok = document.execCommand('copy');
+        }
+        copiar.textContent = ok ? '✓ Copiado' : 'Seleccioná y copiá el texto';
+        setTimeout(() => { copiar.textContent = 'Copiar mensaje'; }, 2500);
+      });
+
+      cerrar.addEventListener('click', () => {
+        panel.remove();
+        setBtn('idle');
+      });
+
+      actions.append(gmail, outlook, copiar, cerrar);
+      panel.append(titulo, copy, meta, label, area, actions);
+      submitBtn.insertAdjacentElement('beforebegin', panel);
+      panel.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
     }
 
-    form.addEventListener('submit', async (e) => {
+    form.addEventListener('submit', (e) => {
       e.preventDefault();
       if (!validateAll()) { form.querySelector('.field-error')?.focus(); return; }
 
-      form.querySelector('.form-success')?.remove();
-      form.querySelector('.form-send-error')?.remove();
-
-      /* Honeypot: el campo oculto "empresa" solo lo rellenan bots.
-         Éxito fingido, sin insertar nada (T1.6 — anti-spam). */
-      const honeypot = form.querySelector('#empresa');
-      if (honeypot && honeypot.value.trim() !== '') {
-        console.warn('[ContactForm] envío descartado: honeypot relleno');
-        mostrarExito();
-        return;
-      }
-
-      setBtn('processing');
-
-      const payload = {
-        nombre:                fields.nombre.value.trim(),
-        email:                 fields.email.value.trim(),
-        mensaje:               fields.mensaje?.value.trim() ?? '',
-        objetivo_negocio:      form.dataset.objetivo || '',
-        requiere_offline:      form.dataset.conexion === 'offline',
-        arquitectura_sugerida: form.dataset.archCompleta
-                               || document.getElementById('arch-text')?.textContent.trim()
-                               || '',
-        empresa:               '',   /* honeypot: vacío = humano */
-      };
-
-      try {
-        await enviarForm(payload);
-        pulseAvatar();
-        mostrarExito();
-      } catch (err) {
-        console.error('[ContactForm]', err, err.detalle || '');
-        setBtn('error');
-        const errEl = document.createElement('p');
-        errEl.className = 'form-send-error';
-        errEl.setAttribute('role', 'alert');
-        errEl.textContent = 'No se pudo enviar. Reintentá o escribime por WhatsApp.';
-        submitBtn.insertAdjacentElement('beforebegin', errEl);
-        setTimeout(() => { errEl.remove(); setBtn('idle'); }, 7000);
-      }
+      const datos = armarMensaje();
+      /* Se abre en una pestaña web (Gmail) con todo prellenado. Si el
+         navegador bloquea la ventana, los links del panel hacen lo mismo. */
+      window.open(datos.gmail, '_blank', 'noopener,noreferrer');
+      mostrarListo(datos);
     });
   }
 
 
   /* ═══════════════════════════════════════════════════════════════
+     NAVEGACIÓN INTERNA — offset exacto para la barra fija
+     El scroll vive en .scroll-container, no en window. Apoyarse en el
+     #hash del navegador solo era impreciso: el contenido de proyectos y
+     skills se inyecta después y el ancla se movía. Acá calculamos el
+     destino contra la altura real de la barra y lo corregimos al terminar
+     de cargar el JSON.
+     ═══════════════════════════════════════════════════════════════ */
+  function irASeccion(id, suave = true) {
+    const destino = document.getElementById(id);
+    if (!destino) return;
+    const scroller = document.querySelector('.scroll-container');
+    const barra = document.querySelector('.topbar');
+    const altoBarra = barra ? barra.getBoundingClientRect().height : 0;
+    const barraSecreta = document.getElementById('secret-bar');
+    const altoSecreta = barraSecreta ? barraSecreta.getBoundingClientRect().height : 0;
+    const offset = altoBarra + altoSecreta > 0 ? altoBarra + altoSecreta : 72;
+    const actual = scroller ? scroller.scrollTop : window.scrollY;
+    const top = Math.max(0, destino.getBoundingClientRect().top + actual - offset);
+    if (scroller) scroller.scrollTo({ top, behavior: suave ? 'smooth' : 'instant' });
+    else window.scrollTo({ top, behavior: suave ? 'smooth' : 'instant' });
+  }
+
+  function initNavegacionInterna() {
+    let navegoUsuario = false;
+
+    document.addEventListener('click', (evento) => {
+      const link = evento.target.closest('a[href^="#"]');
+      if (!link) return;
+      const id = link.getAttribute('href').slice(1);
+      if (!id || !document.getElementById(id)) return;
+      evento.preventDefault();
+      navegoUsuario = true;
+      irASeccion(id);
+      history.replaceState(null, '', `#${id}`);
+    });
+
+    /* Al llegar con #hash desde otra página, sacamos el fragmento antes de
+       que el navegador haga SU scroll (que calcula con un layout todavía
+       incompleto) y lo reaplicamos cuando el JSON ya renderizó. */
+    const hashInicial = location.hash ? decodeURIComponent(location.hash.slice(1)) : '';
+    if (hashInicial) history.replaceState(null, '', location.pathname + location.search);
+
+    Promise.allSettled([initSkillsPromise, initOrbitaPromise]).then(() => {
+      if (navegoUsuario || !hashInicial || !document.getElementById(hashInicial)) return;
+      irASeccion(hashInicial, false);
+      history.replaceState(null, '', `#${hashInicial}`);
+    });
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
      INIT
      ═══════════════════════════════════════════════════════════════ */
+  let initSkillsPromise = Promise.resolve();
+  let initOrbitaPromise = Promise.resolve();
+
   function init() {
     /* 0 — BlurText en el h1 del Hero (Web Animations API, sin dependencias) */
     initBlurText('#hero-heading', {
@@ -900,8 +1049,9 @@
     initScrollytelling();
     initReveal();
     initWizard();
-    initSkills();          /* chips de skills desde los stack del JSON (async) */
-    initOrbita();          /* carrusel de destacados desde el JSON (async) */
+    initSkillsPromise  = Promise.resolve(initSkills());  /* skills desde el JSON */
+    initOrbitaPromise  = Promise.resolve(initOrbita());  /* destacados desde el JSON */
+    initNavegacionInterna();
   }
 
   if (document.readyState === 'loading') {

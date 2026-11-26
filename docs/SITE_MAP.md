@@ -22,10 +22,10 @@ Secciones en orden (cada una `min-height:100vh`):
 | 1 | **Hero** | `#hero` | ✅ existe | — |
 | 2 | **Proyectos destacados** | `#proyectos` | ✅ existe | Órbita (6 destacados) en una pantalla + link a `/proyectos.html`. Sin grilla infinita en el home |
 | 3 | **Proceso** | `#proceso` | ✅ vuelve (F7) | 4 pasos; el mismo bloque sigue embebido en cada ficha |
-| 4 | **Stack** | `#skills` | ✅ existe | 5 categorías curadas desde el mapa `tecnologias`; chips compactos con evidencia en `title`/`aria-label` |
+| 4 | **Stack** | `#skills` | ✅ existe | 5 categorías curadas desde el mapa `tecnologias`; tarjetas con logo SVG local y proyectos donde se usó cada herramienta |
 | 5 | **Sobre mí** | `#sobre-mi` | ✅ existe | marquee tipográfico + mini-timeline con link a Formación |
 | 6 | **Formación académica** | `#formacion` | ✅ existe (F3) | timeline con 5 hitos: tecnicatura, +200 hs y 3 certificados (PDF de Python linkeado) |
-| 7 | **Contacto / Brief rápido** | `#contacto` | ✅ renombrado (antes `#cotizador`) | wizard + form verificado contra Google Sheets |
+| 7 | **Contacto / Brief rápido** | `#contacto` | ✅ renombrado (antes `#cotizador`) | wizard + form que abre Gmail/Outlook web con el mensaje listo; copiado como respaldo |
 
 ### Fuera del sitemap (borrados o embebidos)
 
@@ -39,15 +39,15 @@ Secciones en orden (cada una `min-height:100vh`):
 
 | Superficie | Elemento | Estado |
 |------------|----------|--------|
-| Desktop (≥981px) | `.topbar` fija: marca + 6 links (Inicio, Proyectos, Cómo trabajo, Stack, Sobre mí, Formación) + CTA rojo "Hablemos" | ✅ se comprime al scrollear y muestra línea de progreso |
+| Desktop (≥981px) | `.topbar` fija: marca + 6 links (Inicio, Proyectos, Cómo trabajo, Herramientas, Sobre mí, Formación) + CTA rojo "Hablemos" | ✅ se comprime al scrollear y muestra línea de progreso |
 | Mobile (≤980px) | Hamburguesa dentro de la barra + panel clonado de los links por `nav.js` | ✅ probado en 390/557/768px; Escape y resize cierran el panel |
-| Footer (todas las rutas) | marca + enlaces reales | ✅ GitHub `gonzalezalan-23`, WhatsApp `1139053673`, Instagram `gonzalezalan.23`, mail `facundoalanfafa@gmail.com`. **LinkedIn no existe → no se muestra** |
+| Footer (todas las rutas) | marca + enlaces reales | ✅ GitHub `gonzalezalan-23`, WhatsApp `5491139053672`, mail `gonzalez.alan.dev@gmail.com`. Sin Instagram ni LinkedIn |
 
 ---
 
 ## 3. Detalle de proyecto — `proyecto.html?slug=<slug>`
 
-- **10 fichas**, generadas desde `data/proyectos.json` (fuente única de verdad). El dueño sacó `sistema-sad` y `python-lab` del catálogo.
+- **9 fichas**, generadas desde `data/proyectos.json` (fuente única de verdad). El dueño sacó `sistema-sad` y `python-lab` del catálogo.
 - URL con query param (`proyecto.html?slug=biblioteca-virtual`): GitHub Pages no hace rewrite y así un proyecto nuevo entra **solo con editar el JSON** — sin build ni un archivo HTML por slug.
 - **3 plantillas** (tipos aún **por confirmar** contra la tabla maestra — ver §6):
 
@@ -88,7 +88,7 @@ Secciones en orden (cada una `min-height:100vh`):
 ├── #skills          (4) Stack (5 categorías)
 ├── #sobre-mi        (5) Sobre mí (marquee + mini-timeline)
 ├── #formacion       (6) Formación académica
-└── #contacto        (7) Contacto / Brief rápido (wizard + form Google Sheets)
+└── #contacto        (7) Contacto / Brief rápido (wizard + correo web)
 
 /404.html
 ```
@@ -97,7 +97,7 @@ Secciones en orden (cada una `min-height:100vh`):
 
 ## 6. Por confirmar (bloqueos de T1.3)
 
-1. ~~Tabla maestra de los 12 proyectos~~ → resuelto: la fuente única es `data/proyectos.json` (10 proyectos tras la poda confirmada).
+1. ~~Tabla maestra de los 12 proyectos~~ → resuelto: la fuente única es `data/proyectos.json` (9 proyectos tras la poda confirmada).
 2. **Las 3 plantillas**: propuse A/B/C arriba (razón: coinciden con las 3 categorías de las tarjetas actuales: Control Interno / Ecommerce / SaaS-Dashboard). Confirmar o corregir.
 3. **Orden final**: ✅ decidido por el dueño e implementado en F7: **Hero → Destacados → Proceso → Stack → Sobre mí → Formación → Contacto**. Los proyectos van temprano porque venden; Sobre mí y Formación quedan como respaldo, después de saber qué hace y cómo trabaja.
-4. **Los 10 proyectos**: confirmados por el dueño; `sistema-sad` y `python-lab` quedaron fuera del catálogo. Ver `INVENTARIO_2026.md` para el histórico.
+4. **Los 9 proyectos**: confirmados por el dueño; `sistema-sad` y `python-lab` quedaron fuera del catálogo. Ver `INVENTARIO_2026.md` para el histórico.

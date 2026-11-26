@@ -1,5 +1,9 @@
 # GOOGLE SHEETS + APPS SCRIPT — backend del formulario (T1.6)
 
+> ⛔ **HISTÓRICO — ya no está en el sitio.** El formulario de contacto abre
+> Gmail/Outlook web con el mensaje ya redactado, sin servidores propios.
+> Este documento queda como registro de la opción descartada.
+
 > ✅ **OPERATIVO — verificado 2026-11-24.**
 > El servicio responde 200 y **escribe** en esta hoja (abrila para ver
 > los mensajes):

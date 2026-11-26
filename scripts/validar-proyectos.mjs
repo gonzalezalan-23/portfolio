@@ -21,6 +21,9 @@ const CATEGORIAS = ['sistema-web', 'saas', 'ecommerce', 'landing', 'app-escritor
 const PLANTILLAS = ['A', 'B', 'C'];
 const SLUG_RE = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 const URL_RE = /^https:\/\//;
+// Demos 100% offline: rutas relativas servidas desde la raíz del sitio.
+const DEMO_LOCAL_RE = /^demos\/[a-z0-9-]+(?:\/[a-zA-Z0-9_-]+)*\.html$/;
+const DOC_RE = /^https:\/\/(?:drive|docs)\.google\.com\//;
 const CAPTURA_RE = /^assets\/img\/proyectos\/[a-z0-9-]+\/[a-zA-Z0-9_-]+\.(webp|png|jpg|jpeg|avif)$/;
 const TEC_CATEGORIAS = ['Lo que se ve', 'Detrás de escena', 'Datos', 'Dispositivos', 'Herramientas'];
 
@@ -144,10 +147,21 @@ for (const [i, p] of data.proyectos.entries()) {
   }
 
   // demo / repo / video
-  if (p.demo !== null && !(esStr(p.demo) && URL_RE.test(p.demo))) err(slug, 'demo', 'debe ser una URL https:// o null');
+  if (p.demo !== null && !(esStr(p.demo) && (URL_RE.test(p.demo) || DEMO_LOCAL_RE.test(p.demo)))) {
+    err(slug, 'demo', 'debe ser una URL https://, una ruta demos/<proyecto>/index.html o null');
+  } else if (DEMO_LOCAL_RE.test(p.demo) && !existsSync(join(ROOT, p.demo))) {
+    err(slug, 'demo', `la demo local no existe: ${p.demo}`);
+  }
   if (p.repo !== null && !(esStr(p.repo) && URL_RE.test(p.repo))) err(slug, 'repo', 'debe ser una URL https:// o null');
   else if (esStr(p.repo) && !p.repo.includes('gonzalezalan-23')) warn(slug, 'repo', 'apunta a otra cuenta de GitHub — ¿querés migrarlo a gonzalezalan-23?');
   if (p.video !== null && !(esStr(p.video) && URL_RE.test(p.video))) err(slug, 'video', 'debe ser una URL https:// o null');
+
+  // Documentación: link de Drive/Docs, o null mientras se carga.
+  if (p.documentacion === undefined || p.documentacion === null) {
+    warn(slug, 'documentacion', 'pendiente: cargar el link de Google Drive/Docs');
+  } else if (!esStr(p.documentacion) || !DOC_RE.test(p.documentacion)) {
+    err(slug, 'documentacion', 'debe ser una URL de drive.google.com o docs.google.com, o null');
+  }
 
   // Regla de las dos capas (F6): Capa 2 = decisiones técnicas.
   // Es opcional mientras el dueño completa el JSON; avisamos, no bloqueamos.

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - ViajesPro</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container header-container">
+            <div class="logo"><a href="index.html">ViajesPro</a></div>
+            <nav class="main-nav"><ul><li><a href="index.html">Inicio</a></li><li><a href="catalog.html">Paquetes</a></li></ul></nav>
+            <div class="header-actions">
+                <a href="login.html" class="btn btn-outline">Iniciar sesión</a>
+                <a href="#" id="registerBtn" class="btn btn-primary active">Registrarse</a>
+                <a href="#" id="cartIcon" class="cart-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                    </svg>
+                    <span class="cart-count">0</span>
+                </a>
+            </div>
+            <div class="mobile-menu-toggle">☰</div>
+        </div>
+    </header>
+
+    <main>
+        <div class="auth-container">
+            <div class="auth-card">
+                <div class="auth-tabs">
+                    <a href="login.html">Iniciar Sesión</a>
+                    <a href="register.html" class="active">Crear Cuenta</a>
+                </div>
+                <form id="registerForm">
+                    <div class="form-group">
+                        <label>Nombre completo</label>
+                        <input type="text" id="regFullName" placeholder="Juan García" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Correo electrónico</label>
+                        <input type="email" id="regEmail" placeholder="juan@ejemplo.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Contraseña</label>
+                        <input type="password" id="regPassword" placeholder="*********" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Teléfono (opcional)</label>
+                        <input type="tel" id="regPhone" placeholder="+54 11 1234-5678">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Crear Cuenta</button>
+                    <p class="auth-footer">¿Ya tenés cuenta? <a href="login.html">Iniciar sesión</a></p>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container footer-grid">
+            <div><h4>ViajesPro</h4><p>Tu agencia de viajes de confianza.</p></div>
+            <div><h4>ENLACES</h4><ul><li><a href="index.html">Inicio</a></li><li><a href="catalog.html">Paquetes</a></li><li><a href="login.html">Iniciar Sesión</a></li></ul></div>
+            <div><h4>CONTACTO</h4><address>Buenos Aires, Argentina<br>+54 11 4000–0000<br><a href="mailto:ventas@viajespro.com">ventas@viajespro.com</a></address></div>
+        </div>
+        <div class="copyright"><p>&copy; 2025 ViajesPro</p></div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

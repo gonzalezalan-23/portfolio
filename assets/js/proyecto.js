@@ -49,46 +49,110 @@
       </section>`;
   }
 
-  /* ── Metodología embebida en la ficha (T2.9): sale del home y vive
-        en cada detalle, para que el visitante la vea en contexto.
-        Mismo copy y mismas clases .process-* que la home. ── */
-  const PROCESO_HTML = `
-      <ol class="process-list" role="list">
-        <li class="process-step">
-          <div class="step-marker" aria-hidden="true"><span class="step-num">01</span></div>
-          <div class="step-body">
-            <h3>Charlamos</h3>
-            <p>Antes de escribir una línea, charlamos 30 minutos. Con eso ya sé qué te pasa y qué necesitás resolver.</p>
-          </div>
-        </li>
-        <li class="process-step">
-          <div class="step-marker" aria-hidden="true"><span class="step-num">02</span></div>
-          <div class="step-body">
-            <h3>Armo el plan</h3>
-            <p>Elijo la forma más simple de resolverlo. Nada de vueltas innecesarias ni cosas que no pediste.</p>
-          </div>
-        </li>
-        <li class="process-step">
-          <div class="step-marker" aria-hidden="true"><span class="step-num">03</span></div>
-          <div class="step-body">
-            <h3>Construyo y te muestro</h3>
-            <p>A la semana ya hay algo que podés probar. Lo probamos juntos y lo ajustamos con lo que me digas.</p>
-          </div>
-        </li>
-        <li class="process-step">
-          <div class="step-marker" aria-hidden="true"><span class="step-num">04</span></div>
-          <div class="step-body">
-            <h3>Lo dejo andando</h3>
-            <p>Lo publico, te explico cómo usarlo y sigo cerca por si aparece algo. No desaparezco al terminar.</p>
-          </div>
-        </li>
-      </ol>`;
+  function hayLightboxAbierto() {
+    return !!document.querySelector('.detalle-lightbox[open]');
+  }
+
+  /* Flechas para cambiar de proyecto. Se ignora mientras se escribe o
+     mientras está abierto el visor de capturas. */
+  function instalarTecladoProyectos(lista, idx) {
+    document.addEventListener('keydown', (e) => {
+      if (hayLightboxAbierto()) return;
+      if (e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
+      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+
+      const t = e.target;
+      if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
+
+      e.preventDefault();
+      const destino = e.key === 'ArrowLeft'
+        ? lista[(idx - 1 + lista.length) % lista.length]
+        : lista[(idx + 1) % lista.length];
+      location.href = `proyecto.html?slug=${encodeURIComponent(destino.slug)}`;
+    });
+  }
+
+  /* Visor de capturas: mismo dialog para la imagen del hero y la galería.
+     Sin dependencias y con fallback a abrir la imagen si no hay showModal. */
+  function instalarLightbox(p, root) {
+    const capturas = Array.isArray(p.capturas) ? p.capturas : [];
+    if (!capturas.length) return;
+
+    const dialog = document.createElement('dialog');
+    dialog.className = 'detalle-lightbox';
+    dialog.setAttribute('aria-label', `Capturas de ${p.titulo}`);
+    dialog.innerHTML = `
+      <button type="button" class="lightbox-close" aria-label="Cerrar galería">×</button>
+      <button type="button" class="lightbox-nav lightbox-prev" aria-label="Captura anterior">←</button>
+      <figure class="lightbox-figure">
+        <img class="lightbox-img" alt="" />
+        <figcaption class="lightbox-caption"></figcaption>
+      </figure>
+      <button type="button" class="lightbox-nav lightbox-next" aria-label="Captura siguiente">→</button>`;
+    document.body.appendChild(dialog);
+
+    const img = dialog.querySelector('.lightbox-img');
+    const caption = dialog.querySelector('.lightbox-caption');
+    let actual = 0;
+    let ultimoFoco = null;
+
+    function mostrar(i) {
+      actual = ((i % capturas.length) + capturas.length) % capturas.length;
+      img.src = capturas[actual];
+      img.alt = `${p.titulo} — captura ${actual + 1} de ${capturas.length}`;
+      caption.textContent = `${actual + 1} / ${capturas.length} · ${p.titulo}`;
+    }
+
+    function abrir(i) {
+      ultimoFoco = document.activeElement;
+      mostrar(i);
+      if (typeof dialog.showModal !== 'function') {
+        window.open(capturas[actual], '_blank', 'noopener');
+        return;
+      }
+      dialog.showModal();
+      document.documentElement.classList.add('lightbox-abierto');
+      dialog.querySelector('.lightbox-close').focus();
+    }
+
+    function cerrar() {
+      if (dialog.open) dialog.close();
+      /* Algunos motores no disparan el evento `close` cuando se cierra desde
+         el botón. Se libera el scroll y se devuelve el foco acá también. */
+      document.documentElement.classList.remove('lightbox-abierto');
+      if (ultimoFoco && typeof ultimoFoco.focus === 'function') ultimoFoco.focus();
+    }
+
+    root.querySelectorAll('[data-lightbox]').forEach((enlace) => {
+      enlace.addEventListener('click', (e) => {
+        e.preventDefault();
+        abrir(Number(enlace.dataset.lightbox) || 0);
+      });
+    });
+
+    dialog.querySelector('.lightbox-close').addEventListener('click', cerrar);
+    dialog.querySelector('.lightbox-prev').addEventListener('click', () => mostrar(actual - 1));
+    dialog.querySelector('.lightbox-next').addEventListener('click', () => mostrar(actual + 1));
+    dialog.addEventListener('click', (e) => { if (e.target === dialog) cerrar(); });
+    dialog.addEventListener('close', () => {
+      document.documentElement.classList.remove('lightbox-abierto');
+      if (ultimoFoco && typeof ultimoFoco.focus === 'function') ultimoFoco.focus();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (!dialog.open) return;
+      if (e.key === 'ArrowLeft')  { e.preventDefault(); mostrar(actual - 1); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); mostrar(actual + 1); }
+      if (e.key === 'Escape')     { e.preventDefault(); cerrar(); }
+    });
+  }
 
   /* ── Ficha completa (plantilla A) ── */
   function renderFicha(p, lista) {
     const idx = lista.findIndex(x => x.slug === p.slug);
-    const prev = idx > 0 ? lista[idx - 1] : null;
-    const next = idx < lista.length - 1 ? lista[idx + 1] : null;
+    /* Navegación circular: el último vuelve al primero y viceversa. */
+    const prev = lista[(idx - 1 + lista.length) % lista.length];
+    const next = lista[(idx + 1) % lista.length];
 
     const labelCat = CATEGORIA_LABELS[p.categoria] || p.categoria;
     const metaAnio  = p.anio != null ? `<span class="detalle-meta-item">${esc(p.anio)}</span>` : '';
@@ -109,19 +173,17 @@
          </p>`
       : '';
 
-    /* Capa 1: demo + acceso rápido. Nunca se muestra un botón de demo si
-       el JSON no tiene URL (regla de oro: cero demos falsas). El código
-       vive en la Capa 2, dentro de la ficha técnica. */
-    const acciones = p.demo
-      ? `<a class="btn-primary" href="${esc(p.demo)}" target="_blank" rel="noopener noreferrer">Ver demo →</a>`
-      : '';
-
-    const acceso = (typeof p.demoAcceso === 'string' && p.demoAcceso.trim() && p.demo)
-      ? `<p class="detalle-demo-acceso">
-           <span class="detalle-acceso-label" aria-hidden="true">acceso rápido</span>
-           ${esc(p.demoAcceso)}
-         </p>`
-      : '';
+    /* Capa 1: la "primera hoja" de la presentación. Demo = acción principal;
+       documentación = secundaria. No se muestra el texto de acceso local:
+       esa información queda fuera del hero. */
+    const acciones = [
+      p.demo
+        ? `<a class="btn-primary" href="${esc(p.demo)}" target="_blank" rel="noopener noreferrer">Probar demo →</a>`
+        : '',
+      p.documentacion
+        ? `<a class="btn-secondary" href="${esc(p.documentacion)}" target="_blank" rel="noopener noreferrer">Ver documentación ↗</a>`
+        : '',
+    ].filter(Boolean).join('');
 
     const funcionalidades = `
       <ul class="detalle-checks" role="list">
@@ -169,59 +231,74 @@
         </div>
       </details>`;
 
-    const capturas = `
+    /* La primera captura vive arriba, en el hero: es decorativa, con su
+       ratio real y sin visor. El zoom queda sólo para la galería. */
+    const heroShot = p.capturas?.length ? `
+      <figure class="detalle-hero-shot">
+        <img src="${esc(p.capturas[0])}"
+             alt="${esc(p.titulo)} — vista principal del proyecto"
+             fetchpriority="high" />
+        <figcaption>${esc(labelCat)}</figcaption>
+      </figure>` : '';
+
+    const capturas = p.capturas.length > 1 ? `
       <div class="detalle-gallery">
-        ${p.capturas.map((src, i) => `
+        ${p.capturas.slice(1).map((src, i) => `
           <figure>
-            <a href="${esc(src)}" target="_blank" rel="noopener"
-               aria-label="Ver captura ${i + 1} de ${esc(p.titulo)} en tamaño completo">
+            <a href="${esc(src)}" data-lightbox="${i + 1}"
+               aria-label="Ampliar captura ${i + 2} de ${esc(p.titulo)}">
               <img src="${esc(src)}"
-                   alt="${esc(p.titulo)} — captura ${i + 1} de ${p.capturas.length}"
-                   ${i === 0 ? 'fetchpriority="high"' : 'loading="lazy"'} />
+                   alt="${esc(p.titulo)} — captura ${i + 2} de ${p.capturas.length}"
+                   loading="lazy" />
             </a>
           </figure>`).join('')}
-      </div>`;
+      </div>` : '';
+    const bloqueCapturas = capturas
+      ? bloque('06', 'evidencia', 'bloque-capturas', 'Más capturas', capturas)
+      : '';
 
     const navegacion = `
       <nav class="detalle-prevnext" aria-label="Navegación entre proyectos">
-        ${prev
-          ? `<a class="pn-prev" href="proyecto.html?slug=${esc(prev.slug)}">← ${esc(prev.titulo)}</a>`
-          : `<span class="pn-empty" aria-hidden="true">←</span>`}
-        ${next
-          ? `<a class="pn-next" href="proyecto.html?slug=${esc(next.slug)}">${esc(next.titulo)} →</a>`
-          : `<span class="pn-empty" aria-hidden="true">→</span>`}
+        <a class="pn-prev" href="proyecto.html?slug=${esc(prev.slug)}"
+           aria-keyshortcuts="ArrowLeft">← ${esc(prev.titulo)}</a>
+        <span class="pn-pista" aria-hidden="true">← → para cambiar de proyecto</span>
+        <a class="pn-next" href="proyecto.html?slug=${esc(next.slug)}"
+           aria-keyshortcuts="ArrowRight">${esc(next.titulo)} →</a>
       </nav>`;
 
     main.innerHTML = `
       <header class="detalle-hero">
-        <a class="detalle-back" href="index.html#proyectos">← Todos los proyectos</a>
-        <p class="detalle-meta">
-          <span class="section-label">${esc(labelCat)}</span>
-          ${metaAnio}
-          ${metaRol}
-        </p>
-        <h1 class="detalle-title">${esc(p.titulo)}</h1>
-        <p class="detalle-lead">${esc(p.resumen)}</p>
-        ${acciones ? `<div class="detalle-actions">${acciones}</div>` : ''}
-        ${acceso}
-        ${equipo}
+        <div class="detalle-hero-copy">
+          <a class="detalle-back" href="index.html#proyectos">← Todos los proyectos</a>
+          <p class="detalle-meta">
+            <span class="section-label">${esc(labelCat)}</span>
+            ${metaAnio}
+            ${metaRol}
+          </p>
+          <h1 class="detalle-title">${esc(p.titulo)}</h1>
+          <p class="detalle-lead">${esc(p.resumen)}</p>
+          ${acciones ? `<div class="detalle-actions">${acciones}</div>` : ''}
+          ${equipo}
+        </div>
+        ${heroShot}
       </header>
 
-      ${bloque('01', 'problema', 'bloque-problema', 'El problema',
-        `<p>${esc(p.problema)}</p>`)}
-      ${bloque('02', 'solución', 'bloque-solucion', 'La solución',
-        `<p>${esc(p.solucion)}</p>`)}
+      <div class="detalle-duo">
+        ${bloque('01', 'problema', 'bloque-problema', 'El problema',
+          `<p>${esc(p.problema)}</p>`)}
+        ${bloque('02', 'solución', 'bloque-solucion', 'La solución',
+          `<p>${esc(p.solucion)}</p>`)}
+      </div>
       ${bloque('03', 'resultado', 'bloque-resultado', 'El resultado',
         `<p>${esc(p.resultado)}</p>`)}
-      ${bloque('04', 'proceso', 'bloque-proceso', 'Cómo trabajo', PROCESO_HTML)}
-      ${bloque('05', 'producto', 'bloque-func', 'Qué hace', funcionalidades)}
-      ${bloque('06', 'detalles', 'bloque-stack', 'Cómo está hecho', fichaTecnica)}
-      ${bloque('07', 'evidencia', 'bloque-capturas', 'Capturas', capturas)}
+      ${bloque('04', 'producto', 'bloque-func', 'Qué hace', funcionalidades)}
+      ${bloque('05', 'detalles', 'bloque-stack', 'Cómo está hecho', fichaTecnica)}
+      ${bloqueCapturas}
 
       <section class="detalle-block detalle-cta" aria-labelledby="bloque-cta">
-        <h2 id="bloque-cta">¿Tu proyecto tiene un problema parecido?</h2>
-        <p>Contame qué necesitás y te respondo con una idea clara, un tiempo y un precio.</p>
-        <a class="btn-primary" href="index.html#contacto">Quiero algo así →</a>
+        <h2 id="bloque-cta">¿Su proyecto tiene un problema parecido?</h2>
+        <p>Describa qué necesita resolver y recibirá una propuesta clara, un plazo y un precio.</p>
+        <a class="btn-primary" href="index.html#contacto">Solicitar propuesta →</a>
       </section>
 
       ${navegacion}`;
@@ -230,6 +307,8 @@
     document.title = `${p.titulo} — Alan.dev`;
     setMeta(p.resumen);
     irAlInicio();
+    instalarTecladoProyectos(lista, idx);
+    instalarLightbox(p, main);
   }
 
   /* ── Slug inexistente / JSON caído ── */

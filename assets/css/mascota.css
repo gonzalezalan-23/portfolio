@@ -1,0 +1,196 @@
+/* =============================================================
+   mascota.css — A.L.A.N., el compañero emoji del portfolio.
+
+   Un único personaje, fijo, siempre a la derecha y del mismo tamaño,
+   presente en TODAS las páginas y en ambos modos. Convive con el avatar
+   en las secciones donde los dos aparecen.
+
+   Sin dependencias. Se carga después de styles.css / secret-mode.css.
+   ============================================================= */
+
+#alan-mascota[hidden] { display: none !important; }
+.mascota-emoji { display: block; line-height: 1; }
+
+/* En secreto la columna derecha ya no está vacía: JARVIS muestra su
+   readout ahí. La mascota fija vive abajo y no compite con ese panel. */
+@media (min-width: 861px) {
+  html.tiene-mascota[data-theme="doomsday"] #hero .hero-inner {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr);
+    padding-right: clamp(110px, 12vw, 190px);
+  }
+}
+
+#alan-mascota {
+  /* Paleta cliente por defecto; doomsday la reemplaza abajo. */
+  --m-bg: rgba(18, 8, 8, 0.94);
+  --m-borde: rgba(255, 69, 58, 0.42);
+  --m-brillo: rgba(255, 69, 58, 0.22);
+  --m-texto: #F6E7E5;
+  --m-size: clamp(88px, 11.5vw, 152px);
+
+  position: fixed;
+  right: clamp(12px, 5vw, 72px);
+  bottom: clamp(12px, 5vh, 48px);
+  z-index: 60; /* debajo del topbar (200) y de la barra secreta (190) */
+  display: flex;
+  align-items: flex-end;
+  pointer-events: none;
+  /* Nunca se mueve: misma esquina y mismo tamaño en todo el sitio. */
+}
+
+html[data-theme="doomsday"] #alan-mascota {
+  --m-bg: rgba(6, 18, 13, 0.94);
+  --m-borde: rgba(16, 185, 129, 0.48);
+  --m-brillo: rgba(16, 185, 129, 0.24);
+  --m-texto: #E4F7EC;
+}
+
+/* Tamaño y posición constantes: la mascota no cambia de lado, no se
+   achica cerca del footer y no se mueve según la sección. */
+
+
+.mascota-cara {
+  pointer-events: auto;
+  display: grid;
+  place-items: center;
+  width: var(--m-size);
+  height: var(--m-size);
+  padding: 0;
+  border: 1px solid var(--m-borde);
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 32%, var(--m-brillo), var(--m-bg) 72%);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45), 0 0 32px var(--m-brillo);
+  color: var(--m-texto);
+  font-size: calc(var(--m-size) * 0.62);
+  line-height: 1;
+  cursor: pointer;
+  animation: mascota-float 4s ease-in-out infinite;
+  transition: border-color var(--transition), background-color var(--transition);
+}
+
+.mascota-cara:hover,
+.mascota-cara:focus-visible {
+  border-color: var(--m-texto);
+}
+.mascota-cara:focus-visible {
+  outline: 2px solid var(--m-texto);
+  outline-offset: 4px;
+}
+
+/* Globo pegado a la cara (cola incluida), no una notificación suelta. */
+.mascota-globo {
+  position: absolute;
+  right: calc(100% + 14px);
+  bottom: 16%;
+  width: max-content;
+  max-width: min(280px, calc(100vw - 40px));
+  margin: 0;
+  padding: 12px 14px;
+  border: 1px solid var(--m-borde);
+  border-radius: 14px 14px 2px 14px;
+  background-color: var(--m-bg);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.42);
+  color: var(--m-texto);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.5;
+  animation: mascota-globo-in 240ms ease both;
+}
+
+.mascota-globo::after {
+  content: '';
+  position: absolute;
+  right: -8px;
+  bottom: 10px;
+  border: 7px solid transparent;
+  border-left-color: var(--m-borde);
+  border-right: 0;
+}
+
+.mascota-globo[hidden] { display: none !important; }
+
+/* La cara cambia con el estado; el emoji lo escribe el JS. */
+#alan-mascota[data-estado="saluda"] .mascota-cara {
+  animation: mascota-saluda 720ms ease both;
+}
+#alan-mascota[data-estado="dormido"] .mascota-cara {
+  animation: mascota-duerme 2.4s ease-in-out infinite;
+  filter: saturate(0.7);
+}
+#alan-mascota[data-estado="mareado"] .mascota-cara {
+  animation: mascota-mareo 360ms ease-in-out 3;
+}
+#alan-mascota[data-estado="enojado"] .mascota-cara {
+  animation: mascota-enojo 260ms ease-in-out 3;
+}
+#alan-mascota[data-estado="curioso"] .mascota-cara {
+  animation: mascota-curioso 620ms ease both;
+}
+
+@keyframes mascota-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
+}
+@keyframes mascota-saluda {
+  0%, 100% { transform: rotate(0) scale(1); }
+  30%      { transform: rotate(-13deg) scale(1.05); }
+  65%      { transform: rotate(13deg) scale(1.05); }
+}
+@keyframes mascota-duerme {
+  0%, 100% { transform: translateY(0) scale(0.96); opacity: 0.88; }
+  50%      { transform: translateY(3px) scale(0.93); opacity: 0.68; }
+}
+@keyframes mascota-mareo {
+  /* Sin rotate: al girar, el emoji se descentra y los ojos en espiral
+     quedan de costado. Acá sólo tiembla en horizontal. */
+  0%, 100% { transform: translateX(0); }
+  25%      { transform: translateX(-6px); }
+  75%      { transform: translateX(6px); }
+}
+@keyframes mascota-enojo {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  33%      { transform: translateY(-5px) rotate(-7deg); }
+  66%      { transform: translateY(0) rotate(7deg); }
+}
+@keyframes mascota-curioso {
+  0%, 100% { transform: translateX(0) scale(1); }
+  50%      { transform: translateX(5px) scale(1.04); }
+}
+@keyframes mascota-globo-in {
+  /* No arrancamos en opacity:0: axe puede medir el contraste durante la
+     animación y marcar una falla falsa. */
+  from { opacity: 0.99; transform: translateY(7px) scale(0.95); }
+  to   { opacity: 1; transform: none; }
+}
+
+@media (max-width: 720px) {
+  #alan-mascota {
+    right: 12px;
+    left: auto;
+    bottom: 12px;
+  }
+  /* En pantallas angostas el globo va arriba de la cara. */
+  .mascota-globo {
+    right: 0;
+    bottom: calc(100% + 12px);
+    border-radius: 14px 14px 14px 2px;
+    font-size: 12px;
+  }
+  .mascota-globo::after {
+    right: 12px;
+    bottom: -8px;
+    border: 7px solid transparent;
+    border-top-color: var(--m-borde);
+    border-bottom: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #alan-mascota,
+  .mascota-cara,
+  .mascota-globo,
+  #alan-mascota[data-estado] .mascota-cara {
+    animation: none !important;
+    transition: none !important;
+  }
+}
