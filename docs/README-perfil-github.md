@@ -40,7 +40,7 @@ SAD está en uso en las oficinas SAD. Biblioteca Virtual es trabajo en equipo; C
 
 - Email: **gonzalez.alan.dev@gmail.com**
 - GitHub: [@gonzalezalan-23](https://github.com/gonzalezalan-23)
-- Portfolio: pendiente de publicar en GitHub Pages.
+- Portfolio: [gonzalezalan-23.github.io/portfolio](https://gonzalezalan-23.github.io/portfolio/).
 
 ---
 
