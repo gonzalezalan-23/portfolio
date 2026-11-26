@@ -40,6 +40,7 @@ El sitio ya está publicado en **https://gonzalezalan-23.github.io/portfolio/**.
 - URL pública cargada en el README de perfil; en el CV se prefirió no incluirla para mantener el encabezado en una línea (está en la descripción/Website del repo).
 - Descripción del repo `portfolio` y campo Website cargados en GitHub con esa misma URL.
 - Footer con logos SVG en vez de texto para GitHub, WhatsApp e Insta; el handle de Instagram sigue sólo en el href.
+- Mascota en desktop achicada a `clamp(72px, 8vw, 104px)` (antes hasta 152px) para que tape menos el footer; en móvil se mantiene en 72–96px.
 - Capturas del catálogo en `NN.webp` (79 en total, 9 de SAD) y originales movidos a `D:\Portfolio-originales-2026-11-26`.
 - SAD reincorporado al catálogo: 9 capturas (se descartaron los 2 mockups previos), deploy de Render y `repo: null`.
 - Validador: 0 errores, 16 advertencias informativas; el sitio se puede publicar.
