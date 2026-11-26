@@ -38,11 +38,12 @@ Estado al 26/11/2026, después de ordenar el repo para publicar.
 
 ## Ya resuelto
 
-- Capturas del catálogo en `NN.webp` (81 en total, 9 nuevas de SAD) y originales movidos a `D:\Portfolio-originales-2026-11-26`.
-- SAD reincorporado al catálogo: 11 capturas (9 nuevas + 2 mockups que ya estaban), deploy de Render y `repo: null`.
+- Capturas del catálogo en `NN.webp` (79 en total, 9 de SAD) y originales movidos a `D:\Portfolio-originales-2026-11-26`.
+- SAD reincorporado al catálogo: 9 capturas (se descartaron los 2 mockups previos), deploy de Render y `repo: null`.
 - Validador: 0 errores, 16 advertencias informativas; el sitio se puede publicar.
 - CV Web Junior: 1 página, links teal, sin Figma, sin IoT y sin Comando Estelar.
 - Mail profesional en sitio, CV y documentación.
 - Formulario: mayor contraste en la propuesta recomendada (superficie oscura y texto claro, 16,4:1).
 - Modo Avengers: etiquetas sin numeración y collage compacto en móvil, sin tapar los hobbies.
 - Mascota: frases nuevas con humor tipo Tony Stark, sin repetir epígrafes.
+- Mini diagnóstico del formulario: en Avengers pasa a esmeralda (fondo `#101A15`, borde y degradado verdes, sin rojo); en cliente se mantiene en `#171717` con borde rojo. Contraste 16,32:1 y 16,44:1 respectivamente.
