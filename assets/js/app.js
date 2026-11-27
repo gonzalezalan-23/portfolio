@@ -902,6 +902,7 @@
     function mostrarListo(datos, estado = 'enviado', detalle = '') {
       form.querySelector('.form-mail-ready')?.remove();
       const enviado = estado === 'enviado';
+      const step = form.closest('.wizard-step');
 
       const panel = document.createElement('div');
       panel.className = 'form-mail-ready' + (enviado ? '' : ' is-error');
@@ -910,28 +911,21 @@
       const titulo = document.createElement('p');
       titulo.className = 'form-ready-title';
       titulo.textContent = enviado
-        ? '✓ Mensaje enviado. Te respondo por email.'
+        ? '✓ Mensaje enviado.'
         : '✗ No se pudo enviar automáticamente.';
 
+      /* El éxito no muestra resumen: ya está enviado y punto. El detalle
+         completo sólo aparece cuando la persona tiene que reenviarlo. */
       const copy = document.createElement('p');
       copy.className = 'form-ready-copy';
-      if (enviado) {
-        copy.textContent = 'Enviado a ';
-        const mailLink = document.createElement('a');
-        mailLink.href = `mailto:${CONTACTO_EMAIL}`;
-        mailLink.textContent = CONTACTO_EMAIL;
-        copy.appendChild(mailLink);
-        copy.appendChild(document.createTextNode('. Ya está enviado: no hace falta abrir Gmail ni Outlook.'));
-      } else {
-        copy.textContent = 'El servicio no pudo enviarlo'
-          + (detalle ? `: ${detalle.replace(/\.$/, '')}` : '')
-          + '. Copiá el texto y enviálo desde Gmail, Outlook o tu correo: ';
-        const mailLink = document.createElement('a');
-        mailLink.href = `mailto:${CONTACTO_EMAIL}`;
-        mailLink.textContent = CONTACTO_EMAIL;
-        copy.appendChild(mailLink);
-        copy.appendChild(document.createTextNode('.'));
-      }
+      copy.textContent = 'El servicio no pudo enviarlo'
+        + (detalle ? `: ${detalle.replace(/\.$/, '')}` : '')
+        + '. Copiá el texto y enviálo desde Gmail, Outlook o tu correo: ';
+      const mailLink = document.createElement('a');
+      mailLink.href = `mailto:${CONTACTO_EMAIL}`;
+      mailLink.textContent = CONTACTO_EMAIL;
+      copy.appendChild(mailLink);
+      copy.appendChild(document.createTextNode('.'));
 
       const meta = document.createElement('dl');
       meta.className = 'form-ready-meta';
@@ -1008,15 +1002,21 @@
 
       cerrar.addEventListener('click', () => {
         panel.remove();
+        step?.classList.remove('is-sent');
         setBtn('idle');
         if (enviado) goToStep(1);
       });
 
-      /* Si ya se envió, no tiene sentido ofrecer otra vía de envío:
-         sólo queda el texto enviado y la opción de empezar otro. */
-      if (enviado) actions.append(cerrar);
-      else actions.append(copiar, gmail, outlook, cerrar);
-      panel.append(titulo, copy, meta, label, area, actions);
+      /* Si ya se envió, no tiene sentido ofrecer otra vía de envío ni
+         mostrar lo que se envió: queda sólo el aviso y "Enviar otro". */
+      if (enviado) {
+        step?.classList.add('is-sent');
+        actions.append(cerrar);
+        panel.append(titulo, actions);
+      } else {
+        actions.append(copiar, gmail, outlook, cerrar);
+        panel.append(titulo, copy, meta, label, area, actions);
+      }
       submitBtn.insertAdjacentElement('beforebegin', panel);
       panel.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
     }

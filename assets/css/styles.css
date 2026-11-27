@@ -1475,6 +1475,19 @@ main > section + section { border-top: 1px solid var(--border); }
 }
 .form-mail-ready.is-error .form-ready-title { color: var(--error); }
 
+/* Confirmación minimalista: una vez enviado, el paso 3 se reduce al aviso
+   verde y a la opción de empezar otro. No se muestra el correo resumido. */
+#wizard-step-3.is-sent .arch-recommendation,
+#wizard-step-3.is-sent form > :not(.form-mail-ready) { display: none; }
+
+#wizard-step-3.is-sent .form-mail-ready {
+  align-items: flex-start;
+  gap: 14px;
+  max-width: 520px;
+}
+
+#wizard-step-3.is-sent .form-ready-title { font-size: 16px; }
+
 .form-ready-copy {
   color: var(--text-muted);
   line-height: 1.55;
