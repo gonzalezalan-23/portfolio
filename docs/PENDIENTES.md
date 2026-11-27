@@ -1,10 +1,14 @@
 # Pendientes del portfolio
 
-Estado al 26/11/2026, después de publicar el sitio en GitHub Pages.
+Estado al 27/11/2026, después de publicar el sitio en GitHub Pages.
 
 ## Publicación
 
-El sitio ya está publicado en **https://gonzalezalan-23.github.io/portfolio/**. La fuente de Pages es la rama `main` (no hace falta GitHub Actions para publicar: `.github/workflows/validar.yml` sólo valida `data/proyectos.json`). La URL ya está cargada en el CV y en `docs/README-perfil-github.md`.
+El sitio ya está publicado en **https://gonzalezalan-23.github.io/portfolio/**. La fuente de Pages es la rama `main` (no hace falta GitHub Actions para publicar: `.github/workflows/validar.yml` sólo valida `data/proyectos.json`). La URL está en `docs/README-perfil-github.md` y en la descripción/Website del repo; se sacó del header del CV para mantenerlo en una línea.
+
+## Correo del formulario
+
+- **Activar FormSubmit una vez:** el formulario ya hace un POST real a `https://formsubmit.co/ajax/gonzalez.alan.dev@gmail.com`, pero FormSubmit no entrega nada hasta que se confirme la dirección. Buscar en la bandeja (y en spam) de `gonzalez.alan.dev@gmail.com` el mail de **FormSubmit** y hacer clic en **Activate Form**. Los envíos anteriores a la activación se entregan al confirmar (se guardan 30 días). Después de activar, FormSubmit manda un alias aleatorio: se puede cambiar `FORM_ENDPOINT` en `assets/js/app.js` por ese alias para no dejar el mail a la vista en el código.
 
 ## Datos reales que faltan (no inventar)
 
@@ -41,6 +45,7 @@ El sitio ya está publicado en **https://gonzalezalan-23.github.io/portfolio/**.
 - Descripción del repo `portfolio` y campo Website cargados en GitHub con esa misma URL.
 - Footer con logos SVG en vez de texto para GitHub, WhatsApp e Insta; el handle de Instagram sigue sólo en el href.
 - Mascota en desktop achicada a `clamp(72px, 8vw, 104px)` (antes hasta 152px) para que tape menos el footer; en móvil se mantiene en 72–96px.
+- Formulario con envío real por email (FormSubmit, sin clave ni cuenta): el ✓ aparece sólo cuando el servicio responde `success: "true"`. Gmail/Outlook y "Copiar mensaje" quedan como respaldo, sin abrir pestañas automáticamente.
 - Capturas del catálogo en `NN.webp` (79 en total, 9 de SAD) y originales movidos a `D:\Portfolio-originales-2026-11-26`.
 - SAD reincorporado al catálogo: 9 capturas (se descartaron los 2 mockups previos), deploy de Render y `repo: null`.
 - Validador: 0 errores, 16 advertencias informativas; el sitio se puede publicar.

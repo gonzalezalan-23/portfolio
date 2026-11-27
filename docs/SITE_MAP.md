@@ -25,7 +25,7 @@ Secciones en orden (cada una `min-height:100vh`):
 | 4 | **Stack** | `#skills` | ✅ existe | 5 categorías curadas desde el mapa `tecnologias`; tarjetas con logo SVG local y proyectos donde se usó cada herramienta |
 | 5 | **Sobre mí** | `#sobre-mi` | ✅ existe | marquee tipográfico + mini-timeline con link a Formación |
 | 6 | **Formación académica** | `#formacion` | ✅ existe (F3) | timeline con 5 hitos: tecnicatura, +200 hs y 3 certificados (PDF de Python linkeado) |
-| 7 | **Contacto / Brief rápido** | `#contacto` | ✅ renombrado (antes `#cotizador`) | wizard + form que abre Gmail/Outlook web con el mensaje listo; copiado como respaldo |
+| 7 | **Contacto / Brief rápido** | `#contacto` | ✅ renombrado (antes `#cotizador`) | wizard + form que envía el mensaje por email vía FormSubmit; panel con copia y links a Gmail/Outlook como respaldo |
 
 ### Fuera del sitemap (borrados o embebidos)
 

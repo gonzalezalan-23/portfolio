@@ -7,14 +7,17 @@
  *   3. initReveal         — Anima .reveal al entrar en viewport
  *   4. (nav.js)           — Barra superior, menú móvil y progreso
  *   5. initWizard         — Pasos del wizard de contacto + pulso del canvas
- *   6. initContactForm    — Validación y armado de correo web (sin servidores)
+ *   6. initContactForm    — Validación y envío real del mensaje por email
  */
 (() => {
   'use strict';
 
-  /* Contacto sin backend: el wizard arma un correo web con asunto y cuerpo.
-     No hay fetch, endpoint ni servicio externo en el sitio. */
+  /* Envío real sin backend propio: FormSubmit recibe el POST y reenvía el
+     mensaje al mail. No requiere clave ni cuenta; la primera vez hay que
+     confirmar el formulario desde el mail de activación que envían.
+     Los links a Gmail/Outlook quedan sólo como respaldo. */
   const CONTACTO_EMAIL = 'gonzalez.alan.dev@gmail.com';
+  const FORM_ENDPOINT = `https://formsubmit.co/ajax/${CONTACTO_EMAIL}`;
 
 
   /* ═══════════════════════════════════════════════════════════════
@@ -800,8 +803,10 @@
     fields.email?.addEventListener('blur',  () => validateField(fields.email,  v => v.length > 0 && EMAIL_RE.test(v)));
 
     const STATES = {
-      idle:    { text: 'Abrir correo web →', disabled: false },
-      success: { text: '✓ Correo abierto',     disabled: true  },
+      idle:     { text: 'Enviar mensaje →',  disabled: false },
+      enviando: { text: 'Enviando…',         disabled: true  },
+      success:  { text: '✓ Mensaje enviado', disabled: true  },
+      error:    { text: 'Reintentar envío →', disabled: false },
     };
 
     function setBtn(state) {
@@ -818,8 +823,8 @@
       online:  'No, siempre hay conexión',
     };
 
-    /* Arma el correo con lo que eligió en el wizard. Cero fetch, cero
-       endpoint: el mensaje existe aunque el equipo no tenga app de correo. */
+    /* Arma el correo con lo que eligió en el wizard: el mismo texto se
+       envía por FormSubmit y se ofrece como respaldo en el panel. */
     function armarMensaje() {
       const nombre   = fields.nombre.value.trim();
       const email    = fields.email.value.trim();
@@ -849,6 +854,20 @@
         'Gracias.',
       ].join('\n');
 
+      /* FormSubmit lee los campos con nombre y respeta _subject / _replyto.
+         `mensaje` lleva el correo completo redactado arriba. */
+      const payload = {
+        _subject: asunto,
+        _replyto: email,
+        _url: 'https://gonzalezalan-23.github.io/portfolio/#contacto',
+        nombre,
+        email,
+        necesito: objetivo,
+        sin_internet: conexion,
+        propuesta_recomendada: idea,
+        mensaje: cuerpo,
+      };
+
       const gmail = 'https://mail.google.com/mail/?view=cm&fs=1'
                   + `&to=${encodeURIComponent(CONTACTO_EMAIL)}`
                   + `&su=${encodeURIComponent(asunto)}`
@@ -857,32 +876,44 @@
                     + `?to=${encodeURIComponent(CONTACTO_EMAIL)}`
                     + `&subject=${encodeURIComponent(asunto)}`
                     + `&body=${encodeURIComponent(cuerpo)}`;
-      return { asunto, cuerpo, gmail, outlook };
+      return { asunto, cuerpo, gmail, outlook, payload };
     }
 
-    /* El correo web se abre en una pestaña; el panel deja todo visible y se
-       puede copiar si algo falla. Nunca borramos lo que escribió la persona. */
-    function mostrarListo(datos) {
-      setBtn('success');
-      pulseAvatar();
+    /* El panel deja el mensaje visible y ofrece Gmail/Outlook/Copiar como
+       respaldo. Nunca borramos lo que escribió la persona. */
+    function mostrarListo(datos, estado = 'enviado', detalle = '') {
       form.querySelector('.form-mail-ready')?.remove();
+      const enviado = estado === 'enviado';
 
       const panel = document.createElement('div');
-      panel.className = 'form-mail-ready';
-      panel.setAttribute('role', 'status');
+      panel.className = 'form-mail-ready' + (enviado ? '' : ' is-error');
+      panel.setAttribute('role', enviado ? 'status' : 'alert');
 
       const titulo = document.createElement('p');
       titulo.className = 'form-ready-title';
-      titulo.textContent = '✓ Tu correo web se abrió en una pestaña nueva.';
+      titulo.textContent = enviado
+        ? '✓ Mensaje enviado. Te respondo por email.'
+        : '✗ No se pudo enviar automáticamente.';
 
       const copy = document.createElement('p');
       copy.className = 'form-ready-copy';
-      copy.textContent = 'El mensaje ya tiene para, asunto y texto cargados. Si no se abrió, usá los botones de abajo o copialo a ';
-      const mailLink = document.createElement('a');
-      mailLink.href = `mailto:${CONTACTO_EMAIL}`;
-      mailLink.textContent = CONTACTO_EMAIL;
-      copy.appendChild(mailLink);
-      copy.appendChild(document.createTextNode('.'));
+      if (enviado) {
+        copy.textContent = 'Tu mensaje llegó a ';
+        const mailLink = document.createElement('a');
+        mailLink.href = `mailto:${CONTACTO_EMAIL}`;
+        mailLink.textContent = CONTACTO_EMAIL;
+        copy.appendChild(mailLink);
+        copy.appendChild(document.createTextNode('. Si querés, también podés copiarlo o abrirlo en tu correo.'));
+      } else {
+        copy.textContent = 'El servicio no pudo enviarlo'
+          + (detalle ? `: ${detalle.replace(/\.$/, '')}` : '')
+          + '. Copiá el texto y enviálo desde Gmail, Outlook o tu correo: ';
+        const mailLink = document.createElement('a');
+        mailLink.href = `mailto:${CONTACTO_EMAIL}`;
+        mailLink.textContent = CONTACTO_EMAIL;
+        copy.appendChild(mailLink);
+        copy.appendChild(document.createTextNode('.'));
+      }
 
       const meta = document.createElement('dl');
       meta.className = 'form-ready-meta';
@@ -895,7 +926,11 @@
         div.append(dt, dd);
         return div;
       };
-      meta.append(fila('Para', CONTACTO_EMAIL), fila('Asunto', datos.asunto));
+      meta.append(
+        fila('Para', CONTACTO_EMAIL),
+        fila('Asunto', datos.asunto),
+        fila('Estado', enviado ? 'Enviado' : 'Sin enviar')
+      );
 
       const label = document.createElement('label');
       label.className = 'form-ready-label';
@@ -912,8 +947,13 @@
       const actions = document.createElement('div');
       actions.className = 'form-ready-actions';
 
+      const copiar = document.createElement('button');
+      copiar.type = 'button';
+      copiar.className = 'btn-open-mail';
+      copiar.textContent = 'Copiar mensaje';
+
       const gmail = document.createElement('a');
-      gmail.className = 'btn-open-mail';
+      gmail.className = 'btn-secondary';
       gmail.href = datos.gmail;
       gmail.target = '_blank';
       gmail.rel = 'noopener noreferrer';
@@ -925,11 +965,6 @@
       outlook.target = '_blank';
       outlook.rel = 'noopener noreferrer';
       outlook.textContent = 'Abrir Outlook ↗';
-
-      const copiar = document.createElement('button');
-      copiar.type = 'button';
-      copiar.className = 'btn-secondary';
-      copiar.textContent = 'Copiar mensaje';
 
       const cerrar = document.createElement('button');
       cerrar.type = 'button';
@@ -955,24 +990,48 @@
 
       cerrar.addEventListener('click', () => {
         panel.remove();
-        setBtn('idle');
+        setBtn(enviado ? 'success' : 'idle');
       });
 
-      actions.append(gmail, outlook, copiar, cerrar);
+      actions.append(copiar, gmail, outlook, cerrar);
       panel.append(titulo, copy, meta, label, area, actions);
       submitBtn.insertAdjacentElement('beforebegin', panel);
       panel.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
     }
 
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      if (!validateAll()) { form.querySelector('.field-error')?.focus(); return; }
+      if (!validateAll() || submitBtn.disabled) {
+        form.querySelector('.field-error')?.focus();
+        return;
+      }
 
       const datos = armarMensaje();
-      /* Se abre en una pestaña web (Gmail) con todo prellenado. Si el
-         navegador bloquea la ventana, los links del panel hacen lo mismo. */
-      window.open(datos.gmail, '_blank', 'noopener,noreferrer');
-      mostrarListo(datos);
+      setBtn('enviando');
+      form.querySelector('.form-mail-ready')?.remove();
+
+      let detalle = '';
+      try {
+        const res = await fetch(FORM_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify(datos.payload),
+        });
+        const respuesta = await res.json().catch(() => ({}));
+        /* FormSubmit responde 200 incluso cuando rechaza: success es el
+           string "true"/"false", no un booleano. */
+        if (res.ok && String(respuesta.success) === 'true') {
+          setBtn('success');
+          pulseAvatar();
+          mostrarListo(datos, 'enviado');
+          return;
+        }
+        detalle = respuesta.message || 'respuesta inesperada del servicio';
+      } catch (err) {
+        detalle = 'sin conexión con el servicio de correo';
+      }
+      setBtn('error');
+      mostrarListo(datos, 'error', detalle);
     });
   }
 

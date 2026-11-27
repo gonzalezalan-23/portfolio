@@ -1445,6 +1445,14 @@ main > section + section { border-top: 1px solid var(--border); }
   font-weight: 600;
 }
 
+/* Si el envío falla, el panel pasa a rojo (en Avengers usa su propia
+   variable --error) para no confundirlo con un envío confirmado. */
+.form-mail-ready.is-error {
+  border-color: var(--error);
+  background-color: var(--error-dim);
+}
+.form-mail-ready.is-error .form-ready-title { color: var(--error); }
+
 .form-ready-copy {
   color: var(--text-muted);
   line-height: 1.55;
