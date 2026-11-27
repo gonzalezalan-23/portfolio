@@ -813,6 +813,8 @@
     function setBtn(state) {
       submitBtn.textContent = STATES[state].text;
       submitBtn.disabled    = STATES[state].disabled;
+      submitBtn.classList.toggle('is-success', state === 'success');
+      submitBtn.classList.toggle('is-error', state === 'error');
     }
 
     /* Después de enviar, los datos ya están en el correo y en el panel:
@@ -914,12 +916,12 @@
       const copy = document.createElement('p');
       copy.className = 'form-ready-copy';
       if (enviado) {
-        copy.textContent = 'Tu mensaje llegó a ';
+        copy.textContent = 'Enviado a ';
         const mailLink = document.createElement('a');
         mailLink.href = `mailto:${CONTACTO_EMAIL}`;
         mailLink.textContent = CONTACTO_EMAIL;
         copy.appendChild(mailLink);
-        copy.appendChild(document.createTextNode('. Si querés, también podés copiarlo o abrirlo en tu correo.'));
+        copy.appendChild(document.createTextNode('. Ya está enviado: no hace falta abrir Gmail ni Outlook.'));
       } else {
         copy.textContent = 'El servicio no pudo enviarlo'
           + (detalle ? `: ${detalle.replace(/\.$/, '')}` : '')
@@ -1010,7 +1012,10 @@
         if (enviado) goToStep(1);
       });
 
-      actions.append(copiar, gmail, outlook, cerrar);
+      /* Si ya se envió, no tiene sentido ofrecer otra vía de envío:
+         sólo queda el texto enviado y la opción de empezar otro. */
+      if (enviado) actions.append(cerrar);
+      else actions.append(copiar, gmail, outlook, cerrar);
       panel.append(titulo, copy, meta, label, area, actions);
       submitBtn.insertAdjacentElement('beforebegin', panel);
       panel.scrollIntoView({ block: 'nearest', behavior: 'smooth' });

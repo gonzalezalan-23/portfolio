@@ -36,6 +36,11 @@
   --accent-dim:    rgba(255, 45, 45, 0.12);
   --accent-2:      #FF5A5A;   /* secundario rojo claro */
   --accent-green:  #FF5A5A;   /* éxito (sin verde: paleta cerrada) */
+  /* Confirmación del formulario: verde explícito para no confundir un
+     envío correcto con un error. Contraste del texto sobre verde: 7,4:1. */
+  --success:       #10B981;
+  --on-success:    #03120B;
+  --success-dim:   rgba(16, 185, 129, 0.12);
   --error:         #FF8A8A;   /*  8.83:1 AAA ✓ */
   --error-dim:     rgba(255, 138, 138, 0.12);
   --ok-dim:        rgba(255, 45, 45, 0.12);
@@ -1424,6 +1429,23 @@ main > section + section { border-top: 1px solid var(--border); }
 .btn-submit:hover { filter: brightness(1.1); transform: translateY(-1px); }
 .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
+/* Confirmación de envío: el botón se apaga en verde, no en rojo. */
+.btn-submit.is-success,
+.btn-submit.is-success:disabled {
+  background-color: var(--success);
+  color: var(--on-success);
+  opacity: 1;
+  cursor: default;
+}
+
+/* El reintento también se tiñe de rojo: en Avengers evita que un panel de
+   error quede con un botón esmeralda, que se leería como confirmación. */
+.btn-submit.is-error {
+  background-color: var(--error);
+  color: var(--bg);
+  opacity: 1;
+}
+
 /* Panel del correo web: queda visible aunque se bloquee la pestaña */
 .form-mail-ready {
   display: flex;
@@ -1431,17 +1453,17 @@ main > section + section { border-top: 1px solid var(--border); }
   gap: 10px;
   width: 100%;
   padding: 16px;
-  border: 1px solid var(--accent-green);
+  border: 1px solid var(--success);
   border-left-width: 3px;
   border-radius: var(--radius-sm);
-  background-color: var(--ok-dim);
+  background-color: var(--success-dim);
   color: var(--text);
   font-size: 14px;
   animation: fadeIn 300ms ease;
 }
 
 .form-ready-title {
-  color: var(--accent-green);
+  color: var(--success);
   font-weight: 600;
 }
 
