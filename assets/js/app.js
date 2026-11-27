@@ -815,6 +815,19 @@
       submitBtn.disabled    = STATES[state].disabled;
     }
 
+    /* Después de enviar, los datos ya están en el correo y en el panel:
+       limpiamos los campos y la selección para que el próximo mensaje
+       empiece de cero. El panel se crea recién después de esto. */
+    function limpiarForm() {
+      form.reset();
+      form.querySelectorAll('.field-error').forEach(el => el.classList.remove('field-error'));
+      form.querySelectorAll('.form-error-msg').forEach(el => el.remove());
+      wizardState.objetivo = '';
+      wizardState.conexion = '';
+      document.querySelectorAll('#wizard .wizard-option.is-selected')
+        .forEach(btn => btn.classList.remove('is-selected'));
+    }
+
     const OBJETIVO_LABEL = {
       ecommerce:         'Vender online / Ecommerce',
       'control-interno': 'Control interno / Stock',
@@ -972,7 +985,7 @@
       const cerrar = document.createElement('button');
       cerrar.type = 'button';
       cerrar.className = 'btn-ready-close';
-      cerrar.textContent = 'Cerrar';
+      cerrar.textContent = enviado ? 'Enviar otro mensaje' : 'Cerrar';
 
       copiar.addEventListener('click', async () => {
         let ok = false;
@@ -993,7 +1006,8 @@
 
       cerrar.addEventListener('click', () => {
         panel.remove();
-        setBtn(enviado ? 'success' : 'idle');
+        setBtn('idle');
+        if (enviado) goToStep(1);
       });
 
       actions.append(copiar, gmail, outlook, cerrar);
@@ -1024,6 +1038,7 @@
         /* Web3Forms responde success en booleano; aceptamos también el
            string por si el servicio cambia el formato. */
         if (res.ok && (respuesta.success === true || String(respuesta.success) === 'true')) {
+          limpiarForm();
           setBtn('success');
           pulseAvatar();
           mostrarListo(datos, 'enviado');
