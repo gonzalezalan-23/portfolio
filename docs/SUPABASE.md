@@ -1,7 +1,7 @@
 # SUPABASE — backend del formulario (T1.6)
 
 > ⛔ **DESCARTADO — no usar.** El contacto del sitio envía el mensaje por
-> email con FormSubmit, sin backend propio. Gmail/Outlook son sólo respaldo.
+> email con Web3Forms, sin backend propio. Gmail/Outlook son sólo respaldo.
 > Supabase Free llegó a su límite de proyectos
 > en la cuenta del usuario y no se pudo crear el proyecto nuevo. El backend
 > del form es ahora **Google Sheets + Apps Script** → ver

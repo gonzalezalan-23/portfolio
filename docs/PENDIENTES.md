@@ -8,7 +8,8 @@ El sitio ya está publicado en **https://gonzalezalan-23.github.io/portfolio/**.
 
 ## Correo del formulario
 
-- **Activar FormSubmit una vez:** el formulario ya hace un POST real a `https://formsubmit.co/ajax/gonzalez.alan.dev@gmail.com`, pero FormSubmit no entrega nada hasta que se confirme la dirección. Buscar en la bandeja (y en spam) de `gonzalez.alan.dev@gmail.com` el mail de **FormSubmit** y hacer clic en **Activate Form**. Los envíos anteriores a la activación se entregan al confirmar (se guardan 30 días). Después de activar, FormSubmit manda un alias aleatorio: se puede cambiar `FORM_ENDPOINT` en `assets/js/app.js` por ese alias para no dejar el mail a la vista en el código.
+- **Cuota de Web3Forms:** el form envía por `https://api.web3forms.com/submit` con la `access_key` en `assets/js/app.js`. El plan gratis permite **250 mensajes/mes**; al superarlo el servicio responde error y el panel lo muestra (nunca un ✓ falso). Si querés rotar la clave, creás otro form y cambiás `WEB3FORMS_KEY`.
+- **FormSubmit descartado:** respondía `500 Server Error` en `/ajax/` y timeout en el endpoint normal, así que no entregaba mensajes. Se reemplazó por Web3Forms.
 
 ## Datos reales que faltan (no inventar)
 
@@ -45,7 +46,7 @@ El sitio ya está publicado en **https://gonzalezalan-23.github.io/portfolio/**.
 - Descripción del repo `portfolio` y campo Website cargados en GitHub con esa misma URL.
 - Footer con logos SVG en vez de texto para GitHub, WhatsApp e Insta; el handle de Instagram sigue sólo en el href.
 - Mascota en desktop achicada a `clamp(72px, 8vw, 104px)` (antes hasta 152px) para que tape menos el footer; en móvil se mantiene en 72–96px.
-- Formulario con envío real por email (FormSubmit, sin clave ni cuenta): el ✓ aparece sólo cuando el servicio responde `success: "true"`. Gmail/Outlook y "Copiar mensaje" quedan como respaldo, sin abrir pestañas automáticamente.
+- Formulario con envío real por email (Web3Forms, sin backend propio): el ✓ aparece sólo cuando el servicio responde `success: true`. Gmail/Outlook y "Copiar mensaje" quedan como respaldo, sin abrir pestañas automáticamente.
 - Capturas del catálogo en `NN.webp` (79 en total, 9 de SAD) y originales movidos a `D:\Portfolio-originales-2026-11-26`.
 - SAD reincorporado al catálogo: 9 capturas (se descartaron los 2 mockups previos), deploy de Render y `repo: null`.
 - Validador: 0 errores, 16 advertencias informativas; el sitio se puede publicar.

@@ -12,12 +12,13 @@
 (() => {
   'use strict';
 
-  /* Envío real sin backend propio: FormSubmit recibe el POST y reenvía el
-     mensaje al mail. No requiere clave ni cuenta; la primera vez hay que
-     confirmar el formulario desde el mail de activación que envían.
-     Los links a Gmail/Outlook quedan sólo como respaldo. */
+  /* Envío real sin backend propio: Web3Forms recibe el POST y reenvía el
+     mensaje al mail. La access_key es pública por diseño (equivale a la
+     dirección de destino), no es un secreto. Gmail/Outlook y Copiar
+     quedan sólo como respaldo. */
   const CONTACTO_EMAIL = 'gonzalez.alan.dev@gmail.com';
-  const FORM_ENDPOINT = `https://formsubmit.co/ajax/${CONTACTO_EMAIL}`;
+  const FORM_ENDPOINT = 'https://api.web3forms.com/submit';
+  const WEB3FORMS_KEY = '1d5d00cc-40ae-441b-af80-e6057d6f5d29';
 
 
   /* ═══════════════════════════════════════════════════════════════
@@ -824,7 +825,7 @@
     };
 
     /* Arma el correo con lo que eligió en el wizard: el mismo texto se
-       envía por FormSubmit y se ofrece como respaldo en el panel. */
+       envía por Web3Forms y se ofrece como respaldo en el panel. */
     function armarMensaje() {
       const nombre   = fields.nombre.value.trim();
       const email    = fields.email.value.trim();
@@ -854,14 +855,16 @@
         'Gracias.',
       ].join('\n');
 
-      /* FormSubmit lee los campos con nombre y respeta _subject / _replyto.
-         `mensaje` lleva el correo completo redactado arriba. */
+      /* Web3Forms usa access_key, subject y replyto; el resto llega tal cual
+         al mail. `mensaje` lleva el correo completo redactado arriba. */
       const payload = {
-        _subject: asunto,
-        _replyto: email,
-        _url: 'https://gonzalezalan-23.github.io/portfolio/#contacto',
-        nombre,
+        access_key: WEB3FORMS_KEY,
+        subject: asunto,
+        from_name: 'Portfolio alan.dev',
+        replyto: email,
         email,
+        botcheck: '',
+        nombre,
         necesito: objetivo,
         sin_internet: conexion,
         propuesta_recomendada: idea,
@@ -1017,16 +1020,19 @@
           headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
           body: JSON.stringify(datos.payload),
         });
-        const respuesta = await res.json().catch(() => ({}));
-        /* FormSubmit responde 200 incluso cuando rechaza: success es el
-           string "true"/"false", no un booleano. */
-        if (res.ok && String(respuesta.success) === 'true') {
+        const respuesta = (await res.json().catch(() => ({}))) || {};
+        /* Web3Forms responde success en booleano; aceptamos también el
+           string por si el servicio cambia el formato. */
+        if (res.ok && (respuesta.success === true || String(respuesta.success) === 'true')) {
           setBtn('success');
           pulseAvatar();
           mostrarListo(datos, 'enviado');
           return;
         }
-        detalle = respuesta.message || 'respuesta inesperada del servicio';
+        const msg = typeof respuesta.message === 'string'
+          ? respuesta.message
+          : (respuesta.message?.detail || respuesta.message?.error || '');
+        detalle = msg || `error ${res.status} del servicio de correo`;
       } catch (err) {
         detalle = 'sin conexión con el servicio de correo';
       }
